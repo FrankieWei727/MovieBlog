@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Category, Activity
 from django.views.decorators.http import require_GET, require_POST
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -18,42 +17,12 @@ from ajaxDecorators.decorators import ajax_required
 import redis
 from django.conf import settings
 
-
 r = redis.StrictRedis(host=settings.REDIS_HOST,
                       port=settings.REDIS_PORT,
                       db=settings.REDIS_DB)
 
 
-def movie_list(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()
-    movies = Movie.objects.all()
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        movies = movies.filter(category=category)
-    else:
-        movies = Movie.objects.all()
-
-    paginator = Paginator(movies, 50)
-    page = request.GET.get('page')
-    try:
-        movies = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer deliver the first page
-        movies = paginator.page(1)
-    except EmptyPage:
-        if request.is_ajax():
-            # If the request is AJAX and the page is out of range return an empty page
-            return HttpResponse('')
-            # If page is out of range deliver last page of results
-        movies = paginator.page(paginator.num_pages)
-        if request.is_ajax():
-            return render(request,
-                          'movies/movie/list_ajax.html',
-                          {'section': 'movies',
-                           'movies': movies})
-
-    form = SearchForm()
+def search_movie(request, form):
     if 'query' in request.GET:
         form = SearchForm(request.GET)
         if form.is_valid():
@@ -61,11 +30,45 @@ def movie_list(request, category_slug=None):
             results = SearchQuerySet().models(Movie).filter(content=cd['query']).load_all()
             # count total results
             total_results = results.count()
-        return render(request, 'movies/movie/list.html',
-                      {'form': form,
-                       'cd': cd,
-                       'results': results,
-                       'total_results': total_results})
+            return render(request, 'movies/movie/list.html',
+                          {'form': form,
+                           'cd': cd,
+                           'results': results,
+                           'total_results': total_results})
+
+
+def movie_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    movies = Movie.objects.all().order_by('-id')
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        movies = movies.filter(category=category)
+    else:
+        movies = Movie.objects.all().order_by('-id')
+
+    paginator = Paginator(movies, 50)
+    page = request.GET.get('page')
+
+    try:
+        contacts = movies = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        contacts = movies = paginator.page(1)
+    except EmptyPage:
+        if request.is_ajax():
+            # If the request is AJAX and the page is out of range return an empty page
+            return HttpResponse('')
+            # If page is out of range deliver last page of results
+        contacts = movies = paginator.page(paginator.num_pages)
+        if request.is_ajax():
+            return render(request,
+                          'movies/movie/list_ajax.html',
+                          {'section': 'movies',
+                           'movies': movies})
+
+    form = SearchForm()
+    search_movie(request, form)
 
     return render(request,
                   'movies/movie/list.html',
@@ -74,7 +77,7 @@ def movie_list(request, category_slug=None):
                    'form': form,
                    'category': category,
                    'categories': categories,
-                   'page': page})
+                   'contacts': contacts})
 
 
 def movie_detail(request, id, slug):
@@ -83,9 +86,11 @@ def movie_detail(request, id, slug):
                               slug=slug)
 
     total_views = r.incr('movie:{}:views'.format(movie.id))
+    r.mset({"page_view": total_views, "movie_id": id})
+    r.zadd('views', {id: total_views})
     r.zincrby('movie_ranking', movie.id, 1)
 
-    # add shortcomment
+    # add short comment
     author = request.user
     shortcomments = movie.shortcomments.filter(active=True)
     comments = movie.comments.filter(active=True)
@@ -167,13 +172,15 @@ def movie_like(request):
 
 
 def movie_ranking(request):
-    movie_ranking = r.zrange('movie_ranking', 0, -1, desc=True)[:6]
-    movie_ranking_ids = [int(id) for id in movie_ranking]
+    a = r.mget("page_view", "movie_id")
+    print(r.zrange('views', 0, -1))
+    movie_rank = r.zrange('movie_ranking', 0, -1, desc=True)[:5]
+    movie_ranking_ids = [int(id) for id in movie_rank]
     movie_viewed = list(Movie.objects.filter(id__in=movie_ranking_ids))
     movie_viewed.sort(key=lambda x: movie_ranking_ids.index(x.id))
     movies = movie_viewed
 
-    movies_by_rank = Movie.objects.order_by('-rank')[:6]
+    movies_by_rank = Movie.objects.order_by('-rank')[:5]
 
     return render(request,
                   "movies/movie/movie_ranking.html",
@@ -198,5 +205,3 @@ def activity_detail(request, id, slug):
     return render(request,
                   "activity/activity_detail.html",
                   {"activity": activity})
-
-

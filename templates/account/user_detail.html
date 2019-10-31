@@ -9,14 +9,14 @@
 		<h1 class="m_2">{{ user.username }}</h1>
 			<div style="width: 100%;height: 150px;float: left;" class="info" >
 				{% thumbnail user.profile.photo "100" as im %}
-				<img src="{{ im.url }}" class="img-circle">
+				<img src="{{ im.url }}" class="img-circle" alt="">
 				{% endthumbnail %}
 			</div>
 		</div>
 		<div class="col-md-6" style="float: left;">
 			<h1 class="m_2">Comments</h1>
 			<ul class="single_list">
-				{% for shortcomment in shortcomments %}	
+				{% for shortcomment in short_comments %}	
 				<li>
 					<div class="data">
 						<div class="title">{{ shortcomment.movie }} /  {{ shortcomment.created }}  /  {{shortcomment.rank|floatformat:1 }}</div>

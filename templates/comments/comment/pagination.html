@@ -1,14 +1,13 @@
-
-<div class="pagination">
+<div class="pagination" style="padding-top: 30px;padding-left: 15px;">
 	<span class="step-links">
-	{% if page.has_previous %}
-		<a href="?page={{ page.previous_page_number }}">Previous&nbsp;</a>
-	{% endif %}
-	<span class="current">
-		Page{{ page.number }}&nbsp;of&nbsp;{{ page.paginator.num_pages }}
+	{% if contacts.has_previous %}
+        <a href="?page={{ contacts.previous_page_number }}">Previous</a>
+    {% endif %}
+        <span class="current">
+		Page{{ contacts.number }}&nbsp;of&nbsp;{{ contacts.paginator.num_pages }}
 	</span>
-	{% if page.has_next %}
-		<a href="?page={{ page.next_page_number }}">&nbsp;Next</a>
-	{% endif %}
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">&nbsp;Next</a>
+        {% endif %}
 	</span>
 </div>

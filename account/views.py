@@ -22,6 +22,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from django.apps import apps
 from movie.forms import SearchForm
+from movie.views import search_movie
 
 Movie = apps.get_model('movie', 'Movie')
 ShortComment = apps.get_model('comment', 'ShortComment')
@@ -31,14 +32,6 @@ Comment = apps.get_model('comment', 'Comment')
 r = redis.StrictRedis(host=settings.REDIS_HOST,
                       port=settings.REDIS_PORT,
                       db=settings.REDIS_DB)
-
-
-def load_profile(user):
-    try:
-        return user.profile
-    except:  # this is not great, but trying to keep it simple
-        profile = Profile.objects.create(user=user)
-        return profile
 
 
 @cache_page(60 * 15)
@@ -127,35 +120,40 @@ def dashboard(request):
 
 @login_required
 def edit(request):
+    user_id = request.user.id
+    profile = Profile.objects.get(user_id=user_id)
+    is_update_profile = False
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
-        profile_form = ProfileEditForm(instance=request.user.profile,
+        profile_form = ProfileEditForm(instance=profile,
                                        data=request.POST,
                                        files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            is_update_profile = True
             messages.success(request, 'Profile updated successfully')
         else:
             messages.error(request, 'Error updating your profile')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
+        profile_form = ProfileEditForm(instance=profile)
     return render(request, 'account/edit.html', {'user_form': user_form,
-                                                 'profile_form': profile_form})
+                                                 'profile_form': profile_form,
+                                                 'is_update_profile':is_update_profile})
 
 
 @login_required
 def user_detail(request, username):
     user = get_object_or_404(User, username=username)
-    shortcomments = ShortComment.objects.filter(author_id=user)
+    short_comments = ShortComment.objects.filter(author_id=user)
     comments = Comment.objects.filter(author_id=user)
     movies = Movie.objects.filter(users_like=user)
     return render(request,
                   'account/user_detail.html',
                   {'user': user,
-                   'shortcomments': shortcomments,
+                   'short_comments': short_comments,
                    'comments': comments,
                    'movies': movies})
 
@@ -164,6 +162,7 @@ def movie_detail(request, id, slug):
     movie = get_object_or_404(Movie,
                               id=id,
                               slug=slug)
+
     r.zincrby('movie_ranking', movie.id, 1)
     return
 
@@ -180,18 +179,9 @@ def home(request):
     movie_viewed.sort(key=lambda x: movie_ranking_ids.index(x.id))
     top_movies = movie_viewed
 
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            cd = form.cleaned_data
-            results = SearchQuerySet().models(Movie).filter(content=cd['query']).load_all()
-            # count total results
-            total_results = results.count()
-        return render(request, 'movies/movie/list.html',
-                      {'form': form,
-                       'cd': cd,
-                       'results': results,
-                       'total_results': total_results})
+    form = SearchForm()
+    search_movie(request, form)
+
     return render(request,
                   'account/home.html',
                   {'section': 'home',

@@ -15493,3 +15493,288 @@ INFO  - 2019-10-30 23:52:05.080; org.apache.solr.core.CachingDirectoryFactory; C
 INFO  - 2019-10-30 23:52:05.081; org.apache.solr.core.CachingDirectoryFactory; looking to close /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data [CachedDir<<refCount=0;path=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data;done=false>>]
 INFO  - 2019-10-30 23:52:05.081; org.apache.solr.core.CachingDirectoryFactory; Closing directory: /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data
 INFO  - 2019-10-30 23:52:05.082; org.eclipse.jetty.server.handler.ContextHandler; stopped o.e.j.w.WebAppContext{/solr,file:/Users/frankie/Django/MovieBlog/solr/example/solr-webapp/webapp/},/Users/frankie/Django/MovieBlog/solr/example/webapps/solr.war
+INFO  - 2019-10-31 15:14:19.136; org.eclipse.jetty.server.Server; jetty-8.1.10.v20130312
+INFO  - 2019-10-31 15:14:19.172; org.eclipse.jetty.deploy.providers.ScanningAppProvider; Deployment monitor /Users/frankie/Django/MovieBlog/solr/example/contexts at interval 0
+INFO  - 2019-10-31 15:14:19.179; org.eclipse.jetty.deploy.DeploymentManager; Deployable added: /Users/frankie/Django/MovieBlog/solr/example/contexts/solr-jetty-context.xml
+INFO  - 2019-10-31 15:14:20.035; org.eclipse.jetty.webapp.StandardDescriptorProcessor; NO JSP Support for /solr, did not find org.apache.jasper.servlet.JspServlet
+INFO  - 2019-10-31 15:14:20.089; org.apache.solr.servlet.SolrDispatchFilter; SolrDispatchFilter.init()
+INFO  - 2019-10-31 15:14:20.104; org.apache.solr.core.SolrResourceLoader; JNDI not configured for solr (NoInitialContextEx)
+INFO  - 2019-10-31 15:14:20.104; org.apache.solr.core.SolrResourceLoader; solr home defaulted to 'solr/' (could not find system property or JNDI)
+INFO  - 2019-10-31 15:14:20.106; org.apache.solr.core.SolrResourceLoader; new SolrResourceLoader for directory: 'solr/'
+INFO  - 2019-10-31 15:14:20.219; org.apache.solr.core.ConfigSolr; Loading container configuration from /Users/frankie/Django/MovieBlog/solr/example/solr/solr.xml
+INFO  - 2019-10-31 15:14:20.327; org.apache.solr.core.CorePropertiesLocator; Config-defined core root directory: /Users/frankie/Django/MovieBlog/solr/example/solr
+INFO  - 2019-10-31 15:14:20.335; org.apache.solr.core.CoreContainer; New CoreContainer 1910438136
+INFO  - 2019-10-31 15:14:20.335; org.apache.solr.core.CoreContainer; Loading cores into CoreContainer [instanceDir=solr/]
+INFO  - 2019-10-31 15:14:20.362; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting socketTimeout to: 0
+INFO  - 2019-10-31 15:14:20.362; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting urlScheme to: null
+INFO  - 2019-10-31 15:14:20.365; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting connTimeout to: 0
+INFO  - 2019-10-31 15:14:20.367; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maxConnectionsPerHost to: 20
+INFO  - 2019-10-31 15:14:20.373; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting corePoolSize to: 0
+INFO  - 2019-10-31 15:14:20.374; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maximumPoolSize to: 2147483647
+INFO  - 2019-10-31 15:14:20.375; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maxThreadIdleTime to: 5
+INFO  - 2019-10-31 15:14:20.377; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting sizeOfQueue to: -1
+INFO  - 2019-10-31 15:14:20.377; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting fairnessPolicy to: false
+INFO  - 2019-10-31 15:14:20.377; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting useRetries to: false
+INFO  - 2019-10-31 15:14:20.645; org.apache.solr.update.UpdateShardHandler; Creating UpdateShardHandler HTTP client with params: socketTimeout=0&connTimeout=0&retry=true
+INFO  - 2019-10-31 15:14:20.647; org.apache.solr.logging.LogWatcher; SLF4J impl is org.slf4j.impl.Log4jLoggerFactory
+INFO  - 2019-10-31 15:14:20.650; org.apache.solr.logging.LogWatcher; Registering Log Listener [Log4j (org.slf4j.impl.Log4jLoggerFactory)]
+INFO  - 2019-10-31 15:14:20.651; org.apache.solr.core.CoreContainer; Host Name: 
+INFO  - 2019-10-31 15:14:25.688; org.apache.solr.core.CorePropertiesLocator; Looking for core definitions underneath /Users/frankie/Django/MovieBlog/solr/example/solr
+INFO  - 2019-10-31 15:14:25.696; org.apache.solr.core.CorePropertiesLocator; Found core movie in /Users/frankie/Django/MovieBlog/solr/example/solr/movie/
+INFO  - 2019-10-31 15:14:25.697; org.apache.solr.core.CorePropertiesLocator; Found core collection1 in /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/
+INFO  - 2019-10-31 15:14:25.697; org.apache.solr.core.CorePropertiesLocator; Found 2 core definitions
+INFO  - 2019-10-31 15:14:25.703; org.apache.solr.core.SolrResourceLoader; new SolrResourceLoader for directory: '/Users/frankie/Django/MovieBlog/solr/example/solr/movie/'
+INFO  - 2019-10-31 15:14:25.703; org.apache.solr.core.SolrResourceLoader; new SolrResourceLoader for directory: '/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/'
+INFO  - 2019-10-31 15:14:25.762; org.apache.solr.core.SolrConfig; Using Lucene MatchVersion: 3.6.0
+INFO  - 2019-10-31 15:14:25.870; org.apache.solr.core.SolrConfig; Loaded SolrConfig: solrconfig.xml
+INFO  - 2019-10-31 15:14:25.875; org.apache.solr.core.SolrConfig; Adding specified lib dirs to ClassLoader
+INFO  - 2019-10-31 15:14:25.878; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/xmlbeans-2.6.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.879; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/poi-ooxml-schemas-3.10.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.880; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/apache-mime4j-core-0.7.2.jar' to classloader
+INFO  - 2019-10-31 15:14:25.880; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/xz-1.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.881; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/pdfbox-1.8.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.881; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/xercesImpl-2.9.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.881; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/tika-parsers-1.5.jar' to classloader
+INFO  - 2019-10-31 15:14:25.881; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/poi-3.10.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.882; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/bcmail-jdk15-1.45.jar' to classloader
+INFO  - 2019-10-31 15:14:25.882; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/vorbis-java-tika-0.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.882; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/icu4j-53.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.883; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/bcprov-jdk15-1.45.jar' to classloader
+INFO  - 2019-10-31 15:14:25.883; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/tika-core-1.5.jar' to classloader
+INFO  - 2019-10-31 15:14:25.884; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/jdom-1.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.884; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/juniversalchardet-1.0.3.jar' to classloader
+INFO  - 2019-10-31 15:14:25.885; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/jhighlight-1.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.885; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/vorbis-java-core-0.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.885; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/apache-mime4j-dom-0.7.2.jar' to classloader
+INFO  - 2019-10-31 15:14:25.885; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/jempbox-1.8.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.886; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/aspectjrt-1.6.11.jar' to classloader
+INFO  - 2019-10-31 15:14:25.886; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/rome-0.9.jar' to classloader
+INFO  - 2019-10-31 15:14:25.886; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/poi-scratchpad-3.10.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.886; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/tika-xmp-1.5.jar' to classloader
+INFO  - 2019-10-31 15:14:25.887; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/dom4j-1.6.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.887; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/metadata-extractor-2.6.2.jar' to classloader
+INFO  - 2019-10-31 15:14:25.887; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/fontbox-1.8.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.887; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/xmpcore-5.1.2.jar' to classloader
+INFO  - 2019-10-31 15:14:25.887; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/commons-compress-1.7.jar' to classloader
+INFO  - 2019-10-31 15:14:25.888; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/poi-ooxml-3.10.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.888; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/boilerpipe-1.1.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.888; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/isoparser-1.0-RC-1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.888; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/extraction/lib/tagsoup-1.2.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.891; org.apache.solr.schema.IndexSchema; Reading Solr Schema from /Users/frankie/Django/MovieBlog/solr/example/solr/movie/conf/schema.xml
+INFO  - 2019-10-31 15:14:25.892; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/dist/solr-cell-4.10.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.907; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/attributes-binder-1.2.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.907; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/simple-xml-2.7.jar' to classloader
+INFO  - 2019-10-31 15:14:25.907; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/jackson-core-asl-1.9.13.jar' to classloader
+INFO  - 2019-10-31 15:14:25.907; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/carrot2-mini-3.9.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.908; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/mahout-math-0.6.jar' to classloader
+INFO  - 2019-10-31 15:14:25.908; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/hppc-0.5.2.jar' to classloader
+INFO  - 2019-10-31 15:14:25.908; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/jackson-mapper-asl-1.9.13.jar' to classloader
+INFO  - 2019-10-31 15:14:25.909; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/clustering/lib/mahout-collections-1.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.909; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/dist/solr-clustering-4.10.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.910; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/langid/lib/jsonic-1.2.7.jar' to classloader
+INFO  - 2019-10-31 15:14:25.910; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/langid/lib/langdetect-1.1-20120112.jar' to classloader
+INFO  - 2019-10-31 15:14:25.911; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/dist/solr-langid-4.10.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.912; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/velocity/lib/velocity-tools-2.0.jar' to classloader
+INFO  - 2019-10-31 15:14:25.912; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/velocity/lib/velocity-1.7.jar' to classloader
+INFO  - 2019-10-31 15:14:25.912; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/velocity/lib/commons-beanutils-1.8.3.jar' to classloader
+INFO  - 2019-10-31 15:14:25.912; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/contrib/velocity/lib/commons-collections-3.2.1.jar' to classloader
+INFO  - 2019-10-31 15:14:25.913; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/frankie/Django/MovieBlog/solr/dist/solr-velocity-4.10.4.jar' to classloader
+INFO  - 2019-10-31 15:14:25.962; org.apache.solr.schema.IndexSchema; [movie] Schema name=default
+WARN  - 2019-10-31 15:14:26.078; org.apache.solr.core.SolrResourceLoader; Solr loaded a deprecated plugin/analysis class [solr.SortableIntField]. Please consult documentation how to replace it accordingly.
+WARN  - 2019-10-31 15:14:26.089; org.apache.solr.core.SolrResourceLoader; Solr loaded a deprecated plugin/analysis class [solr.SortableLongField]. Please consult documentation how to replace it accordingly.
+INFO  - 2019-10-31 15:14:26.092; org.apache.solr.update.SolrIndexConfig; IndexWriter infoStream solr logging is enabled
+WARN  - 2019-10-31 15:14:26.092; org.apache.solr.core.SolrResourceLoader; Solr loaded a deprecated plugin/analysis class [solr.SortableFloatField]. Please consult documentation how to replace it accordingly.
+WARN  - 2019-10-31 15:14:26.094; org.apache.solr.core.SolrResourceLoader; Solr loaded a deprecated plugin/analysis class [solr.SortableDoubleField]. Please consult documentation how to replace it accordingly.
+INFO  - 2019-10-31 15:14:26.102; org.apache.solr.core.SolrConfig; Using Lucene MatchVersion: 4.10.4
+WARN  - 2019-10-31 15:14:26.123; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.124; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.125; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.163; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.171; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.171; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.172; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.174; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.175; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.175; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.175; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.176; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.176; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.177; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.179; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.180; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.180; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.181; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.181; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.182; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.199; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.202; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.203; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.205; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.205; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.205; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.208; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.208; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.209; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.212; org.apache.solr.schema.FieldTypePluginLoader; TokenizerFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.212; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.213; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+WARN  - 2019-10-31 15:14:26.214; org.apache.solr.schema.FieldTypePluginLoader; TokenFilterFactory is using deprecated 3.6.0 emulation. You should at some point declare and reindex to at least 4.0, because 3.x emulation is deprecated and will be removed in 5.0
+INFO  - 2019-10-31 15:14:26.254; org.apache.solr.core.SolrConfig; Loaded SolrConfig: solrconfig.xml
+INFO  - 2019-10-31 15:14:26.255; org.apache.solr.schema.IndexSchema; default search field in schema is text
+INFO  - 2019-10-31 15:14:26.257; org.apache.solr.schema.IndexSchema; query parser default operator is AND
+INFO  - 2019-10-31 15:14:26.262; org.apache.solr.schema.IndexSchema; unique key field: id
+INFO  - 2019-10-31 15:14:26.266; org.apache.solr.schema.IndexSchema; Reading Solr Schema from /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf/schema.xml
+INFO  - 2019-10-31 15:14:26.313; org.apache.solr.schema.IndexSchema; [collection1] Schema name=example
+INFO  - 2019-10-31 15:14:26.337; org.apache.solr.core.CoreContainer; Creating SolrCore 'movie' using configuration from instancedir /Users/frankie/Django/MovieBlog/solr/example/solr/movie/
+INFO  - 2019-10-31 15:14:26.374; org.apache.solr.core.SolrCore; solr.NRTCachingDirectoryFactory
+INFO  - 2019-10-31 15:14:26.380; org.apache.solr.core.SolrCore; [movie] Opening new SolrCore at /Users/frankie/Django/MovieBlog/solr/example/solr/movie/, dataDir=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/
+INFO  - 2019-10-31 15:14:26.380; org.apache.solr.core.SolrCore; JMX monitoring not detected for core: movie
+INFO  - 2019-10-31 15:14:26.398; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data
+INFO  - 2019-10-31 15:14:26.402; org.apache.solr.core.SolrCore; New index directory detected: old=null new=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index/
+INFO  - 2019-10-31 15:14:26.402; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index
+INFO  - 2019-10-31 15:14:26.552; org.apache.solr.core.SolrCore; no updateRequestProcessorChain defined as default, creating implicit default
+INFO  - 2019-10-31 15:14:26.560; org.apache.solr.core.RequestHandlers; created /update: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.560; org.apache.solr.core.RequestHandlers; created /update/json: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.560; org.apache.solr.core.RequestHandlers; created /update/csv: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.561; org.apache.solr.core.RequestHandlers; created /update/json/docs: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.563; org.apache.solr.core.RequestHandlers; created /select: solr.StandardRequestHandler
+WARN  - 2019-10-31 15:14:26.563; org.apache.solr.core.RequestHandlers; Multiple requestHandler registered to the same name: /update ignoring: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.563; org.apache.solr.core.RequestHandlers; created /update: solr.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.565; org.apache.solr.core.RequestHandlers; created /admin: solr.admin.AdminHandlers
+INFO  - 2019-10-31 15:14:26.566; org.apache.solr.core.RequestHandlers; created /admin/ping: solr.PingRequestHandler
+INFO  - 2019-10-31 15:14:26.579; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.581; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.582; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.583; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.583; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.594; org.apache.solr.update.CommitTracker; Hard AutoCommit: disabled
+INFO  - 2019-10-31 15:14:26.596; org.apache.solr.update.CommitTracker; Soft AutoCommit: disabled
+INFO  - 2019-10-31 15:14:26.646; org.apache.solr.core.SolrDeletionPolicy; SolrDeletionPolicy.onInit: commits: num=1
+	commit{dir=NRTCachingDirectory(MMapDirectory@/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index lockFactory=NativeFSLockFactory@/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index; maxCacheMB=48.0 maxMergeSizeMB=4.0),segFN=segments_8,generation=8}
+INFO  - 2019-10-31 15:14:26.646; org.apache.solr.core.SolrDeletionPolicy; newest commit generation = 8
+INFO  - 2019-10-31 15:14:26.654; org.apache.solr.search.SolrIndexSearcher; Opening Searcher@e87d97b[movie] main
+INFO  - 2019-10-31 15:14:26.660; org.apache.solr.rest.ManagedResourceStorage$FileStorageIO; File-based storage initialized to use dir: /Users/frankie/Django/MovieBlog/solr/example/solr/movie/conf
+INFO  - 2019-10-31 15:14:26.661; org.apache.solr.rest.RestManager; Initializing RestManager with initArgs: {storageDir=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/conf}
+INFO  - 2019-10-31 15:14:26.686; org.apache.solr.rest.ManagedResourceStorage; Reading _rest_managed.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/conf
+INFO  - 2019-10-31 15:14:26.701; org.apache.solr.rest.ManagedResourceStorage; Loaded LinkedHashMap at path _rest_managed.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/conf
+INFO  - 2019-10-31 15:14:26.702; org.apache.solr.rest.ManagedResource; Loaded initArgs {} for /rest/managed
+INFO  - 2019-10-31 15:14:26.703; org.apache.solr.rest.RestManager; Initializing 0 registered ManagedResources
+INFO  - 2019-10-31 15:14:26.725; org.apache.solr.schema.IndexSchema; unique key field: id
+INFO  - 2019-10-31 15:14:26.731; org.apache.solr.rest.RestManager$Registry; Registered ManagedResource impl org.apache.solr.rest.schema.analysis.ManagedWordSetResource for path /schema/analysis/stopwords/english
+INFO  - 2019-10-31 15:14:26.733; org.apache.solr.rest.RestManager$Registry; Registered ManagedResource impl org.apache.solr.rest.schema.analysis.ManagedSynonymFilterFactory$SynonymManager for path /schema/analysis/synonyms/english
+INFO  - 2019-10-31 15:14:26.773; org.apache.solr.schema.FileExchangeRateProvider; Reloading exchange rates from file currency.xml
+INFO  - 2019-10-31 15:14:26.777; org.apache.solr.schema.FileExchangeRateProvider; Reloading exchange rates from file currency.xml
+INFO  - 2019-10-31 15:14:26.849; org.apache.solr.core.CoreContainer; Creating SolrCore 'collection1' using configuration from instancedir /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/
+INFO  - 2019-10-31 15:14:26.849; org.apache.solr.core.SolrCore; solr.NRTCachingDirectoryFactory
+INFO  - 2019-10-31 15:14:26.851; org.apache.solr.core.SolrCore; [collection1] Opening new SolrCore at /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/, dataDir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/
+INFO  - 2019-10-31 15:14:26.854; org.apache.solr.core.JmxMonitoredMap; No JMX servers found, not exposing Solr information with JMX.
+INFO  - 2019-10-31 15:14:26.857; org.apache.solr.core.SolrCore; [collection1] Added SolrEventListener for newSearcher: org.apache.solr.core.QuerySenderListener{queries=[]}
+INFO  - 2019-10-31 15:14:26.859; org.apache.solr.core.SolrCore; [collection1] Added SolrEventListener for firstSearcher: org.apache.solr.core.QuerySenderListener{queries=[{q=static firstSearcher warming in solrconfig.xml}]}
+INFO  - 2019-10-31 15:14:26.863; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data
+INFO  - 2019-10-31 15:14:26.864; org.apache.solr.core.SolrCore; New index directory detected: old=null new=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index/
+INFO  - 2019-10-31 15:14:26.865; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index
+INFO  - 2019-10-31 15:14:26.871; org.apache.solr.core.SolrCore; created json: solr.JSONResponseWriter
+INFO  - 2019-10-31 15:14:26.871; org.apache.solr.core.SolrCore; adding lazy queryResponseWriter: solr.VelocityResponseWriter
+INFO  - 2019-10-31 15:14:26.872; org.apache.solr.core.SolrCore; created velocity: solr.VelocityResponseWriter
+INFO  - 2019-10-31 15:14:26.875; org.apache.solr.core.SolrCore; created xslt: solr.XSLTResponseWriter
+INFO  - 2019-10-31 15:14:26.876; org.apache.solr.response.XSLTResponseWriter; xsltCacheLifetimeSeconds=5
+INFO  - 2019-10-31 15:14:26.901; org.apache.solr.core.SolrCore; no updateRequestProcessorChain defined as default, creating implicit default
+INFO  - 2019-10-31 15:14:26.902; org.apache.solr.core.RequestHandlers; created /update: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.902; org.apache.solr.core.RequestHandlers; created /update/json: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.902; org.apache.solr.core.RequestHandlers; created /update/csv: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.902; org.apache.solr.core.RequestHandlers; created /update/json/docs: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.904; org.apache.solr.core.RequestHandlers; created /select: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.905; org.apache.solr.core.RequestHandlers; created /query: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.906; org.apache.solr.core.RequestHandlers; created /get: solr.RealTimeGetHandler
+INFO  - 2019-10-31 15:14:26.911; org.apache.solr.core.RequestHandlers; created /export: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.911; org.apache.solr.core.RequestHandlers; created /browse: solr.SearchHandler
+WARN  - 2019-10-31 15:14:26.911; org.apache.solr.core.RequestHandlers; Multiple requestHandler registered to the same name: /update ignoring: org.apache.solr.handler.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.912; org.apache.solr.core.RequestHandlers; created /update: solr.UpdateRequestHandler
+INFO  - 2019-10-31 15:14:26.912; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.extraction.ExtractingRequestHandler
+INFO  - 2019-10-31 15:14:26.913; org.apache.solr.core.RequestHandlers; created /update/extract: solr.extraction.ExtractingRequestHandler
+INFO  - 2019-10-31 15:14:26.914; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.FieldAnalysisRequestHandler
+INFO  - 2019-10-31 15:14:26.914; org.apache.solr.core.RequestHandlers; created /analysis/field: solr.FieldAnalysisRequestHandler
+INFO  - 2019-10-31 15:14:26.915; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.DocumentAnalysisRequestHandler
+INFO  - 2019-10-31 15:14:26.916; org.apache.solr.core.RequestHandlers; created /analysis/document: solr.DocumentAnalysisRequestHandler
+INFO  - 2019-10-31 15:14:26.917; org.apache.solr.core.RequestHandlers; created /admin/: solr.admin.AdminHandlers
+INFO  - 2019-10-31 15:14:26.921; org.apache.solr.core.RequestHandlers; created /admin/ping: solr.PingRequestHandler
+INFO  - 2019-10-31 15:14:26.923; org.apache.solr.core.RequestHandlers; created /debug/dump: solr.DumpRequestHandler
+INFO  - 2019-10-31 15:14:26.936; org.apache.solr.core.RequestHandlers; created /replication: solr.ReplicationHandler
+INFO  - 2019-10-31 15:14:26.936; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.936; org.apache.solr.core.RequestHandlers; created /spell: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.936; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.936; org.apache.solr.core.RequestHandlers; created /tvrh: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.937; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.937; org.apache.solr.core.RequestHandlers; created /terms: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.937; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.937; org.apache.solr.core.RequestHandlers; created /elevate: solr.SearchHandler
+INFO  - 2019-10-31 15:14:26.941; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.944; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.947; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.947; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.948; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2019-10-31 15:14:26.964; org.apache.solr.update.CommitTracker; Hard AutoCommit: if uncommited for 15000ms; 
+INFO  - 2019-10-31 15:14:26.966; org.apache.solr.update.CommitTracker; Soft AutoCommit: disabled
+INFO  - 2019-10-31 15:14:26.971; org.apache.solr.core.SolrDeletionPolicy; SolrDeletionPolicy.onInit: commits: num=1
+	commit{dir=NRTCachingDirectory(MMapDirectory@/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index lockFactory=NativeFSLockFactory@/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index; maxCacheMB=48.0 maxMergeSizeMB=4.0),segFN=segments_1,generation=1}
+INFO  - 2019-10-31 15:14:26.972; org.apache.solr.core.SolrDeletionPolicy; newest commit generation = 1
+INFO  - 2019-10-31 15:14:26.972; org.apache.solr.search.SolrIndexSearcher; Opening Searcher@17485f87[collection1] main
+INFO  - 2019-10-31 15:14:26.974; org.apache.solr.rest.ManagedResourceStorage$FileStorageIO; File-based storage initialized to use dir: /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.975; org.apache.solr.rest.RestManager; Initializing RestManager with initArgs: {storageDir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf}
+INFO  - 2019-10-31 15:14:26.976; org.apache.solr.rest.ManagedResourceStorage; Reading _rest_managed.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.977; org.apache.solr.rest.ManagedResourceStorage; Loaded LinkedHashMap at path _rest_managed.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.977; org.apache.solr.rest.ManagedResource; Loaded initArgs {} for /rest/managed
+INFO  - 2019-10-31 15:14:26.977; org.apache.solr.rest.RestManager; Initializing 2 registered ManagedResources
+INFO  - 2019-10-31 15:14:26.978; org.apache.solr.rest.ManagedResourceStorage; Reading _schema_analysis_stopwords_english.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.980; org.apache.solr.rest.ManagedResourceStorage; Loaded LinkedHashMap at path _schema_analysis_stopwords_english.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.980; org.apache.solr.rest.ManagedResource; Loaded initArgs {ignoreCase=true} for /schema/analysis/stopwords/english
+INFO  - 2019-10-31 15:14:26.981; org.apache.solr.rest.schema.analysis.ManagedWordSetResource; Loaded 35 words for /schema/analysis/stopwords/english
+INFO  - 2019-10-31 15:14:26.982; org.apache.solr.rest.ManagedResource; Notified 1 observers of /schema/analysis/stopwords/english
+INFO  - 2019-10-31 15:14:26.984; org.apache.solr.rest.ManagedResourceStorage; Reading _schema_analysis_synonyms_english.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.987; org.apache.solr.rest.ManagedResourceStorage; Loaded LinkedHashMap at path _schema_analysis_synonyms_english.json using file:dir=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf
+INFO  - 2019-10-31 15:14:26.987; org.apache.solr.rest.ManagedResource; Loaded initArgs {ignoreCase=true,format=solr} for /schema/analysis/synonyms/english
+INFO  - 2019-10-31 15:14:26.988; org.apache.solr.rest.schema.analysis.ManagedSynonymFilterFactory$SynonymManager; Loaded 3 synonym mappings for /schema/analysis/synonyms/english
+INFO  - 2019-10-31 15:14:26.990; org.apache.solr.rest.ManagedResource; Notified 1 observers of /schema/analysis/synonyms/english
+INFO  - 2019-10-31 15:14:26.990; org.apache.solr.handler.component.SpellCheckComponent; Initializing spell checkers
+INFO  - 2019-10-31 15:14:26.996; org.apache.solr.spelling.DirectSolrSpellChecker; init: {name=default,field=text,classname=solr.DirectSolrSpellChecker,distanceMeasure=internal,accuracy=0.5,maxEdits=2,minPrefix=1,maxInspections=5,minQueryLength=4,maxQueryFrequency=0.01}
+INFO  - 2019-10-31 15:14:27.013; org.apache.solr.handler.component.SpellCheckComponent; No queryConverter defined, using default converter
+INFO  - 2019-10-31 15:14:27.020; org.apache.solr.handler.component.QueryElevationComponent; Loading QueryElevation from: /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/conf/elevate.xml
+INFO  - 2019-10-31 15:14:31.733; org.apache.solr.core.CoreContainer; registering core: movie
+INFO  - 2019-10-31 15:14:31.733; org.apache.solr.core.SolrCore; [movie] Registered new searcher Searcher@e87d97b[movie] main{StandardDirectoryReader(segments_8:13:nrt)}
+INFO  - 2019-10-31 15:14:36.735; org.apache.solr.handler.ReplicationHandler; Commits will be reserved for  10000
+INFO  - 2019-10-31 15:14:36.736; org.apache.solr.core.QuerySenderListener; QuerySenderListener sending requests to Searcher@17485f87[collection1] main{StandardDirectoryReader(segments_1:1:nrt)}
+INFO  - 2019-10-31 15:14:36.736; org.apache.solr.core.CoreContainer; registering core: collection1
+INFO  - 2019-10-31 15:14:36.744; org.apache.solr.servlet.SolrDispatchFilter; user.dir=/Users/frankie/Django/MovieBlog/solr/example
+INFO  - 2019-10-31 15:14:36.745; org.apache.solr.servlet.SolrDispatchFilter; SolrDispatchFilter.init() done
+INFO  - 2019-10-31 15:14:36.801; org.eclipse.jetty.server.AbstractConnector; Started SocketConnector@0.0.0.0:8983
+INFO  - 2019-10-31 15:14:36.802; org.apache.solr.core.SolrCore; [collection1] webapp=null path=null params={q=static+firstSearcher+warming+in+solrconfig.xml&distrib=false&event=firstSearcher} hits=0 status=0 QTime=63 
+INFO  - 2019-10-31 15:14:36.803; org.apache.solr.core.QuerySenderListener; QuerySenderListener done.
+INFO  - 2019-10-31 15:14:36.803; org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener; Loading spell index for spellchecker: default
+INFO  - 2019-10-31 15:14:36.804; org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener; Loading spell index for spellchecker: wordbreak
+INFO  - 2019-10-31 15:14:36.808; org.apache.solr.core.SolrCore; [collection1] Registered new searcher Searcher@17485f87[collection1] main{StandardDirectoryReader(segments_1:1:nrt)}
+INFO  - 2019-10-31 16:36:19.821; org.eclipse.jetty.server.Server; Graceful shutdown SocketConnector@0.0.0.0:8983
+INFO  - 2019-10-31 16:36:19.828; org.eclipse.jetty.server.Server; Graceful shutdown o.e.j.w.WebAppContext{/solr,file:/Users/frankie/Django/MovieBlog/solr/example/solr-webapp/webapp/},/Users/frankie/Django/MovieBlog/solr/example/webapps/solr.war
+INFO  - 2019-10-31 16:36:20.835; org.apache.solr.core.CoreContainer; Shutting down CoreContainer instance=1910438136
+INFO  - 2019-10-31 16:36:20.837; org.apache.solr.core.SolrCore; [movie]  CLOSING SolrCore org.apache.solr.core.SolrCore@27997d47
+INFO  - 2019-10-31 16:36:20.838; org.apache.solr.update.DirectUpdateHandler2; closing DirectUpdateHandler2{commits=0,autocommits=0,soft autocommits=0,optimizes=0,rollbacks=0,expungeDeletes=0,docsPending=0,adds=0,deletesById=0,deletesByQuery=0,errors=0,cumulative_adds=0,cumulative_deletesById=0,cumulative_deletesByQuery=0,cumulative_errors=0}
+INFO  - 2019-10-31 16:36:20.839; org.apache.solr.update.SolrCoreState; Closing SolrCoreState
+INFO  - 2019-10-31 16:36:20.840; org.apache.solr.update.DefaultSolrCoreState; SolrCoreState ref count has reached 0 - closing IndexWriter
+INFO  - 2019-10-31 16:36:20.840; org.apache.solr.update.DefaultSolrCoreState; closing IndexWriter with IndexWriterCloser
+INFO  - 2019-10-31 16:36:20.848; org.apache.solr.core.SolrCore; [movie] Closing main searcher on request.
+INFO  - 2019-10-31 16:36:20.851; org.apache.solr.core.CachingDirectoryFactory; Closing NRTCachingDirectoryFactory - 2 directories currently being tracked
+INFO  - 2019-10-31 16:36:20.853; org.apache.solr.core.CachingDirectoryFactory; looking to close /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data [CachedDir<<refCount=0;path=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data;done=false>>]
+INFO  - 2019-10-31 16:36:20.853; org.apache.solr.core.CachingDirectoryFactory; Closing directory: /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data
+INFO  - 2019-10-31 16:36:20.853; org.apache.solr.core.CachingDirectoryFactory; looking to close /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index [CachedDir<<refCount=0;path=/Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index;done=false>>]
+INFO  - 2019-10-31 16:36:20.853; org.apache.solr.core.CachingDirectoryFactory; Closing directory: /Users/frankie/Django/MovieBlog/solr/example/solr/movie/data/index
+INFO  - 2019-10-31 16:36:20.854; org.apache.solr.core.SolrCore; [collection1]  CLOSING SolrCore org.apache.solr.core.SolrCore@64b28ede
+INFO  - 2019-10-31 16:36:20.854; org.apache.solr.update.DirectUpdateHandler2; closing DirectUpdateHandler2{commits=0,autocommit maxTime=15000ms,autocommits=0,soft autocommits=0,optimizes=0,rollbacks=0,expungeDeletes=0,docsPending=0,adds=0,deletesById=0,deletesByQuery=0,errors=0,cumulative_adds=0,cumulative_deletesById=0,cumulative_deletesByQuery=0,cumulative_errors=0,transaction_logs_total_size=0,transaction_logs_total_number=0}
+INFO  - 2019-10-31 16:36:20.854; org.apache.solr.update.SolrCoreState; Closing SolrCoreState
+INFO  - 2019-10-31 16:36:20.855; org.apache.solr.update.DefaultSolrCoreState; SolrCoreState ref count has reached 0 - closing IndexWriter
+INFO  - 2019-10-31 16:36:20.855; org.apache.solr.update.DefaultSolrCoreState; closing IndexWriter with IndexWriterCloser
+INFO  - 2019-10-31 16:36:20.857; org.apache.solr.core.SolrCore; [collection1] Closing main searcher on request.
+INFO  - 2019-10-31 16:36:20.858; org.apache.solr.core.CachingDirectoryFactory; Closing NRTCachingDirectoryFactory - 2 directories currently being tracked
+INFO  - 2019-10-31 16:36:20.858; org.apache.solr.core.CachingDirectoryFactory; looking to close /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data [CachedDir<<refCount=0;path=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data;done=false>>]
+INFO  - 2019-10-31 16:36:20.858; org.apache.solr.core.CachingDirectoryFactory; Closing directory: /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data
+INFO  - 2019-10-31 16:36:20.859; org.apache.solr.core.CachingDirectoryFactory; looking to close /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index [CachedDir<<refCount=0;path=/Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index;done=false>>]
+INFO  - 2019-10-31 16:36:20.859; org.apache.solr.core.CachingDirectoryFactory; Closing directory: /Users/frankie/Django/MovieBlog/solr/example/solr/collection1/data/index
+INFO  - 2019-10-31 16:36:20.861; org.eclipse.jetty.server.handler.ContextHandler; stopped o.e.j.w.WebAppContext{/solr,file:/Users/frankie/Django/MovieBlog/solr/example/solr-webapp/webapp/},/Users/frankie/Django/MovieBlog/solr/example/webapps/solr.war
