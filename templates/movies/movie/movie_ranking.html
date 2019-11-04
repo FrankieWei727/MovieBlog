@@ -9,7 +9,7 @@
             <h1 class="m_2" style="padding-left: 12px;">The most popular</h1>
             <div class="col-md-12 grid_3" style="padding-bottom: 35px;">
                 <div id="movie-list">
-                    {% for movie in movies %}
+                    {% for movie in movie_viewed %}
                         <div class="col-md-2 grid_2">
                             <a href="{{ movie.get_absolute_url }}" class="hvr-shutter-out-horizontal">
                                 {% thumbnail movie.poster "240x310" crop="100%" as im %}

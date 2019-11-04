@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Movie, Activity
+from .models import Category, Movie, Activity, StillsGallery
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -28,3 +28,11 @@ class ActivityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Activity, ActivityAdmin)
+
+
+class StillsAdmin(admin.ModelAdmin):
+    list_display = ['movie']
+    search_fields = ('movie__name', 'id')
+
+
+admin.site.register(StillsGallery, StillsAdmin)

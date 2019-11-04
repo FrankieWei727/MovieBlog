@@ -1,15 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Category, Activity
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from account.models import User
 from comment.forms import ShortCommentForm, CommentForm
 from django.http import HttpResponse, JsonResponse
 from comment.models import ShortComment
-from django.db.models import Avg, Sum
+from django.db.models import Avg
 
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
@@ -17,9 +16,11 @@ from ajaxDecorators.decorators import ajax_required
 import redis
 from django.conf import settings
 
+
 r = redis.StrictRedis(host=settings.REDIS_HOST,
                       port=settings.REDIS_PORT,
-                      db=settings.REDIS_DB)
+                      db=settings.REDIS_DB,
+                      decode_responses=True)
 
 
 def search_movie(request, form):
@@ -86,28 +87,28 @@ def movie_detail(request, id, slug):
                               slug=slug)
 
     total_views = r.incr('movie:{}:views'.format(movie.id))
-    r.mset({"page_view": total_views, "movie_id": id})
-    r.zadd('views', {id: total_views})
-    r.zincrby('movie_ranking', movie.id, 1)
+
+    # Update the times of viewing the page, and zip the total_views and the movie.name
+    r.zadd('views', {movie.name: total_views})
 
     # add short comment
     author = request.user
-    shortcomments = movie.shortcomments.filter(active=True)
+    short_comments = movie.shortcomments.filter(active=True)
     comments = movie.comments.filter(active=True)
 
-    new_shortcomment = None
+    new_short_comment = None
     if request.method == "POST":
         shortcomment_form = ShortCommentForm(data=request.POST)
         if shortcomment_form.is_valid():
-            new_shortcomment = shortcomment_form.save(commit=False)
-            new_shortcomment.movie = movie
-            new_shortcomment.author = author
-            new_shortcomment.save()
+            new_short_comment = shortcomment_form.save(commit=False)
+            new_short_comment.movie = movie
+            new_short_comment.author = author
+            new_short_comment.save()
     else:
         shortcomment_form = ShortCommentForm()
 
     # rank
-    if shortcomments.exists():
+    if short_comments.exists():
         rank = ShortComment.objects.filter(movie_id=id).aggregate(avg_ranking=Avg('rank'))
         movie.rank = rank['avg_ranking']
     else:
@@ -119,9 +120,9 @@ def movie_detail(request, id, slug):
                   {'movie': movie,
                    'author': author,
                    'section': 'movies',
-                   'shortcomments': shortcomments,
+                   'short_comments': short_comments,
                    'comments': comments,
-                   'new_shortcomment': new_shortcomment,
+                   'new_short_comment': new_short_comment,
                    'shortcomment_form': shortcomment_form,
                    'total_views': total_views})
 
@@ -172,20 +173,18 @@ def movie_like(request):
 
 
 def movie_ranking(request):
-    a = r.mget("page_view", "movie_id")
-    print(r.zrange('views', 0, -1))
-    movie_rank = r.zrange('movie_ranking', 0, -1, desc=True)[:5]
-    movie_ranking_ids = [int(id) for id in movie_rank]
-    movie_viewed = list(Movie.objects.filter(id__in=movie_ranking_ids))
-    movie_viewed.sort(key=lambda x: movie_ranking_ids.index(x.id))
-    movies = movie_viewed
+    movie_top_view_list = r.zrange('views', 0, -1)[-5:]
+    movie_top_view_list.reverse()
+    movie_viewed = []
+    for movie in movie_top_view_list:
+        movie = Movie.objects.get(name=movie)
+        movie_viewed.append(movie)
 
     movies_by_rank = Movie.objects.order_by('-rank')[:5]
 
     return render(request,
                   "movies/movie/movie_ranking.html",
                   {"movie_viewed": movie_viewed,
-                   "movies": movies,
                    "movies_by_rank": movies_by_rank})
 
 

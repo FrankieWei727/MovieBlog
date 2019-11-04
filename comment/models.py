@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-# Create your models here.
 class ShortComment(models.Model):
     author = models.ForeignKey(User,
                                related_name='shortcomments',on_delete=models.CASCADE)

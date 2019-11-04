@@ -25,7 +25,7 @@ class Category(models.Model):
 
 class Movie(models.Model):
     category = models.ForeignKey(Category,
-                                 related_name='movies',on_delete=models.CASCADE)
+                                 related_name='movies', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     director = models.CharField(max_length=200)
@@ -49,6 +49,8 @@ class Movie(models.Model):
                                         blank=True)
     video = EmbedVideoField(default="")
 
+    movie_views = models.IntegerField(default=0, null=True)
+
     class Meta:
         ordering = ('name',)
         index_together = (('id', 'slug'),)
@@ -65,6 +67,12 @@ class Movie(models.Model):
                        args=[self.id, self.slug])
 
 
+class StillsGallery(models.Model):
+    movie = models.ForeignKey(Movie, related_name='movie', on_delete=models.CASCADE)
+    photo = models.CharField(max_length=800)
+
+
+
 class Activity(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
@@ -73,6 +81,8 @@ class Activity(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     date = models.DateField(blank=True, null=True)
     todate = models.DateField(blank=True, null=True)
+    location = models.CharField(max_length=200, null=True)
+    poster = models.ImageField(upload_to='events/%Y/%m/%d', blank=True, null=True)
 
     class Meta:
         ordering = ('created',)
@@ -83,4 +93,3 @@ class Activity(models.Model):
     def get_absolute_url(self):
         return reverse('movies:activity_detail',
                        args=[self.id, self.slug])
-

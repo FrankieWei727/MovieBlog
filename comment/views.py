@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Comment
+from .models import Comment, ShortComment, AnotherComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from ajaxDecorators.decorators import ajax_required
 from django.http import HttpResponse
 from .forms import AnotherCommentForm
+
 
 
 def comment_detail(request, id):

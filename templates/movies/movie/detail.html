@@ -8,6 +8,7 @@
     <div class="content">
         <div class="movie_top">
             <div class="col-md-9 movie_box">
+
                 <div class="grid images_3_of_2">
                     <div class="movie_image">
                         <span class="movie_rating">{{ movie.rank|floatformat:2 }}</span>
@@ -17,6 +18,7 @@
                     </div>
                     <div class="title" style="padding-top: 15px;"><a href="{{ movie.get_comment_url }}">write a movie review</a></div>
                 </div>
+
                 <div class="col-md-3" style="float: right;">
                     {% with total_likes=movie.users_like.count users_like=movie.users_like.all %}
                         <div id="user_movie_like">
@@ -46,14 +48,18 @@
                         <ul class="single_list">
                             <li><i class="icon5"></i>
                                 <span class="count"></span>
-                                 <p style="padding-top: 2.5px;">{{ total_likes }}</p></li>
+                                <p style="padding-top: 2.5px;">{{ total_likes }}</p></li>
                         </ul>
                     {% endwith %}
+                </div>
+                <div>
                     <p class="movie_option"><strong>View:</strong> {{ total_views }}</p>
                 </div>
 
-                <div class="clearfix"></div>
-                <p class="m_4">{{ movie.description }}</p>
+                <div class="row" style="padding-top: 50px;padding-left: 18px;">
+                    <p class="m_4">{{ movie.description }}</p>
+                </div>
+
 
                 <div id="trailer">
                     {% video movie.video as my_video %}
@@ -67,14 +73,16 @@
                     <div class="rating_desc"><p>Your mark </p></div>
                     <div class="to">
                         <label>
-                            <input type="number" style="width: 100px;" class="text" value="Rank" name="rank" onfocus="this.value = '';"
+                            <input type="number" style="width: 100px;" class="text" value="Rank" name="rank"
+                                   onfocus="this.value = '';"
                                    onblur="if (this.value === '') {this.value = 'Rank';}">
                         </label>
                     </div>
 
                     <div class="text">
                         <label>
-                                <textarea style="height: 200px;width: 600px;" type="text" value="Comment:" name="body" onfocus="this.value = '';"
+                                <textarea style="height: 200px;width: 600px;" type="text" value="Comment:" name="body"
+                                          onfocus="this.value = '';"
                                           onblur="if (this.value === '') {this.value = 'Comment:';}">Comment:</textarea>
                         </label>
                     </div>
@@ -85,14 +93,14 @@
                 </form>
 
                 <div class="single">
-                    {% with shortcomments.count as total_shortcomments %}
+                    {% with short_comments.count as total_shortcomments %}
                         <h1>
                             {{ total_shortcomments }} Movie Comment{{ total_shortcomments|pluralize }}
                         </h1>
                     {% endwith %}
                 </div>
                 <ul class="single_list">
-                    {% for shortcomment in shortcomments %}
+                    {% for shortcomment in short_comments %}
                         <li>
                             <div class="preview"><a href="#">
                                 {% thumbnail shortcomment.get_author_url.profile.photo "30" as im %}

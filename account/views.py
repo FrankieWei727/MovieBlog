@@ -4,15 +4,12 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.models import User
 from django.contrib import messages
 
 from .models import Profile
 from .models import User
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from haystack.query import SearchQuerySet
 
 import redis
 from django.conf import settings
@@ -28,10 +25,11 @@ Movie = apps.get_model('movie', 'Movie')
 ShortComment = apps.get_model('comment', 'ShortComment')
 Comment = apps.get_model('comment', 'Comment')
 
-# from decimal import Decimal
+
 r = redis.StrictRedis(host=settings.REDIS_HOST,
                       port=settings.REDIS_PORT,
-                      db=settings.REDIS_DB)
+                      db=settings.REDIS_DB,
+                      decode_responses=True)
 
 
 @cache_page(60 * 15)
@@ -157,27 +155,19 @@ def user_detail(request, username):
                    'comments': comments,
                    'movies': movies})
 
-
-def movie_detail(request, id, slug):
-    movie = get_object_or_404(Movie,
-                              id=id,
-                              slug=slug)
-
-    r.zincrby('movie_ranking', movie.id, 1)
-    return
-
-
 @login_required
 def home(request):
     movies = Movie.objects.all()
     short_comments = ShortComment.objects.all()
     comments = Comment.objects.all()
 
-    movie_ranking = r.zrange('movie_ranking', 0, -1, desc=True)[:3]
-    movie_ranking_ids = [int(id) for id in movie_ranking]
-    movie_viewed = list(Movie.objects.filter(id__in=movie_ranking_ids))
-    movie_viewed.sort(key=lambda x: movie_ranking_ids.index(x.id))
-    top_movies = movie_viewed
+    # get the most popular movie list
+    movie_top_view = r.zrange('views', 0, -1)[-3:]
+    movie_top_view.reverse()
+    top_movies = []
+    for movie in movie_top_view:
+        movie = Movie.objects.get(name=movie)
+        top_movies.append(movie)
 
     form = SearchForm()
     search_movie(request, form)

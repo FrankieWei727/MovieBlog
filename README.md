@@ -1,21 +1,23 @@
 # MovieBlog
+This is a Django project which developed with django-restful-framework and it also implemented React as the front end service.
+
+## Implement Guide
+run requirements   
+
+    pip install -r requirements.txt
 
 
-Install package:  
-pip3 install social-auth-app-django  
-pip3 install python-social-auth  
-pip3 install Pillow==4.2.1  
-pip3 install sorl-thumbnail-12.3  
-pip3 install pytz  
-pip3 install django-embed-video-1.1.2  
-pip3 install Markdown2.6.9  
+run redis service
 
-redis4.0.2  
-http://redis.io/download download Redis  
-input comment:  
-cd redis-4.0.2  
-make  
-src/redis-server  
+    cd redis-4.0.2 
+    make
+    src/redis-server
+    
+Note: For the first time running the redis server, please run make in Terminal.
+
+install webpack 
+    
+    npm i -D webpack webpack-cli
 
 solr-4.10.4  
 pip3 install django-haystack-2.6.1  
