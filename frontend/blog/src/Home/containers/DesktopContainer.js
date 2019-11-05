@@ -1,4 +1,4 @@
-import {Button, Container, Menu, Responsive, Segment, Visibility, Image} from "semantic-ui-react";
+import {Button, Container, Menu, Responsive, Segment, Visibility} from "semantic-ui-react";
 import HomepageHeading from "../components/HomeHeader";
 import PropTypes from "prop-types";
 import React, {Component} from 'react'
@@ -13,6 +13,7 @@ const getWidth = () => {
 }
 
 class DesktopContainer extends Component {
+
     state = {}
     handleItemClick = (e, {name}) => {
 
@@ -26,9 +27,9 @@ class DesktopContainer extends Component {
 
 
     render() {
-        const {children} = this.props
-        const {fixed} = this.state
-        const {activeItem} = this.state
+        const {children} = this.props;
+        const {fixed} = this.state;
+        const {activeItem} = this.state;
 
         return (
             <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -64,12 +65,12 @@ class DesktopContainer extends Component {
                                 </Menu.Item>
                                 {
                                     this.props.isAuthenticated ?
-                                        <div style={{paddingTop:'1em'}}>
-                                            <Image src='/images/wireframe/square-image.png' avatar/>
-                                            <span>Username</span>
-                                        </div>
+                                        <Menu.Item name='profile' active={activeItem === 'profile'}
+                                                   onClick={this.handleItemClick}>
+                                            Profile
+                                        </Menu.Item>
                                         :
-                                        <div> </div>
+                                        <div></div>
 
                                 }
                                 <Menu.Item position='right'>

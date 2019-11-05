@@ -7,7 +7,7 @@ import SignUp from "./User/SignUp";
 import Home from "./Home/components/Home";
 import EventList from "./Event/containers/EventListContainer";
 import EventDetail from "./Event/containers/EventDetailContainer";
-
+import UserDetail from "./User/UserDetail";
 const BaseRouter = () => (
     <div>
         <Route exact path='/home' component={Home}/>
@@ -17,6 +17,7 @@ const BaseRouter = () => (
         <Route exact path='/event/:eventID/' component={EventDetail}/>
         <Route exact path='/login/' component={Login}/>
         <Route exact path='/signup/' component={SignUp}/>
+        <Route exact path='/profile/' component={UserDetail}/>
 
     </div>
 
