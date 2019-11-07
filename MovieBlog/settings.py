@@ -153,7 +153,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 REST_FRAMEWORK = {
-
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -161,6 +160,11 @@ REST_FRAMEWORK = {
     ],
 
 }
+
+# setting datetime format
+USE_L10N = False
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 CORS_ORIGIN_ALLOW_ALL = True
 

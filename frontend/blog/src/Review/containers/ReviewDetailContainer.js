@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Comment, Container, Header, Icon} from "semantic-ui-react";
-
+import moment from 'moment';
 class ReviewDetail extends React.Component {
 
     state = {
@@ -64,11 +64,11 @@ class ReviewDetail extends React.Component {
                         </Header>
                         {this.state.reply.map((rep) =>
                             <Comment>
-                                <Comment.Avatar src='/images/avatar/small/matt.jpg'/>
+                                <Comment.Avatar src={rep.author.profile.avatar}/>
                                 <Comment.Content>
                                     <Comment.Author as='a'>{rep.author.username}</Comment.Author>
                                     <Comment.Metadata>
-                                        <div>{rep.created}</div>
+                                        <div>{moment(rep.created).format('YYYY-MM-DD HH:mm:ss')}</div>
                                     </Comment.Metadata>
                                     <Comment.Text>{rep.body}</Comment.Text>
                                     <Comment.Actions>

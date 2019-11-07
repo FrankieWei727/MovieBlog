@@ -72,7 +72,6 @@ class StillsGallery(models.Model):
     photo = models.CharField(max_length=800)
 
 
-
 class Activity(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
