@@ -6,7 +6,7 @@ class MovieDetail extends React.Component {
 
     state = {
         movie: {}
-    }
+    };
 
     componentDidMount() {
         const movieID = this.props.match.params.movieID;

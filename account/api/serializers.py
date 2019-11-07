@@ -1,23 +1,16 @@
 from rest_framework import serializers
 from account.models import Profile, User
-# from rest_auth.models import TokenModel
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('id', 'url', 'photo', 'date_of_birth', 'user')
 
 
-# class TokenSerializer(serializers.ModelSerializer):
-#     user = UserSerializer()
-#
-#     class Meta:
-#         model = TokenModel
-#         fields = ('key', 'user')
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer
+
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'profile')

@@ -16,3 +16,6 @@ class Profile(models.Model):
     def get_absolute_url(self):
         user = self.user
         return reverse('user_detail', args=[user.username])
+
+
+

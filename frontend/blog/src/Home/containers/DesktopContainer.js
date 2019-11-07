@@ -14,7 +14,7 @@ const getWidth = () => {
 
 class DesktopContainer extends Component {
 
-    state = {}
+    state = {};
     handleItemClick = (e, {name}) => {
 
         this.setState({activeItem: name});
@@ -58,7 +58,7 @@ class DesktopContainer extends Component {
                                 <Menu.Item name='movie' active={activeItem === 'movie'} onClick={this.handleItemClick}>
                                     Movie
                                 </Menu.Item>
-                                <Menu.Item name='blog' active={activeItem === 'blog'} onClick={this.handleItemClick}>
+                                <Menu.Item name='review' active={activeItem === 'review'} onClick={this.handleItemClick}>
                                     Blog</Menu.Item>
                                 <Menu.Item name='event' active={activeItem === 'event'} onClick={this.handleItemClick}>
                                     Event
@@ -70,7 +70,7 @@ class DesktopContainer extends Component {
                                             Profile
                                         </Menu.Item>
                                         :
-                                        <div></div>
+                                        <div> </div>
 
                                 }
                                 <Menu.Item position='right'>

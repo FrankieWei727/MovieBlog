@@ -51,7 +51,9 @@ class MobileContainer extends Component {
                                active={activeItem === 'movie'}
                                onClick={this.handleItemClick}>Movie
                     </Menu.Item>
-                    <Menu.Item as='a'>Blog</Menu.Item>
+                    <Menu.Item name={'review'}
+                               active={activeItem === 'review'}
+                               onClick={this.handleItemClick}>Blog</Menu.Item>
                     <Menu.Item name={'event'}
                                active={activeItem === 'event'}
                                onClick={this.handleItemClick}>Event

@@ -6,7 +6,6 @@ import MobileContainer from "./Home/containers/MobileContainer";
 import FooterContainer from "./Home/containers/HomeFooterContainer";
 import {connect} from 'react-redux';
 import * as actions from './Store/actions/auth';
-import {authSuccess} from "./Store/actions/auth";
 
 class App extends React.Component {
 
@@ -17,16 +16,16 @@ class App extends React.Component {
     }
 
     render() {
-            return (
-                <div>
-                    <Router>
-                        <DesktopContainer {...this.props}/>
-                        <MobileContainer {...this.props}/>
-                        <BaseRouter/>
-                        <FooterContainer/>
-                    </Router>
-                </div>
-            );
+        return (
+            <div>
+                <Router>
+                    <DesktopContainer {...this.props}/>
+                    <MobileContainer {...this.props}/>
+                    <BaseRouter/>
+                    <FooterContainer/>
+                </Router>
+            </div>
+        );
     }
 }
 

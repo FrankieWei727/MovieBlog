@@ -46,7 +46,6 @@ class LoginForm extends React.Component {
                             <div className="ui active centered inline loader">
                             </div>
                         </div>
-
                         :
                         <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
                             <Grid.Column style={{maxWidth: 450}}>
@@ -81,7 +80,7 @@ class LoginForm extends React.Component {
                                     </Segment>
                                 </Form>
                                 <Message>
-                                    New to us? <a href='#'>Sign Up</a>
+                                    New to us? <a href={'/signup/'}>Sign Up</a>
                                 </Message>
                             </Grid.Column>
                         </Grid>

@@ -5,6 +5,7 @@ This is a Django project which developed with django-restful-framework and it al
 run requirements   
 
     pip install -r requirements.txt
+    npm install 
 
 
 run redis service

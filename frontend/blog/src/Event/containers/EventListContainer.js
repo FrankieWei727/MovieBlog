@@ -22,8 +22,8 @@ class EventList extends React.Component {
     render() {
         return (
             <Item.Group divided style={{padding: '30px',paddingBottom:'20em'}}>
-                {this.state.events.map((event,index) =>
-                    <Event event={event} key={event.id+index}/>)}
+                {this.state.events.map((event) =>
+                    <Event event={event} key={event.id}/>)}
             </Item.Group>
         )
     }
