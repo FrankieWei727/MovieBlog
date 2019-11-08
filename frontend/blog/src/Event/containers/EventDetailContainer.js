@@ -30,7 +30,7 @@ class EventDetail extends React.Component {
                         <Icon name='location arrow'/> {this.state.event.location}
                     </div>
                     <div style={{paddingBottom: '1em'}}>
-                        <Icon name={'calendar times'}/> {this.state.event.date} to {this.state.event.todate}
+                        <Icon name={'calendar times'}/> {this.state.event.start_date} to {this.state.event.end_date}
                     </div>
                     <p style={{whiteSpace: 'pre-wrap'}}>{this.state.event.body}</p>
                 </Container>

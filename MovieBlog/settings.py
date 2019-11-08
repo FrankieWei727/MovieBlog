@@ -17,7 +17,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'account',
+
+    'my_profile',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,8 +38,10 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'rest_auth',
+
     'django.contrib.sites',
     'allauth',
+    'allauth.account',
     'rest_auth.registration',
 
 ]

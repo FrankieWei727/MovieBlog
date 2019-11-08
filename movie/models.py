@@ -68,7 +68,7 @@ class Movie(models.Model):
 
 
 class StillsGallery(models.Model):
-    movie = models.ForeignKey(Movie, related_name='movie', on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, related_name='stills', on_delete=models.CASCADE)
     photo = models.CharField(max_length=800)
 
 
@@ -78,8 +78,8 @@ class Activity(models.Model):
     body = models.TextField()
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
-    date = models.DateField(blank=True, null=True)
-    todate = models.DateField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     location = models.CharField(max_length=200, null=True)
     poster = models.ImageField(upload_to='events/%Y/%m/%d', blank=True, null=True)
 

@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
-from account.api.serializers import UserSerializer, ProfileSerializer
-from account.models import Profile, User
+from my_profile.api.serializers import UserSerializer, ProfileSerializer
+from my_profile.models import Profile, User
 # from rest_auth.models import TokenModel
 
 

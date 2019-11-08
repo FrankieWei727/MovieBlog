@@ -1,5 +1,5 @@
 from rest_framework import routers
-from account.api import views
+from my_profile.api import views
 from django.urls import include, path
 
 

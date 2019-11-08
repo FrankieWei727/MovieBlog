@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 class RegistrationForm extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             username: '',
@@ -27,7 +27,7 @@ class RegistrationForm extends React.Component {
             this.state.password1,
             this.state.password2,
             this.state.email);
-        this.props.history.push('/');
+        this.props.history.push('/login');
     }
 
     render() {

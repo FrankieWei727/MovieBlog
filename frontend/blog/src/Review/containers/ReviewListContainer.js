@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Review from "../components/Review";
-import {Item, Pagination, Comment, Header} from "semantic-ui-react";
+import {Item, Pagination} from "semantic-ui-react";
 
 
 class ReviewList extends React.Component {

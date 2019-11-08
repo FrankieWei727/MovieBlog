@@ -20,27 +20,21 @@ class ReviewDetail extends React.Component {
                     review: res.data,
                     author: res.data.author,
                     movie: res.data.movie
-
                 });
             });
-
-        const id = this.state.review.id;
 
         axios.get('http://127.0.0.1:8000/api/comment/replys/')
             .then(res => {
                 let reply = [];
                 res.data.forEach(req => {
-                    if (req.comment.id === id) {
+                    if (req.comment === parseInt(reviewID)) {
                         reply.push(req);
                     }
                 });
                 this.setState({
                     reply: reply,
                 });
-                console.log(this.state.reply);
             });
-
-
     }
 
     render() {
@@ -63,7 +57,7 @@ class ReviewDetail extends React.Component {
                             Comments
                         </Header>
                         {this.state.reply.map((rep) =>
-                            <Comment>
+                            <Comment key={'rep'+rep.id}>
                                 <Comment.Avatar src={rep.author.profile.avatar}/>
                                 <Comment.Content>
                                     <Comment.Author as='a'>{rep.author.username}</Comment.Author>

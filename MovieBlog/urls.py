@@ -10,11 +10,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('api/account/', include('account.api.urls')),
+    path('api/account/', include('my_profile.api.urls')),
     path('api/comment/', include('comment.api.urls')),
     path('api/movie/', include('movie.api.urls')),
 
-    url(r'^account/', include('account.urls')),
+    url(r'^account/', include('my_profile.urls')),
     url(r'^movie/', include(('movie.urls', 'movies'), namespace="movies")),
     url(r'^comment/', include(('comment.urls', 'comment'), namespace="comments")),
 ]
