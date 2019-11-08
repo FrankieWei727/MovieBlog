@@ -18,6 +18,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 
+
     'my_profile',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,15 +34,16 @@ INSTALLED_APPS = [
 
     'movie',
     'comment',
-    'rest_framework',
-    'rest_framework.authtoken',
     'corsheaders',
 
+    'rest_framework',
+    'rest_framework.authtoken',
     'rest_auth',
 
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
 
 ]
@@ -171,7 +173,7 @@ DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
