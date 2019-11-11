@@ -11,7 +11,7 @@ const initialState = {
 const authStart = (state, action) => {
     return updateObject(state, {
         error: null,
-        loading: true
+        loading: true,
     });
 };
 
@@ -27,13 +27,14 @@ const authSuccess = (state, action) => {
 const authFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
-        loading: false
+        errorMsg: action.errorMsg,
+        loading: false,
     });
 };
 
 const authLogout = (state, action) => {
     return updateObject(state, {
-        token: null
+        token: null,
     });
 };
 

@@ -11,7 +11,7 @@ import EventDetail from "./Event/containers/EventDetailContainer";
 import UserDetail from "./User/UserDetail";
 import ReviewList from "./Review/containers/ReviewListContainer";
 import ReviewDetail from "./Review/containers/ReviewDetailContainer";
-import Switch from "react-switch";
+// import Switch from "react-switch";
 
 const BaseRouter = () => (
     <div>

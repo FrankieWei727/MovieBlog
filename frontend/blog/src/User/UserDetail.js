@@ -6,7 +6,7 @@ class UserDetail extends React.Component {
 
     state = {
         user: {},
-    }
+    };
 
     componentDidMount() {
         const token = this.props.token;
@@ -30,7 +30,7 @@ class UserDetail extends React.Component {
 
 const mapStateToProps = (state) => (
     {
-        token: state.token
+        token: state.auth.token
     }
 );
 

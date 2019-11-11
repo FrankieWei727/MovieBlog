@@ -2,48 +2,37 @@ import React from 'react'
 import {Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react'
 import {connect} from 'react-redux';
 import * as actions from '../Store/actions/auth';
+import {Redirect} from 'react-router-dom';
 
 class LoginForm extends React.Component {
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
+        state = {
             username: '',
             password: '',
-            usernameError: false,
-            passwordError: false,
-            errorMessage: '',
-            complete: false,
-        }
-    }
+        };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.onAuth(this.state.username, this.state.password);
-        this.props.history.push('/home');
-    }
+    };
 
 
     render() {
-        let errorMessage = null;
-        if (this.props.error) {
-            errorMessage = (
-                <div>
-                    <p>{this.state.errorMessage}</p>
-                </div>
-            )
-        }
+        const {error, token} = this.props;
 
+        if (token) {
+            return <Redirect to="/profile"/>;
+        }
         return (
             <div>
-                {errorMessage}
                 {
                     this.props.loading ?
-
                         <div style={{height: '100vh'}}>
                             <p style={{paddingTop: '10em', textAlign: 'center'}}>Waiting...</p>
                             <div className="ui active centered inline loader">
+                                {token &&
+                                <Redirect to="/profile"/>
+                                }
                             </div>
                         </div>
                         :
@@ -52,6 +41,18 @@ class LoginForm extends React.Component {
                                 <Header as='h2' color='teal' textAlign='center'>
                                     Log-in to your account
                                 </Header>
+                                {error &&
+                                <div>
+                                    <Message color='red'>
+                                        <Message.Header align='left'>Error</Message.Header>
+                                        <Message.List>
+                                            <Message.Item>
+                                                {this.props.error.message}
+                                            </Message.Item>
+                                        </Message.List>
+                                    </Message>
+                                </div>
+                                }
                                 <Form size='large' onSubmit={this.handleSubmit}>
                                     <Segment stacked>
                                         <Form.Input
@@ -95,8 +96,9 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.loading,
-        error: state.error
+        loading: state.auth.loading,
+        error: state.auth.error,
+        token: state.auth.token
     }
 }
 

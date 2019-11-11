@@ -3,7 +3,9 @@ import axios from 'axios';
 
 export const authStart = () => {
     return {
-        type: actionType.AUTH_START
+        type: actionType.AUTH_START,
+        errorMsg: null,
+        error: null,
     }
 };
 
@@ -14,10 +16,11 @@ export const authSuccess = token => {
     }
 };
 
-export const authFail = error => {
+export const authFail = (error,errorMsg) => {
     return {
         type: actionType.AUTH_FAIL,
-        error: error
+        error: error,
+        errorMsg: errorMsg,
     }
 };
 
@@ -25,7 +28,7 @@ export const logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('expirationDate');
     return {
-        type: actionType.AUTH_LOGOUT
+        type: actionType.AUTH_LOGOUT,
     }
 
 };
@@ -55,7 +58,7 @@ export const authLogin = (username, password) => {
                 dispatch(checkAuthTimeout(3600));
             })
             .catch(err => {
-                dispatch(authFail(err))
+                dispatch(authFail(err));
             })
     }
 };
@@ -66,9 +69,9 @@ export const authSignup = (username, email, password1, password2) => {
         dispatch(authStart());
         axios.post('http://127.0.0.1:8000/rest-auth/registration/', {
             username: username,
+            email: email,
             password1: password1,
             password2: password2,
-            email: email
         })
             .then(res => {
                 const token = res.data.key;
@@ -79,7 +82,24 @@ export const authSignup = (username, email, password1, password2) => {
                 dispatch(checkAuthTimeout(3600));
             })
             .catch(err => {
-                dispatch(authFail(err))
+                // if (err.response) {
+                //     // The request was made and the server responded with a status code
+                //     // that falls out of the range of 2xx
+                //     // console.log(err.response.data);
+                //     // console.log(err.response.status);
+                //     // console.log(err.response.headers);
+                // } else if (err.request) {
+                //     // The request was made but no response was received
+                //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                //     // http.ClientRequest in node.js
+                //     // console.log(err.request);
+                // } else {
+                //     // Something happened in setting up the request that triggered an Error
+                //     // console.log('Error', err.message);
+                // }
+                // // console.log(err.config);
+                console.log(err.response.data);
+                dispatch(authFail(err,err.response.data))
             })
     }
 };
@@ -100,5 +120,6 @@ export const authCheckState = () => {
         }
     }
 };
+
 
 
