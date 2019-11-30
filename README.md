@@ -8,7 +8,7 @@ run requirements
     npm install 
 
 
-run redis service
+run redis service (optional)
 
     cd redis-4.0.2 
     make
