@@ -13,14 +13,18 @@ from django.db.models import Avg
 from .forms import SearchForm
 from haystack.query import SearchQuerySet
 from ajaxDecorators.decorators import ajax_required
-import redis
+
+"""
+    download redis : https://redis.io/
+    remove the redis service
+    because redis is not free in Heroku
+"""
+# import redis
 from django.conf import settings
-
-
-r = redis.StrictRedis(host=settings.REDIS_HOST,
-                      port=settings.REDIS_PORT,
-                      db=settings.REDIS_DB,
-                      decode_responses=True)
+# r = redis.StrictRedis(host=settings.REDIS_HOST,
+#                       port=settings.REDIS_PORT,
+#                       db=settings.REDIS_DB,
+#                       decode_responses=True)
 
 
 def search_movie(request, form):
@@ -86,10 +90,14 @@ def movie_detail(request, id, slug):
                               id=id,
                               slug=slug)
 
-    total_views = r.incr('movie:{}:views'.format(movie.id))
+    # act redis service
+    # total_views = r.incr('movie:{}:views'.format(movie.id))
 
     # Update the times of viewing the page, and zip the total_views and the movie.name
-    r.zadd('views', {movie.name: total_views})
+    # r.zadd('views', {movie.name: total_views})
+
+    movie.movie_views = movie.movie_views + 1
+    total_views = movie.movie_views
 
     # add short comment
     author = request.user
@@ -173,13 +181,18 @@ def movie_like(request):
 
 
 def movie_ranking(request):
-    movie_top_view_list = r.zrange('views', 0, -1)[-5:]
-    movie_top_view_list.reverse()
-    movie_viewed = []
-    for movie in movie_top_view_list:
-        movie = Movie.objects.get(name=movie)
-        movie_viewed.append(movie)
+    # movie_top_view_list = r.zrange('views', 0, -1)[-5:]
 
+    # for movie in movies:
+    #     movie_top_view_list.append(movie.movie_views)
+    # movie_top_view_list.reverse()
+    # movie_viewed = []
+    # for movie in movie_top_view_list:
+    #     movie = Movie.objects.get(name=movie)
+    #     movie_viewed.append(movie)
+
+    movies = Movie.objects.all().order_by('movie_views')
+    movie_viewed = movies[5:]
     movies_by_rank = Movie.objects.order_by('-rank')[:5]
 
     return render(request,

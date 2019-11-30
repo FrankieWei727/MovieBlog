@@ -25,11 +25,17 @@ Movie = apps.get_model('movie', 'Movie')
 ShortComment = apps.get_model('comment', 'ShortComment')
 Comment = apps.get_model('comment', 'Comment')
 
+"""
+    download redis : https://redis.io/
+    remove the redis service
+    because redis is not free in Heroku...
+"""
 
-r = redis.StrictRedis(host=settings.REDIS_HOST,
-                      port=settings.REDIS_PORT,
-                      db=settings.REDIS_DB,
-                      decode_responses=True)
+
+# r = redis.StrictRedis(host=settings.REDIS_HOST,
+#                       port=settings.REDIS_PORT,
+#                       db=settings.REDIS_DB,
+#                       decode_responses=True)
 
 
 @cache_page(60 * 15)
@@ -139,7 +145,7 @@ def edit(request):
         profile_form = ProfileEditForm(instance=profile)
     return render(request, 'account/edit.html', {'user_form': user_form,
                                                  'profile_form': profile_form,
-                                                 'is_update_profile':is_update_profile})
+                                                 'is_update_profile': is_update_profile})
 
 
 @login_required
@@ -155,19 +161,26 @@ def user_detail(request, username):
                    'comments': comments,
                    'movies': movies})
 
+
 @login_required
 def home(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all().order_by('movie_views')
+    top_movies = movies[5:]
+
     short_comments = ShortComment.objects.all()
     comments = Comment.objects.all()
 
     # get the most popular movie list
-    movie_top_view = r.zrange('views', 0, -1)[-3:]
-    movie_top_view.reverse()
-    top_movies = []
-    for movie in movie_top_view:
-        movie = Movie.objects.get(name=movie)
-        top_movies.append(movie)
+    # movie_top_view = r.zrange('views', 0, -1)[-3:]
+
+    # movie_top_view = []
+    # for movie in movies:
+    #     movie_top_view.append(movie.movie_views)
+    # movie_top_view.reverse()
+    # top_movies = []
+    # for movie in movie_top_view:
+    #     movie = Movie.objects.get()
+    #     top_movies.append(movie)
 
     form = SearchForm()
     search_movie(request, form)

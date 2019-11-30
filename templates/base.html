@@ -43,9 +43,9 @@
             <div class="col-sm-3 header_right">
                 <ul class="header_right_box">
                     <li>
-                        {% thumbnail request.user.profile.photo "25" as im %}
-                            <img src="{{ im.url }}" class="img-circle" alt="">
-                        {% endthumbnail %}
+                        {#{% thumbnail request.user.profile.avatar "25" as im %}#}
+                        <img src="{{ request.user.profile.avatar }}" style="max-width:20%" class="img-circle" alt="">
+                        {#{% endthumbnail %}#}
                     </li>
                     <li>
                         <p><a href="{% url "dashboard" %}">{{ request.user.username }}</a></p>
