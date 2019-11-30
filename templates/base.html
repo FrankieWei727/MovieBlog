@@ -43,9 +43,9 @@
             <div class="col-sm-3 header_right">
                 <ul class="header_right_box">
                     <li>
-                        {#{% thumbnail request.user.profile.avatar "25" as im %}#}
-                        <img src="{{ request.user.profile.avatar }}" style="max-width:20%" class="img-circle" alt="">
-                        {#{% endthumbnail %}#}
+                        {% thumbnail request.user.profile.avatar "150" as im %}
+                            <img src="{{ im.url }}" style="max-width:20%" class="img-circle" alt="">
+                        {% endthumbnail %}
                     </li>
                     <li>
                         <p><a href="{% url "dashboard" %}">{{ request.user.username }}</a></p>
@@ -107,38 +107,39 @@
             </div>
         </footer>
     </div>
+</div>
 
-    <script src="/static/js/jquery-2.1.4.min.js"></script>
-    <script src="/static/js/jquery-1.4.1.cookie.min.js "></script>
-    <script src="/static/js/responsiveslides.min.js"></script>
+<script src="/static/js/jquery-2.1.4.min.js"></script>
+<script src="/static/js/jquery-1.4.1.cookie.min.js "></script>
+<script src="/static/js/responsiveslides.min.js"></script>
 
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
+<script type="application/x-javascript"> addEventListener("load", function () {
+    setTimeout(hideURLbar, 0);
+}, false);
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
-    <script>
-        var csrftoken = $.cookie('csrftoken');
+function hideURLbar() {
+    window.scrollTo(0, 1);
+} </script>
+<script>
+    var csrftoken = $.cookie('csrftoken');
 
-        function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
-            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-        }
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 
-        $.ajaxSetup({
-            beforeSend: function (xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
-        });
+        }
+    });
 
-        $(document).ready(function () {
-            {% block domready %}
-            {% endblock %}
-        });
-    </script>
+    $(document).ready(function () {
+        {% block domready %}
+        {% endblock %}
+    });
+</script>
 </body>
 </html>

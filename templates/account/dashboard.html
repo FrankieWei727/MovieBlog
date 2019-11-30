@@ -9,16 +9,22 @@
         </div>
 
         <div class="row align-items-start">
-            {% for movie in movies %}
-                <div class="col-md-2 col-xs-3" style="padding-bottom: 10px;">
-                    <a href="{{ movie.get_absolute_url }}" class="hvr-shutter-out-horizontal">
-                        {% thumbnail movie.poster "189x252" crop="100%" as im %}
-                            <img src="{{ im.url }}" class="img-responsive" alt=""/>
-                        {% endthumbnail %}
-                    </a>
-                    <br>
+            {% if movies %}
+                {% for movie in movies %}
+                    <div class="col-md-2 col-xs-3" style="padding-bottom: 10px;">
+                        <a href="{{ movie.get_absolute_url }}" class="hvr-shutter-out-horizontal">
+                            {% thumbnail movie.poster "189x252" crop="100%" as im %}
+                                <img src="{{ im.url }}" class="img-responsive" alt=""/>
+                            {% endthumbnail %}
+                        </a>
+                        <br>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>
+                    <p> You don't have any favorite movie yet..tell us what is your favorite movie</p>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
 
         <div class="row align-items-start">
@@ -27,18 +33,23 @@
 
         <div class="row align-items-start" style="padding-left: 13px;">
             <ul class="single_list">
-                {% for short_comment in short_comments %}
-                    <li>
-                        <div class="data">
-                            <div class="title">{{ short_comment.movie }} / {{ short_comment.created }}
-                                / {{ short_comment.rank|floatformat:1 }}</div>
-                            <p>{{ short_comment.body }}</p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                {% endfor %}
+                {% if short_comments %}
+                    {% for short_comment in short_comments %}
+                        <li>
+                            <div class="data">
+                                <div class="title">{{ short_comment.movie }} / {{ short_comment.created }}
+                                    / {{ short_comment.rank|floatformat:1 }}</div>
+                                <p>{{ short_comment.body }}</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <div>
+                        <p> You don't have any comment yet...</p>
+                    </div>
+                {% endif %}
             </ul>
-            <div class="clearfix"></div>
         </div>
 
         <div class="row align-items-start">
@@ -48,20 +59,24 @@
         <div class="row align-items-start" style="padding-left: 13px;">
             <div class="box_3">
                 <ul class="single_list">
-                    {% for comment in comments %}
-                        <li>
-                            <div class="data">
-                                <div class="title">
-                                    <a href="{{ comment.get_absolute_url }}">{{ comment.title }}</a>
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <li>
+                                <div class="data">
+                                    <div class="title">
+                                        <a href="{{ comment.get_absolute_url }}">{{ comment.title }}</a>
+                                    </div>
+                                    <p>{{ comment.body|truncatewords:100 }}</p>
                                 </div>
-                                <p>{{ comment.body|truncatewords:100 }}</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </li>
-                    {% endfor %}
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <p> You don't have any movie review yet...</p>
+                        </div>
+                    {% endif %}
                 </ul>
             </div>
         </div>
-
     </div>
 {% endblock %}
