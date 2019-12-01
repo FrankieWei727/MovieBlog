@@ -2,13 +2,14 @@
 
 {% block content %}
 
-    <h1 style="text-align:center;color: black;padding-top: auto">Movie Blog</h1>
     {% if message %}
         <div style="text-align:center;color: darkred;"
-             class="alert alert-warning alert-dismissible fade show">
+             class="alert alert-warning">
             <h3><strong>Warning!</strong>{{ message }}</h3>
         </div>
     {% endif %}
+    <h1 style="text-align:center;color: black;padding-top: auto">Movie Blog</h1>
+
     <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign

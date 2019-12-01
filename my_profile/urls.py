@@ -33,7 +33,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name='password_reset_complete'),
 
-    # view your dashborad
+    # view your dashboard
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^$', views.home, name='home'),
 

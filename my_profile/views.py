@@ -54,13 +54,10 @@ def login_and_register(request):
                 login(request, user)
                 return HttpResponseRedirect('/account/')
             else:
-                message = 'Disabled account'
+                message = "Username isn't exist"
         else:
-            message = 'Invalid login'
-        print(message)
+            message = 'Password incorrect'
         return render(request, 'account/login_and_register.html', {"message": message})
-    # return render(request,'registration/login.html',{'error_info': '密码错误'})
-    # return HttpResponse('触发ajax')
     else:
         form = LoginForm()
 
@@ -165,7 +162,6 @@ def user_detail(request, username):
                    'movies': movies})
 
 
-@login_required
 def home(request):
     movies = Movie.objects.all().order_by('movie_views')
     top_movies = movies[5:]

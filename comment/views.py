@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from .forms import AnotherCommentForm
 
 
-
 def comment_detail(request, id):
     comment = get_object_or_404(Comment, id=id)
 

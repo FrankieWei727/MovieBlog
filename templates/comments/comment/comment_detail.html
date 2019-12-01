@@ -13,25 +13,30 @@
             </h1><br><br>
             {{ comment.body|linebreaks }}<br><br>
         </div>
-
-        <h3 style="padding-top: 50px;">What do you think?</h3>
-        <form id="anothercomment_form" action="" method="post">
-            <div class="text">
-                <label>
+        {% if user.is_authenticated %}
+            <h3 style="padding-top: 50px;">What do you think?</h3>
+            <form id="anothercomment_form" action="" method="post">
+                <div class="text">
+                    <label>
                     <textarea style="height: 200px;width: 600px;"
                               type="text"
                               name="body" onfocus="this.value = '';"
                               onblur="if (this.value === '')
                               {this.value = 'Please write down your comment.';}">Please write down your comments.</textarea>
-                </label>
+                    </label>
+                </div>
+                <br>
+                {% csrf_token %}
+                <div class="form-submit1">
+                    <input name="submit" type="submit" id="submit" value="Post"><br>
+                </div>
+            </form>
+        {% else %}
+            <div>
+                <p style="font-size:20px;"><strong>You must be logged in to post a comment.</strong></p>
             </div>
-            <br>
-            {% csrf_token %}
-            <div class="form-submit1">
-                <input name="submit" type="submit" id="submit" value="Submit Your Message"><br>
-            </div>
-        </form>
-        <br><br>
+        {% endif %}
+
         <div class="single">
             <h3 style="padding-top: 100px;">What other people think about your review.</h3>
         </div>

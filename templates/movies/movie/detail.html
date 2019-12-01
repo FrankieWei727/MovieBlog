@@ -16,21 +16,25 @@
                             <img src="{{ im.url }}" class="img-responsive" alt=""/>
                         {% endthumbnail %}
                     </div>
-                    <div class="title" style="padding-top: 15px;"><a href="{{ movie.get_comment_url }}">write a movie review</a></div>
+                    <div class="title" style="padding-top: 15px;"><a href="{{ movie.get_comment_url }}">write a movie
+                        review</a></div>
                 </div>
 
                 <div class="col-md-3" style="float: right;">
                     {% with total_likes=movie.users_like.count users_like=movie.users_like.all %}
-                        <div id="user_movie_like">
-                            <a href="#" data-id="{{ movie.id }}"
-                               data-action="{% if request.user in users_like %}un{% endif %}like" class="like button">
-                                {% if request.user not in users_like %}
-                                    Like
-                                {% else %}
-                                    Unlike
-                                {% endif %}
-                            </a>
-                        </div>
+                        {% if user.is_authenticated %}
+                            <div id="user_movie_like">
+                                <a href="#" data-id="{{ movie.id }}"
+                                   data-action="{% if request.user in users_like %}un{% endif %}like"
+                                   class="like button">
+                                    {% if request.user not in users_like %}
+                                        Like
+                                    {% else %}
+                                        Unlike
+                                    {% endif %}
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endwith %}
                 </div>
 
@@ -67,30 +71,35 @@
                     {% endvideo %}
                 </div>
                 <br>
+                {% if user.is_authenticated %}
+                    <h3 style="padding-top: 40px;">Write a new movie comment</h3>
+                    <form id="shortcomment_form" action="" method="post">
+                        <div class="rating_desc"><p>Your mark </p></div>
+                        <div class="to">
+                            <label>
+                                <input type="number" style="width: 100px;" class="text" value="Rank" name="rank"
+                                       onfocus="this.value = '';"
+                                       onblur="if (this.value === '') {this.value = 'Rank';}">
+                            </label>
+                        </div>
 
-                <h3 style="padding-top: 40px;">Write a new movie comment</h3>
-                <form id="shortcomment_form" action="" method="post">
-                    <div class="rating_desc"><p>Your mark </p></div>
-                    <div class="to">
-                        <label>
-                            <input type="number" style="width: 100px;" class="text" value="Rank" name="rank"
-                                   onfocus="this.value = '';"
-                                   onblur="if (this.value === '') {this.value = 'Rank';}">
-                        </label>
-                    </div>
-
-                    <div class="text">
-                        <label>
+                        <div class="text">
+                            <label>
                                 <textarea style="height: 200px;width: 600px;" type="text" value="Comment:" name="body"
                                           onfocus="this.value = '';"
                                           onblur="if (this.value === '') {this.value = 'Comment:';}">Comment:</textarea>
-                        </label>
+                            </label>
+                        </div>
+                        {% csrf_token %}
+                        <div class="form-submit1">
+                            <input name="submit" type="submit" id="submit" value="Submit"><br>
+                        </div>
+                    </form>
+                {% else %}
+                    <div>
+                        <p><strong>You must be logged in to post a comment.</strong></p>
                     </div>
-                    {% csrf_token %}
-                    <div class="form-submit1">
-                        <input name="submit" type="submit" id="submit" value="Submit Your Message"><br>
-                    </div>
-                </form>
+                {% endif %}
 
                 <div class="single">
                     {% with short_comments.count as total_shortcomments %}

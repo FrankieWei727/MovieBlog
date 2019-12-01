@@ -37,26 +37,33 @@
                             href="{% url "movies:movie_ranking" %}"> </a></span></li>
                     <li><span class="simptip-position-bottom simptip-movable" data-tooltip="activity"><a
                             href="{% url "movies:activity_list" %}"> </a></span></li>
-                    <li><span class="simptip-position-bottom simptip-movable" data-tooltip="logout"><a
-                            href="{% url "login" %}"></a></span></li>
+                    {% if user.is_authenticated %}
+                        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="logout"><a
+                                href="{% url "logout" %}"></a></span></li>
+                    {% else %}
+                        <li><span class="simptip-position-bottom simptip-movable" data-tooltip="login"><a
+                                href="{% url "login" %}"></a></span></li>
+                    {% endif %}
                 </ul>
             </div>
-            <div class="col-sm-3 header_right">
-                <ul class="header_right_box">
-                    <li>
-                        {% thumbnail request.user.profile.avatar "150" as im %}
-                            <img src="{{ im.url }}" style="max-width:20%" class="img-circle" alt="">
-                        {% endthumbnail %}
-                    </li>
-                    <li>
-                        <p><a href="{% url "dashboard" %}">{{ request.user.username }}</a></p>
-                    </li>
-                    <li>
+            {% if user.is_authenticated %}
+                <div class="col-sm-3 header_right">
+                    <ul class="header_right_box">
+                        <li>
+                            {% thumbnail request.user.profile.avatar "150" as im %}
+                                <img src="{{ im.url }}" style="max-width:20%" class="img-circle" alt="">
+                            {% endthumbnail %}
+                        </li>
+                        <li>
+                            <p><a href="{% url "dashboard" %}">{{ request.user.username }}</a></p>
+                        </li>
+                        <li>
 								<span class="simptip-position-bottom simptip-movable" data-tooltip="edit"><a
                                         href="{% url "edit" %}"><i class="edit"></i></a></span>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
             <div class="clearfix"></div>
         </div>
 
