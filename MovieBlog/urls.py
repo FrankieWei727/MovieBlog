@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^account/', include('my_profile.urls')),
     url(r'^movie/', include(('movie.urls', 'movies'), namespace="movies")),
     url(r'^comment/', include(('comment.urls', 'comment'), namespace="comments")),
-]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
