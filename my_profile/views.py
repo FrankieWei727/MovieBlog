@@ -42,6 +42,7 @@ Comment = apps.get_model('comment', 'Comment')
 @csrf_protect
 def login_and_register(request):
     global user
+    message = ""
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -53,9 +54,11 @@ def login_and_register(request):
                 login(request, user)
                 return HttpResponseRedirect('/account/')
             else:
-                messages.error(request, 'Disabled account')
+                message = 'Disabled account'
         else:
-            messages.error(request, 'Invalid login')
+            message = 'Invalid login'
+        print(message)
+        return render(request, 'account/login_and_register.html', {"message": message})
     # return render(request,'registration/login.html',{'error_info': '密码错误'})
     # return HttpResponse('触发ajax')
     else:

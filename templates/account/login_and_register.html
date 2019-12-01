@@ -1,8 +1,14 @@
 {% extends "account/account_base.html" %}
 
 {% block content %}
-    <br><br><br>
-    <h1 style="text-align:center;color: black;">Movie Blog</h1>
+
+    <h1 style="text-align:center;color: black;padding-top: auto">Movie Blog</h1>
+    {% if message %}
+        <div style="text-align:center;color: darkred;"
+             class="alert alert-warning alert-dismissible fade show">
+            <h3><strong>Warning!</strong>{{ message }}</h3>
+        </div>
+    {% endif %}
     <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign
@@ -15,11 +21,12 @@
 
                             <label for="user" class="label">Username</label>
                             <label for="username"></label><input type="text" class="input" name="username"
-                                                                 id="username">
+                                                                 id="username" required>
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Password</label>
-                            <input id="pass" type="password" class="input" data-type="password" name="password">
+                            <input id="pass" type="password" class="input" data-type="password" name="password"
+                                   required>
                         </div>
                         <div class="group">
                             <input id="check" type="checkbox" class="check" checked>
@@ -37,7 +44,8 @@
                         <div class="social">
                             <ul style="margin-left:8%">
                                 <li class="facebook">
-                                    <a style="margin-left:16%" href="{% url "social:begin" "facebook" %}">Sign in Facebook</a></li>
+                                    <a style="margin-left:16%" href="{% url "social:begin" "facebook" %}">Sign in
+                                        Facebook</a></li>
                             </ul>
                         </div>
                     </div>
@@ -47,19 +55,21 @@
                     <div class="sign-up-htm">
                         <div class="group">
                             <label for="user" class="label">Username</label>
-                            <input id="user" type="text" class="input" name="username">
+                            <input id="user" type="text" class="input" name="username" required>
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Email Address</label>
-                            <input id="pass" type="text" class="input" name="email">
+                            <input id="pass" type="text" class="input" name="email" required>
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Password</label>
-                            <input id="pass" type="password" class="input" data-type="password" name="password">
+                            <input id="pass" type="password" class="input" data-type="password" name="password"
+                                   required>
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Repeat password</label>
-                            <input id="pass" type="password" class="input" data-type="password2" name="password2">
+                            <input id="pass" type="password" class="input" data-type="password2" name="password2"
+                                   required>
                         </div>
 
                         <div class="group">
