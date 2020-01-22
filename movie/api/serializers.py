@@ -1,11 +1,25 @@
 from rest_framework import serializers
-from movie.models import Category, Movie, Activity, StillsGallery
+from movie.models import Category, CategoryGroup, Movie, Activity, StillsGallery, VideoSource
+
+
+class VideoSourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoSource
+        fields = ('website', 'url')
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'url')
+        fields = ('name', 'id')
+
+
+class CategoryGroupSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many=True)
+
+    class Meta:
+        model = CategoryGroup
+        fields = ('name', 'category')
 
 
 class ActivitySerializer(serializers.ModelSerializer):
@@ -17,15 +31,23 @@ class ActivitySerializer(serializers.ModelSerializer):
 class StillsGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = StillsGallery
-        fields = ('id', 'photo', 'movie', 'url')
+        fields = ('id', 'photo', 'url')
 
 
 class MovieSerializer(serializers.ModelSerializer):
     stills = StillsGallerySerializer(many=True)
+    category = CategorySerializer(many=True)
+    videos = VideoSourceSerializer(many=True)
 
     class Meta:
         model = Movie
-        fields = ('id', 'name', 'slug', 'director', 'scriptwriter',
-                  'nation', 'star', 'length', 'year', 'language',
+        fields = ('id', 'url', 'name', 'slug', 'director', 'scriptwriter',
+                  'region', 'actors', 'length', 'release_date', 'language',
                   'description', 'poster', 'rank', 'created', 'updated', 'video',
-                  'movie_views', 'category', 'users_like', 'stills')
+                  'movie_views', 'category', 'users_like', 'stills', 'videos')
+
+
+class MovieListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ('id', 'name', 'url')

@@ -1,29 +1,25 @@
 from django.contrib import admin
-from .models import ShortComment, Comment, AnotherComment
+from .models import Review, Article, ArticleComment
 
 
-# Register your models here.
-
-
-class ShortCommentAdmin(admin.ModelAdmin):
-    list_display = ['author', 'movie', 'created']
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['user', 'movie', 'created']
     list_filter = ['movie']
 
 
-admin.site.register(ShortComment, ShortCommentAdmin)
+admin.site.register(Review, ReviewAdmin)
 
 
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ['author', 'movie', 'created']
-    list_filter = ['movie', 'created']
-    prepopulated_fields = {'slug': ('title',)}
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['author', 'id', 'created']
+    list_filter = ['created']
 
 
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Article, ArticleAdmin)
 
 
-class AnotherCommentAdmin(admin.ModelAdmin):
-    list_display = ['author', 'created', 'comment']
+class ArticleCommentAdmin(admin.ModelAdmin):
+    list_display = ['author', 'created', 'article']
 
 
-admin.site.register(AnotherComment, AnotherCommentAdmin)
+admin.site.register(ArticleComment, ArticleCommentAdmin)

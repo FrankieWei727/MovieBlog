@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
+import 'antd/dist/antd.css';
 import authReducer from "./Store/reducers/auth";
 import {Provider} from 'react-redux';
-// import {PersistGate} from 'redux-persist/lib/integration/react';
-// import persist from './Store/configureStore';
 import {applyMiddleware, compose, createStore, combineReducers} from "redux";
 import thunk from "redux-thunk";
 
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     auth: authReducer,
 });
 
-// const persistStore = persist();
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

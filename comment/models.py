@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-class ShortComment(models.Model):
-    author = models.ForeignKey(User,
-                               related_name='shortcomments',on_delete=models.CASCADE)
+class Review(models.Model):
+    user = models.ForeignKey(User,
+                             related_name='reviews', on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie,
-                              related_name='shortcomments',on_delete=models.CASCADE)
-    body = models.TextField(max_length=400)
+                              related_name='reviews', on_delete=models.CASCADE)
+    content = models.TextField(max_length=400)
     created = models.DateTimeField(auto_now_add=True)
     rank = models.DecimalField(max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
@@ -19,32 +19,38 @@ class ShortComment(models.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return 'Shortcomment by {} in {}'.format(self.author, self.created)
+        return 'Review by {} in {}'.format(self.user, self.created)
 
     def get_author_url(self):
-        author = self.author
-        return author
+        user = self.user
+        return user
 
     def get_movie_url(self):
         movie = self.movie
         return movie
 
 
-class Comment(models.Model):
+class Article(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
-
     author = models.ForeignKey(User,
-                               related_name='comments',on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie,
-                              related_name='comments',on_delete=models.CASCADE)
-    body = models.TextField()
+                               related_name='articles', on_delete=models.CASCADE)
+    # movie = models.ForeignKey(Movie,
+    #                           related_name='articles', on_delete=models.CASCADE)
+    content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    # rank = models.DecimalField(max_digits=10, decimal_places=2)
-    active = models.BooleanField(default=True)
+    views = models.IntegerField(default=0)
+
+    STATUS_CHOICES = (
+        ('1', 'Draft'),
+        ('2', 'Publish')
+    )
+    status = models.CharField(max_length=24, choices=STATUS_CHOICES, default='1', blank=True)
 
     class Meta:
         ordering = ('-created',)
+
+    def __str__(self):
+        return self.title
 
     def get_author_url(self):
         author = self.author
@@ -55,16 +61,16 @@ class Comment(models.Model):
         return movie
 
     def get_absolute_url(self):
-        return reverse('comments:comment_detail',
+        return reverse('articles:article_detail',
                        args=[self.id])
 
 
-class AnotherComment(models.Model):
-    body = models.TextField(max_length=400)
+class ArticleComment(models.Model):
+    content = models.TextField(max_length=400)
     author = models.ForeignKey(User,
-                               related_name='anothercomments',on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment,
-                                related_name='anothercomments', default="",on_delete=models.CASCADE)
+                               related_name='article_comments', on_delete=models.CASCADE)
+    article = models.ForeignKey(Article,
+                                related_name='article_comments', default="", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 

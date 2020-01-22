@@ -7,27 +7,27 @@ import * as actions from "../../Store/actions/auth";
 import {connect} from "react-redux";
 
 const getWidth = () => {
-    const isSSR = typeof window === 'undefined'
+    const isSSR = typeof window === 'undefined';
 
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
-}
+};
 
 class MobileContainer extends Component {
-    state = {}
+    state = {};
     handleItemClick = (e, {name}) => {
 
         this.setState({activeItem: name});
         this.props.history.push(`/${name}`);
 
-    }
+    };
 
-    handleSidebarHide = () => this.setState({sidebarOpened: false})
-    handleToggle = () => this.setState({sidebarOpened: true})
+    handleSidebarHide = () => this.setState({sidebarOpened: false});
+    handleToggle = () => this.setState({sidebarOpened: true});
 
     render() {
-        const {children} = this.props
-        const {sidebarOpened} = this.state
-        const {activeItem} = this.state
+        const {children} = this.props;
+        const {sidebarOpened} = this.state;
+        const {activeItem} = this.state;
 
         return (
             <Responsive
@@ -51,8 +51,8 @@ class MobileContainer extends Component {
                                active={activeItem === 'movie'}
                                onClick={this.handleItemClick}>Movie
                     </Menu.Item>
-                    <Menu.Item name={'review'}
-                               active={activeItem === 'review'}
+                    <Menu.Item name={'article'}
+                               active={activeItem === 'article'}
                                onClick={this.handleItemClick}>Blog</Menu.Item>
                     <Menu.Item name={'event'}
                                active={activeItem === 'event'}
@@ -104,10 +104,10 @@ class MobileContainer extends Component {
 
 MobileContainer.propTypes = {
     children: PropTypes.node,
-}
+};
 const mapDispatchToProps = dispatch => {
     return {
         logout: () => dispatch(actions.logout())
     }
-}
+};
 export default withRouter(connect(null, mapDispatchToProps)(MobileContainer));

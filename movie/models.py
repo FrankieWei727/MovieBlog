@@ -4,12 +4,18 @@ from django.contrib.auth.models import User
 from embed_video.fields import EmbedVideoField
 
 
+class CategoryGroup(models.Model):
+    name = models.CharField(max_length=128, default="")
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=200,
                             db_index=True)
-    slug = models.SlugField(max_length=200,
-                            db_index=True,
-                            unique=True)
+
+    group = models.ForeignKey(CategoryGroup, related_name='category', on_delete=models.CASCADE, default="")
 
     class Meta:
         ordering = ('name',)
@@ -24,17 +30,17 @@ class Category(models.Model):
 
 
 class Movie(models.Model):
-    category = models.ForeignKey(Category,
-                                 related_name='movies', on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category,
+                                      related_name='movies', blank=True)
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, blank=True)
     director = models.CharField(max_length=200)
     scriptwriter = models.CharField(max_length=200)
-    nation = models.CharField(max_length=100)
-    star = models.CharField(max_length=200)
+    region = models.CharField(max_length=100)
+    actors = models.CharField(max_length=200)
     length = models.CharField(max_length=100)
 
-    year = models.DecimalField(max_digits=19, decimal_places=0)
+    release_date = models.CharField(max_length=100,default="")
     language = models.CharField(max_length=200, blank=True, null=True)
 
     description = models.TextField(blank=True)
@@ -47,7 +53,7 @@ class Movie(models.Model):
     users_like = models.ManyToManyField(User,
                                         related_name='movies_liked',
                                         blank=True)
-    video = EmbedVideoField(default="")
+    video = models.CharField(max_length=300, default="")
 
     movie_views = models.IntegerField(default=0, null=True)
 
@@ -67,9 +73,21 @@ class Movie(models.Model):
                        args=[self.id, self.slug])
 
 
+class VideoSource(models.Model):
+    movie_name = models.ForeignKey(Movie, related_name='videos', on_delete=models.CASCADE)
+    website = models.CharField(max_length=128, default='')
+    url = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.movie_name.name + str(self.id)
+
+
 class StillsGallery(models.Model):
     movie = models.ForeignKey(Movie, related_name='stills', on_delete=models.CASCADE)
     photo = models.CharField(max_length=800)
+
+    def __str__(self):
+        return self.movie.name + str(self.id)
 
 
 class Activity(models.Model):

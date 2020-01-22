@@ -1,20 +1,33 @@
 from django.contrib import admin
-from .models import Category, Movie, Activity, StillsGallery
+from .models import Category, CategoryGroup, Movie, Activity, StillsGallery, VideoSource
+
+
+class VideoSourceAdmin(admin.ModelAdmin):
+    list_display = ['movie_name', 'website', 'url']
+
+
+admin.site.register(VideoSource, VideoSourceAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ['name', ]
 
 
 admin.site.register(Category, CategoryAdmin)
 
 
+class CategoryGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', ]
+
+
+admin.site.register(CategoryGroup, CategoryGroupAdmin)
+
+
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'rank', 'nation', 'length']
-    list_filter = ['rank', 'created', 'updated', 'nation']
-    search_fields = ('name', 'year')
-    # list_editable = ['rank', 'name', 'nation']
+    list_display = ['name', 'id', 'region', 'rank', 'length']
+    list_filter = ['rank', 'created', 'updated', 'release_date']
+    search_fields = ('name', 'release_date')
+    # list_editable = ['rank', 'name',]
     prepopulated_fields = {'slug': ('name',)}
 
 
