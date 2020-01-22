@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'social_django',
     'sorl.thumbnail',
     'embed_video',
-    'haystack',
 
     'movie',
     'comment',
