@@ -130,13 +130,11 @@ USE_TZ = True
 
 # deploy model Heroku
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# debug model
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend/blog/build/static'),
 )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # media file
 MEDIA_URL = '/media/'
