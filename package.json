@@ -4,12 +4,15 @@
   "description": "This is a Django project.",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "heroku-postbuild": "cd frontend/blog && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "postinstall": "npm run build"
   },
   "engines": {
-    "node": "13.0.1"
+    "node": "13.0.1",
+    "npm": "6.12.0"
   },
   "repository": {
     "type": "git",
