@@ -1,0 +1,13 @@
+{
+  "name": "movie",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd front && npm install && npm run build && npm start"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "cacheDirectories": [
+    "node_modules",
+    "react/node_modules"
+  ]
+}
