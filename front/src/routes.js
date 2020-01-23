@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 
 import MovieList from "./Movie/containers/MovieListContainer";
 import MovieDetail from "./Movie/containers/MovieDetailContainer";
+import MovieSourceEditor from "./User/Profile/components/UploadMovieSource";
 import Login from "./User/Login";
 import Logout from "./User/Logout";
 import SignUp from "./User/SignUp";
@@ -14,6 +15,7 @@ import CreateArticle from "./Article/components/CreateArticle";
 import ArticleDetail from "./Article/containers/ArticleDetailContainer";
 import MyProfile from "./User/Profile/containers/MyProfile";
 import EditProfile from "./User/Profile/components/EditProfile";
+import SetPermission from "./User/Profile/components/SetPermission";
 import ReviseArticle from "./User/Profile/components/ReviseArticle";
 // import Switch from "react-switch";
 
@@ -22,6 +24,7 @@ const BaseRouter = () => (
         <Route exact path='/home/' component={Home}/>
         <Route exact path='/movie/' component={MovieList}/>
         <Route exact path='/movie/:movieID/' component={MovieDetail}/>
+        <Route exact path='/movie_upload' component={MovieSourceEditor}/>
         <Route exact path='/event/' component={EventList}/>
         <Route exact path='/event/:eventID/' component={EventDetail}/>
         <Route exact path='/login/' component={Login}/>
@@ -29,6 +32,7 @@ const BaseRouter = () => (
         <Route exact path='/signup/' component={SignUp}/>
         <Route exact path='/profile/' component={MyProfile}/>
         <Route exact path='/profile/setting/' component={EditProfile}/>
+        <Route exact path='/permission/setting/' component={SetPermission}/>
         <Route exact path='/article' component={Blog}/>
         <Route exact path='/create_article' component={CreateArticle}/>
         <Route exact path='/article/:articleID/' component={ArticleDetail}/>

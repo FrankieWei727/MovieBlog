@@ -4,7 +4,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router'
 import {Link} from 'react-router-dom'
 
-import UploadAvatar from "./UploadAvatar";
+// import UploadAvatar from "./UploadAvatar";
 
 const {Option} = Select;
 
@@ -185,7 +185,7 @@ class SettingProfile extends Component {
                                 }}>
                                     Setting
                                 </div>
-                                <Link to='/settings/profile'>
+                                <Link to='/profile/setting'>
                                     <div style={{
                                         padding: '8px 10px',
                                         display: 'block',
@@ -195,12 +195,12 @@ class SettingProfile extends Component {
                                         cursor: 'default',
                                         borderLeft: '3px solid #e36209'
                                     }}>
-                                        <Icon type='user' style={{paddingRight: '6px'}}/>个人信息
+                                        <Icon type='user' style={{paddingRight: '6px'}}/>Account Setting
                                     </div>
                                 </Link>
-                                <Link to='/settings/account'>
+                                <Link to='/permission/setting'>
                                     <div style={{padding: '8px 10px', display: 'block', color: '#0366d6'}}>
-                                        <Icon type='user' style={{paddingRight: '6px'}}/>账号设置
+                                        <Icon type='setting' style={{paddingRight: '6px'}}/>Permission Setting
                                     </div>
                                 </Link>
                             </nav>

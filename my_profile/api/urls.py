@@ -10,4 +10,6 @@ router.register('profiles', views.ProfileView)
 urlpatterns = [
 
     path('', include(router.urls)),
+    path('user/<int:pk>/apply/', views.apply_editor_permission, name='apply-editor-permission'),
+    path('user/<int:pk>/cancel_apply/', views.cancel_apply_editor_permission, name='cancel-apply-editor-perm'),
 ]

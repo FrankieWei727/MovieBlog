@@ -13,12 +13,16 @@ class Profile(models.Model):
     bio = models.CharField(max_length=100, blank=True, default='Hello World.')
     cover = models.CharField(max_length=300, default='https://i.imgur.com/1kZR1f9.jpg')
 
+    EDITOR_Permission_CHOICES = (
+        ('unreviewed', 'unreviewed'),
+        ('reviewing', 'reviewing'),
+        ('reviewed', 'reviewed')
+    )
+    permission = models.CharField(max_length=24, choices=EDITOR_Permission_CHOICES, default='unreviewed', blank=True)
+
     def __str__(self):
         return 'Profile for user {}'.format(self.user_id)
 
-    def get_absolute_url(self):
-        user = self.user
-        return reverse('user_detail', args=[user.username])
 
     @receiver(post_save, sender=User)
     def create_profile_for_user(sender, instance=None, created=False, **kwargs):

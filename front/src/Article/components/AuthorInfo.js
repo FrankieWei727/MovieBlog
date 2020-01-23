@@ -25,8 +25,8 @@ class AuthorInfo extends Component {
         try {
             const response = await axios.get(
                 'http://127.0.0.1:8000/api/account/users/' + this.props.authorId + '?format=json'
-            )
-            this.data = response.data.results
+            );
+            this.data = response.data.results;
             this.setState({
                 urlAvatar: response.data.profile.avatar,
                 username: response.data.username,
