@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Comment, Avatar, Form, Button, List, Input, message} from 'antd'
+import {Comment, Avatar, Form, Button, List, Input, message, Rate} from 'antd'
 import moment from 'moment'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
@@ -26,10 +26,13 @@ const CommentList = ({comments, username}) => (
     />
 );
 
-const Editor = ({onChange, onSubmit, submitting, value}) => (
+const Editor = ({onChangeText, onChangeRate, onSubmit, submitting, value, rate}) => (
     <div>
         <Form.Item>
-            <TextArea rows={4} onChange={onChange} value={value}/>
+            <TextArea rows={4} onChange={onChangeText} value={value}/>
+        </Form.Item>
+        <Form.Item>
+            <Rate allowHalf defaultValue={rate} onChange={onChangeRate} rate={rate}/>
         </Form.Item>
         <Form.Item>
             <Button
@@ -57,8 +60,9 @@ class AddMovieReview extends Component {
         page: 1,
         username: '',
         avatarUrl: '',
-        user: {}
-    }
+        user: {},
+        rate: 2.5,
+    };
 
     componentDidMount = async (v) => {
         this.getUserData();
@@ -112,7 +116,7 @@ class AddMovieReview extends Component {
         }
     };
 
-    sendComment = async (value) => {
+    sendComment = async (value, rate) => {
         try {
             let config = {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
@@ -122,11 +126,11 @@ class AddMovieReview extends Component {
                 {
                     content: value,
                     movie: this.props.movieId,
-                    rank: 4,
+                    rate: rate,
                 },
                 config
             );
-            console.log(response);
+            // console.log(response.data);
             if (response.status !== 201) {
                 message('error')
             }
@@ -142,7 +146,7 @@ class AddMovieReview extends Component {
         this.setState({
             submitting: true
         });
-        this.sendComment(this.state.value);
+        this.sendComment(this.state.value, this.state.rate);
         setTimeout(() => {
             this.setState({
                 submitting: false,
@@ -160,14 +164,19 @@ class AddMovieReview extends Component {
         }, 500)
     };
 
-    handleChange = (e) => {
+    handleChangeText = (e) => {
         this.setState({
-            value: e.target.value
+            value: e.target.value,
+        })
+    };
+    handleChangeRate = rate => {
+        this.setState({
+            rate
         })
     };
 
     render() {
-        const {comments, username, submitting, value} = this.state;
+        const {comments, username, submitting, value, rate} = this.state;
         let comment_number = 0;
         if (this.state.comments)
             comment_number = this.state.comments.length;
@@ -177,7 +186,7 @@ class AddMovieReview extends Component {
             <div>
                 {comment_number > 0 && <CommentList comments={comments} username={username}/>}
                 {window.localStorage.getItem('token') !== null ?
-                    <div><Comment
+                    <div style={{paddingTop: "30px"}}><Comment
                         avatar={(
                             <Avatar
                                 src={this.state.avatarUrl}
@@ -186,14 +195,18 @@ class AddMovieReview extends Component {
                         )}
                         content={(
                             <Editor
-                                onChange={this.handleChange}
+                                onChangeText={this.handleChangeText}
+                                onChangeRate={this.handleChangeRate}
                                 onSubmit={this.handleSubmit}
                                 submitting={submitting}
                                 value={value}
+                                rate={rate}
                             />
+
                         )}
-                    /></div> :
-                    <div style={{paddingTop:'20px',paddingBottom:'40px'}}>
+                    /></div>
+                    :
+                    <div style={{paddingTop: '20px', paddingBottom: '40px'}}>
                         <p style={{color: '#8E9193', fontWeight: '700'}}>Please Login to write a
                             review...</p>
                     </div>

@@ -12,7 +12,7 @@ class Review(models.Model):
                               related_name='reviews', on_delete=models.CASCADE)
     content = models.TextField(max_length=400)
     created = models.DateTimeField(auto_now_add=True)
-    rank = models.DecimalField(max_digits=10, decimal_places=2)
+    rate = models.DecimalField(max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
 
     class Meta:
@@ -20,14 +20,6 @@ class Review(models.Model):
 
     def __str__(self):
         return 'Review by {} in {}'.format(self.user, self.created)
-
-    def get_author_url(self):
-        user = self.user
-        return user
-
-    def get_movie_url(self):
-        movie = self.movie
-        return movie
 
 
 class Article(models.Model):
@@ -52,18 +44,6 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
-    def get_author_url(self):
-        author = self.author
-        return author
-
-    def get_movie_url(self):
-        movie = self.movie
-        return movie
-
-    def get_absolute_url(self):
-        return reverse('articles:article_detail',
-                       args=[self.id])
-
 
 class ArticleComment(models.Model):
     content = models.TextField(max_length=400)
@@ -73,7 +53,3 @@ class ArticleComment(models.Model):
                                 related_name='article_comments', default="", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
-
-    def get_author_url(self):
-        author = self.author
-        return author

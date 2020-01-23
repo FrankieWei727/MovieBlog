@@ -10,7 +10,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'url', 'movie', 'content', 'created', 'rank', 'active', 'user')
+        fields = ('id', 'url', 'movie', 'content', 'created', 'rate', 'active', 'user')
         ordering = ('-created',)
 
 
