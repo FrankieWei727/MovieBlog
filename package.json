@@ -2,4 +2,4 @@
   "scripts": {
     "postinstall": "cd fornt && npm install && npm run build && npm start"
   }
-},
+}
