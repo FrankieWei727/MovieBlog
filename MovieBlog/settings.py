@@ -67,7 +67,7 @@ ROOT_URLCONF = 'MovieBlog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/blog/build')]
+        'DIRS': [os.path.join(BASE_DIR, 'front/build')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,7 +131,7 @@ USE_TZ = True
 # deploy model Heroku
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend/blog/build/static'),
+    os.path.join(BASE_DIR, 'front/build/static'),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
