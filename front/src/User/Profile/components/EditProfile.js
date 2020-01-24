@@ -207,7 +207,7 @@ class SettingProfile extends Component {
                         </Col>
                         <Col xxl={{span: 11, offset: 0}} xl={{span: 16, offset: 0}} md={{span: 16, offset: 0}}
                              xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                            <div style={{padding: '0 10px '}}>
+                            <div style={{padding: '0 10px ', paddingBottom: "50px"}}>
                                 <Row>
                                     <Col xl={{span: 24, offset: 0}} xs={{span: 22, offset: 1}}>
                                         <div style={{
@@ -223,7 +223,7 @@ class SettingProfile extends Component {
                                 </Row>
                                 <Row style={{marginTop: '20px'}}>
                                     <Col xl={{span: 16, offset: 0}} xs={{span: 22, offset: 1}}
-                                         style={{paddingBottom: '20px'}}>
+                                         style={{paddingBottom: '20px', maxWidth: '350px'}}>
                                         <Form onSubmit={this.handleSubmit}>
                                             <div style={{
                                                 fontSize: '14px',

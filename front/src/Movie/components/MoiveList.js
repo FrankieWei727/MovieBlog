@@ -1,6 +1,7 @@
 import React from 'react';
 import {Descriptions, List, Tag} from "antd";
 import {Link} from "react-router-dom";
+import moment from "moment";
 
 const count = 5;
 const MovieItemList = (props) => {
@@ -36,7 +37,7 @@ const MovieItemList = (props) => {
                                             marginBottom: "15px",
                                             fontWeight: "600"
                                         }}>
-                                            {item.name} ({item.release_date})
+                                            {item.name} ({moment(item.release_date).format('YYYY')})
                                         </div>
                                         <Descriptions border column={1}>
                                             <Descriptions.Item label="Actors ">

@@ -2,6 +2,7 @@ from rest_framework import routers
 from django.urls import path, include
 from .views import (
     MovieView,
+    MovieCreateView,
     ActivityView,
     CategoryView,
     CategoryGroupView,
@@ -20,4 +21,5 @@ router.register(r'videos', VideoSourceView)
 urlpatterns = [
 
     path(r'', include(router.urls)),
+    path('create_movie/', MovieCreateView.as_view(), name='create_movie')
 ]

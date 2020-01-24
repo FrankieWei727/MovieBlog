@@ -28,7 +28,6 @@ class MovieAdmin(admin.ModelAdmin):
     list_filter = ['rank', 'created', 'updated', 'release_date']
     search_fields = ('name', 'release_date')
     # list_editable = ['rank', 'name',]
-    prepopulated_fields = {'slug': ('name',)}
 
 
 admin.site.register(Movie, MovieAdmin)

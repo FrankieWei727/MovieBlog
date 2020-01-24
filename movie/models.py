@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import User
 from embed_video.fields import EmbedVideoField
@@ -33,19 +35,18 @@ class Movie(models.Model):
     category = models.ManyToManyField(Category,
                                       related_name='movies', blank=True)
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, blank=True)
     director = models.CharField(max_length=200)
     scriptwriter = models.CharField(max_length=200)
     region = models.CharField(max_length=100)
     actors = models.CharField(max_length=200)
     length = models.CharField(max_length=100)
 
-    release_date = models.CharField(max_length=100,default="")
+    release_date = models.CharField(max_length=100, default="")
     language = models.CharField(max_length=200, blank=True, null=True)
 
     description = models.TextField(blank=True)
-    poster = models.ImageField(upload_to='movies/%Y/%m/%d', blank=True)
-    rank = models.DecimalField(max_digits=10, decimal_places=2)
+    poster = models.CharField(max_length=300, blank=True, default="")
+    rank = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -59,18 +60,10 @@ class Movie(models.Model):
 
     class Meta:
         ordering = ('name',)
-        index_together = (('id', 'slug'),)
+        index_together = (('id',),)
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse('movies:movie_detail',
-                       args=[self.id, self.slug])
-
-    def get_comment_url(self):
-        return reverse('movies:movie_comment',
-                       args=[self.id, self.slug])
 
 
 class VideoSource(models.Model):

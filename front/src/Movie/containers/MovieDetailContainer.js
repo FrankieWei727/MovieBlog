@@ -29,7 +29,6 @@ class MovieDetail extends React.Component {
             });
 
         this.setState({prelock: true});
-
     }
 
 // render() {

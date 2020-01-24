@@ -7,13 +7,14 @@ from ..models import (
     VideoSource,
 )
 from movie.api.serializers import (MovieSerializer,
+                                   MovieCreateSerializer,
                                    ActivitySerializer,
                                    CategorySerializer,
                                    CategoryGroupSerializer,
                                    StillsGallerySerializer,
                                    VideoSourceSerializer,
                                    )
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, generics, mixins
 from rest_framework.pagination import PageNumberPagination
 import django_filters.rest_framework as res_fliters
 from rest_framework import filters
@@ -64,6 +65,11 @@ class MovieView(ModelViewSet):
     filter_backends = [res_fliters.DjangoFilterBackend, filters.SearchFilter]
     search_fields = ('name',)
     filterset_class = MovieFilter
+
+
+class MovieCreateView(generics.CreateAPIView):
+    queryset = Movie.objects.all().order_by('-release_date')
+    serializer_class = MovieCreateSerializer
 
 
 class ActivityView(ModelViewSet):

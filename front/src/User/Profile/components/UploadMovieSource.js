@@ -13,11 +13,18 @@ import {
     InputNumber,
     notification,
     Tooltip,
-    Divider, BackTop
+    Divider,
+    BackTop,
+    Tag,
+    DatePicker,
 } from 'antd'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import {connect} from 'react-redux';
+
+
+const {MonthPicker} = DatePicker;
+const {CheckableTag} = Tag;
 
 const {Title} = Typography;
 const openNotificationWithIconS = (type) => {
@@ -33,7 +40,7 @@ const openNotificationWithIconE = (type) => {
         description: "You don't have permission",
         duration: 2
     })
-}
+};
 const {TextArea} = Input;
 
 function beforeUpload(file) {
@@ -46,66 +53,105 @@ function beforeUpload(file) {
 
 class MovieEditor extends Component {
     state = {
-        imageUrl: '',
-        loading: false
+        loading: false,
+        selectedTags: [],
+        tagsFromServer: [],
+        movieName: "",
     };
+    componentDidMount = async v => {
+        await this.getCategoryData();
+    };
+
+    getCategoryData = async v => {
+        await axios.get('http://127.0.0.1:8000/api/movie/categories/?format=json')
+            .then(res => {
+                this.setState({
+                    tagsFromServer: res.data,
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+    };
+
+    handleChange(tag, checked) {
+        const {selectedTags} = this.state;
+        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
+        // console.log('You are interested in: ', nextSelectedTags);
+        this.setState({selectedTags: nextSelectedTags});
+        // console.log(selectedTags)
+    }
 
     handleSubmit = async (e) => {
         e.preventDefault();
         this.props.form.validateFields(async (error, values) => {
-            if (!error) {
                 this.setState({
-                    loading: true
+                    loading: true,
                 });
-                const submitData = {
-                    name: values.name,
-                    region: values.region,
-                    number: values.number,
-                    length: values.length,
-                    poster: values.poster ? values.poster[0].response.data.link : '',
-                    overview: values.overview,
-                    description: values.description,
-                    actors: values.actors,
-                    director: values.director,
-                    scriptwriter: values.scriptwriter,
-                };
-                try {
-                    let config = {
-                        headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
+                let cateArray = [];
+                this.state.selectedTags.map((tag) =>
+                    cateArray.push(tag.id)
+                );
+
+                if (!error) {
+                    this.setState({
+                        loading: true,
+                    });
+                    const submitData = {
+                        name: values.name,
+                        region: values.region,
+                        length: values.length,
+                        poster: values.poster ? values.poster[0].response.data.link : '',
+                        description: values.description,
+                        actors: values.actors,
+                        director: values.director,
+                        scriptwriter: values.scriptwriter,
+                        category: cateArray,
+                        video: values.video,
+                        release_date: values.release_date,
+                        language: values.language,
                     };
-                    const response = await axios.post(
-                        'http://127.0.0.1:8000/api/movie/movies/',
+                    await axios.post(
+                        'http://127.0.0.1:8000/api/movie/create_movie/',
                         {
                             name: submitData.name,
                             region: submitData.region,
-                            number: submitData.number,
                             length: submitData.length,
-                            cover: submitData.cover,
                             description: submitData.description,
                             actors: submitData.actors,
                             director: submitData.director,
                             scriptwriter: submitData.scriptwriter,
-                            poster: submitData.poster
+                            poster: submitData.poster,
+                            category: submitData.category,
+                            video: submitData.video,
+                            release_date: submitData.release_date,
+                            language: submitData.language,
                         },
-                        config
-                    );
-                    this.setState({
-                        loading: false
-                    });
-                    if (response.status === 201) {
-                        openNotificationWithIconS('success');
-                        this.props.history.replace('/movie')
-                    }
-                } catch (error) {
-                    if (error.response.status === 403) {
-                        openNotificationWithIconE('error');
+                        {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+                    ).then(response => {
+                        console.log(response.data);
                         this.setState({
-                            loading: false
-                        })
-                    }
+                            loading: false,
+                            movieName: values.name
+                        });
+                        if (response.status === 201) {
+                            openNotificationWithIconS('success');
+                            this.props.history.replace({pathname: '/stills_upload', state: {name: this.state.movieName}})
+                        }
+                    }).catch(error => {
+                            console.log(error.response.data);
+                            if (error.response.status === 403) {
+                                openNotificationWithIconE('error');
+                                this.setState({
+                                    loading: false
+                                })
+                            }
+                        }
+                    );
                 }
             }
-        })
+        )
     };
 
     normFile = e => {
@@ -118,13 +164,14 @@ class MovieEditor extends Component {
     customRequest = async (info) => {
         try {
             let formData = new window.FormData();
-            formData.append('smfile', info.file);
+            formData.append('image', info.file);
             const response = await axios.post(
                 info.action,
                 formData,
                 {
                     headers: {
-                        'content-type': 'multipart/form-data'
+                        'content-type': 'multipart/form-data',
+                        'Authorization': 'Client-ID d0b3bf7724440e7',
                     }
                 }
             );
@@ -136,6 +183,7 @@ class MovieEditor extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {selectedTags, tagsFromServer} = this.state;
 
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
@@ -150,11 +198,11 @@ class MovieEditor extends Component {
                             borderRadius: '2px'
                         }}>
                             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline'}}>
-                                <Title level={3}>欢迎你，可爱的编辑</Title>
+                                <Title level={3}>Step 1 - Upload Basic Movie Info</Title>
                                 <Divider type='vertical'/>
                                 <Link to='/editor_guidance'>编辑须知</Link>
                             </div>
-                            <Form onSubmit={this.handleSubmit} className='book-editor-form'>
+                            <Form onSubmit={this.handleSubmit} className='movie-editor-form'>
                                 <Form.Item
                                     label='Movie name'>
                                     {getFieldDecorator('name', {
@@ -166,52 +214,79 @@ class MovieEditor extends Component {
                                         ]
                                     })(<Input/>)}
                                 </Form.Item>
+                                <Form.Item
+                                    label='Category'>
+                                    {getFieldDecorator('category', {
+                                        rules: [
+                                            {}
+                                        ]
+                                    })(<div>
+                                        {tagsFromServer.map(tag => (
+                                            <CheckableTag
+                                                key={'upload_movie_tags' + tag.id}
+                                                checked={selectedTags.indexOf(tag) > -1}
+                                                onChange={checked => this.handleChange(tag, checked)}
+                                            >
+                                                {tag.name}
+                                            </CheckableTag>
+                                        ))}
+                                    </div>)}
+                                </Form.Item>
+                                <Form.Item
+                                    label='Language'>
+                                    {getFieldDecorator('language', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input the language of movie!'
+                                            }
+                                        ]
+                                    })(<Input/>)}
+                                </Form.Item>
+                                <Form.Item label="Release Date">
+                                    {getFieldDecorator('release_date', {
+                                        rules: [{type: 'object', required: true, message: 'Please select time!'}]
+                                    })(<MonthPicker/>)}
+                                </Form.Item>
                                 <Form.Item label='Region'>
                                     {getFieldDecorator('region', {
                                         rules: [
-                                            {}
+                                            {
+                                                required: true,
+                                                message: 'Please input the produced region of movie!'
+                                            }
                                         ]
                                     })(<Input/>)}
                                 </Form.Item>
                                 <Form.Item label='Director'>
                                     {getFieldDecorator('director', {
                                         rules: [
-                                            {}
+                                            {
+                                                required: true,
+                                                message: 'Please input the director of movie!'
+                                            }
                                         ]
                                     })(<Input/>)}
                                 </Form.Item>
                                 <Form.Item label='Actor'>
                                     {getFieldDecorator('actors', {
                                         rules: [
-                                            {}
+                                            {
+                                                required: true,
+                                                message: 'Please input the actors of movie!'
+                                            }
                                         ]
                                     })(<Input/>)}
                                 </Form.Item>
                                 <Form.Item label='Scriptwriter'>
                                     {getFieldDecorator('scriptwriter', {
                                         rules: [
-                                            {}
-                                        ]
-                                    })(<Input/>)}
-                                </Form.Item>
-                                <Form.Item label={(
-                                    <span>
-                                        集数&nbsp;
-                                        <Tooltip title='电影就是默认一集'>
-                                            <Icon type='question-circle-o'/>
-                                        </Tooltip>
-                                    </span>
-                                )}>
-                                    {getFieldDecorator('number', {
-                                        initialValue: 1,
-                                        rules: [
                                             {
                                                 required: true,
-                                                message: 'Please input the numbers of movie!'
+                                                message: 'Please input the scriptwriter of movie!'
                                             }
                                         ]
-                                    })(<InputNumber min={0} max={100000000000}/>)}
-                                    <span className='ant-form-text'>集</span>
+                                    })(<Input/>)}
                                 </Form.Item>
                                 <Form.Item label={(
                                     <span>
@@ -232,28 +307,38 @@ class MovieEditor extends Component {
                                     })(<InputNumber min={0} max={100000000000}/>)}
                                     <span className='ant-form-text'>minutes</span>
                                 </Form.Item>
+                                <Form.Item
+                                    label='Movie trailer'>
+                                    {getFieldDecorator('video', {
+                                        rules: [
+                                            {}
+                                        ]
+                                    })(<Input
+                                        placeholder='Example: www.youtube.com/embed/FnCdOQsX5kc.'
+                                    />)}
+                                </Form.Item>
                                 <Form.Item label='Description'>
                                     {getFieldDecorator('description', {
                                         rules: [
                                             {}
                                         ]
                                     })(<TextArea
-                                        placeholder='简要说说这部片吧'
-                                        autosize={{minRows: 2, maxRows: 20}}
+                                        placeholder='Say something about the movie...'
+                                        autoSize={{minRows: 8, maxRows: 30}}
                                     />)}
                                 </Form.Item>
-                                <Form.Item label='封面'>
-                                    {getFieldDecorator('cover', {
+                                <Form.Item label='Movie Cover'>
+                                    {getFieldDecorator('poster', {
                                         valuePropName: 'fileList',
                                         getValueFromEvent: this.normFile
                                     })(
                                         <Upload name='cover'
-                                                action='https://sm.ms/api/upload'
+                                                action='https://api.imgur.com/3/image'
                                                 listType='picture'
                                                 customRequest={this.customRequest}
                                                 beforeUpload={beforeUpload}>
                                             <Button>
-                                                <Icon type='upload'/> 点击上传
+                                                <Icon type='upload'/> Click to upload
                                             </Button>
                                         </Upload>
                                     )}

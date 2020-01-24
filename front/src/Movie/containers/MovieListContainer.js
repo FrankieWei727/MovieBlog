@@ -37,15 +37,6 @@ class MovieList extends React.Component {
         this.setState({loading: false});
     };
 
-    // componentDidMount() {
-    //     axios.get("http://127.0.0.1:8000/api/movie/movies")
-    //         .then(res => {
-    //             this.setState({
-    //                 movies: res.data,
-    //             });
-    //         });
-    // }
-
     getData = async v => {
         try {
             let url = "";

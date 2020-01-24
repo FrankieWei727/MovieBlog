@@ -31,20 +31,41 @@ class ActivitySerializer(serializers.ModelSerializer):
 class StillsGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = StillsGallery
-        fields = ('id', 'photo', 'url')
+        fields = ('id', 'photo', 'movie')
+
+        def create(self, validated_data):
+            print(validated_data)
 
 
 class MovieSerializer(serializers.ModelSerializer):
-    stills = StillsGallerySerializer(many=True)
+    stills = StillsGallerySerializer(many=True, read_only=True)
     category = CategorySerializer(many=True)
-    videos = VideoSourceSerializer(many=True)
+    videos = VideoSourceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
-        fields = ('id', 'url', 'name', 'slug', 'director', 'scriptwriter',
+        fields = ('id', 'url', 'name', 'director', 'scriptwriter',
                   'region', 'actors', 'length', 'release_date', 'language',
                   'description', 'poster', 'rank', 'created', 'updated', 'video',
                   'movie_views', 'category', 'users_like', 'stills', 'videos')
+        read_only_fields = ['users_like']
+
+
+class MovieCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ('id', 'url', 'name', 'director', 'scriptwriter',
+                  'region', 'actors', 'length', 'release_date', 'language',
+                  'description', 'poster', 'created', 'updated', 'video',
+                  'movie_views', 'category')
+
+    def create(self, validated_data):
+        categories = validated_data.pop('category')
+        movie = Movie.objects.create(**validated_data)
+        movie.category.set(categories)
+        movie.save()
+
+        return movie
 
 
 class MovieListSerializer(serializers.ModelSerializer):
