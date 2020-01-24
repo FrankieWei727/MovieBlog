@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "postinstall": "cd front && npm install",
-    "postbuild": "cd front && npm run build",
+    "install": "cd front && npm install",
+    "build": "cd front && npm run build",
     "start": "cd front && npm start"
   },
   "engines": {
