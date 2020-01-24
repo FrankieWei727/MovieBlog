@@ -1,8 +1,8 @@
 {
   "scripts": {
+    "start": "cd front && npm start",
     "install": "cd front && npm install",
-    "build": "cd front && npm run build",
-    "start": "cd front && npm start"
+    "build": "cd front && npm run build"
   },
   "engines": {
     "node": "13.0.1",
