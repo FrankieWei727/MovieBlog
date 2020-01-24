@@ -1,5 +1,11 @@
 {
   "scripts": {
-    "postinstall": "cd front"
+    "postinstall": "cd front && npm install",
+    "start": "cd front && npm start",
+    "heroku-postbuild": "cd front && npm run bulid"
+  },
+  "engines": {
+    "node": "13.0.1",
+    "npm": "6.12.0"
   }
 }
