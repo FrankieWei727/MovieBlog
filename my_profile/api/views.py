@@ -53,7 +53,7 @@ def validate_username(request, username):
 # Validate duplicate email address
 @api_view(['GET'])
 def validate_email(request, email):
-    queryset = User.objects.get(email=email)
+    queryset = get_object_or_404(email=email)
     serializer = UserSingUpSerializer(queryset)
     if serializer:
         return Response(serializer.data, status=status.HTTP_200_OK)
