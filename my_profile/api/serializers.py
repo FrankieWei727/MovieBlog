@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from rest_framework.fields import CharField
+
 from my_profile.models import Profile, User
 
 
@@ -25,3 +28,9 @@ class UserSerializer(serializers.ModelSerializer):
             profile.avatar = profile_data.get('avatar', profile.avatar)
             profile.save()
         return super(UserSerializer, self).update(instance, validated_data)
+
+
+class UserSingUpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email')

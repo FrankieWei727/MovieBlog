@@ -17,6 +17,6 @@ urlpatterns = [
       path('api/comment/', include('comment.api.urls')),
       path('api/movie/', include('movie.api.urls')),
 
-      re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
+      # re_path(r'^.*', TemplateView.as_view(template_name='index.html')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Layout, Form, Input, Tooltip, Icon, Row, Col, Button, Checkbox, message} from "antd";
+import {Layout, Form, Input, Tooltip, Icon, Row, Col, Button, Checkbox} from "antd";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import * as actions from "../Store/actions/auth";
@@ -9,11 +9,12 @@ const FormItem = Form.Item;
 
 class Register extends Component {
     state = {
-        confirmDirty: false
+        confirmDirty: false,
+        emailValidateStatus: "",
+        emailError: "",
+        usernameError: "",
+        passwordError: "",
     };
-
-    componentDidMount() {
-    }
 
     handleConfirmBlur = e => {
         const value = e.target.value;
@@ -21,45 +22,89 @@ class Register extends Component {
     };
 
     compareToFirstPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue("password")) {
-            window.callback("Two passwords that you enter is inconsistent!");
+        const {form} = this.props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Two passwords that you enter is inconsistent!');
         } else {
             callback();
         }
     };
 
-    validateToNextPassword = (rule, value, callback) => {
+
+    validateToNextPassword = async (rule, value, callback) => {
         const form = this.props.form;
         if (value && this.state.confirmDirty) {
             form.validateFields(["confirm"], {force: true});
         }
-        callback();
+        await axios.get(
+            'http://127.0.0.1:8000/api/account/user_password/validate/' + value)
+            .then(res => {
+                this.setState({
+                    passwordError: res.data.data[0],
+                });
+            }).catch(e => {
+                this.setState({
+                    passwordError: null
+                })
+            });
+        if (this.state.passwordError) {
+            callback(this.state.passwordError);
+        } else {
+            callback();
+        }
     };
 
-    Join = async v => {
+
+    validateToUsername = async (rule, value, callback) => {
+        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
+            .then(response => {
+                if (value === response.data.username) {
+                    this.setState({
+                        usernameError: "This username has been registered!",
+                    });
+                }
+            }).catch(err => {
+                this.setState({
+                    usernameError: null
+                });
+            });
+        if (this.state.usernameError) {
+            callback(this.state.usernameError);
+        } else {
+            callback();
+        }
+    };
+
+
+    validateToEmail = async (rule, value, callback) => {
+        await axios.get('http://127.0.0.1:8000/api/account/user_email/validate/' + value)
+            .then(response => {
+                if (value === response.data.email) {
+                    this.setState({
+                        emailError: "This email address has been registered!",
+                    });
+                }
+            }).catch(err => {
+                this.setState({
+                    emailError: null
+                });
+            });
+        if (this.state.emailError) {
+            callback(this.state.emailError);
+        } else {
+            callback();
+        }
+    };
+
+    Auth = async v => {
+        console.log(v);
         try {
-            const responseJoin = await axios.post(
-                "https://finewf.club:8080/api/users/",
-                {
-                    username: v.username,
-                    password: v.password,
-                    email: v.email
-                }
-            );
-            const response = await axios.post(
-                "https://finewf.club:8080/api-token-auth/",
-                {
-                    username: v.username,
-                    password: v.password
-                }
-            );
-            window.localStorage.setItem("token", response.data.token);
-            message.success("Join Successful, Welcome " + response.data.user_name);
-            window.localStorage.setItem("user_id", response.data.user_id);
-            this.props.history.replace("/home");
+            this.props.signup(v.username, v.email, v.password, v.confirm);
+            if (this.state.token !== null) {
+                this.props.history.replace("/home");
+            }
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data);
         }
     };
 
@@ -67,12 +112,13 @@ class Register extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.Join(values);
+                this.Auth(values);
             }
         });
     };
 
     render() {
+
         const {getFieldDecorator} = this.props.form;
         const formItemLayout = {
             labelCol: {
@@ -104,40 +150,39 @@ class Register extends Component {
                             xxl={{span: 10, offset: 7}}
                             xl={{span: 12, offset: 6}}
                             xs={{span: 22, offset: 1}}
-                            style={{background: 'white', padding: '50px 40px'}}
-                        >
-                            <h1 style={{fontSize: "40px"}}>Join FWF</h1>
-                            <p
-                                style={{
-                                    color: "#586069",
-                                    fontSize: "20px",
-                                    paddingBottom: "20px"
-                                }}
-                            >
-                                Fine Water Flow, 细水宜长流
+                            style={{background: 'white', padding: '50px 40px', maxWidth: "600px"}}>
+                            <h1 style={{fontSize: "40px"}}>Welcome</h1>
+                            <p style={{
+                                color: "#586069",
+                                fontSize: "20px",
+                                paddingBottom: "20px"
+                            }}>
+                                Mlinked is here!
                             </p>
-                            <Form onSubmit={this.handleSubmit} labelAlign='left' layout='vertical'>
+                            <Form {...formItemLayout} onSubmit={this.handleSubmit} labelAlign='left' layout='vertical'>
                                 <FormItem
-                                    {...formItemLayout}
+                                    hasFeedback
                                     label={
                                         <span>
                                             Username&nbsp;
                                             <Tooltip title="Who are you">
                                                  <Icon type="question-circle-o"/>
                                              </Tooltip>
-                                        </span>}
-                                >
+                                        </span>}>
                                     {getFieldDecorator("username", {
                                         rules: [
                                             {
                                                 required: true,
                                                 message: "Please input your username!",
                                                 whitespace: true
+                                            },
+                                            {
+                                                validator: this.validateToUsername
                                             }
                                         ]
                                     })(<Input/>)}
                                 </FormItem>
-                                <FormItem {...formItemLayout} label="E-mail">
+                                <FormItem label="E-mail" hasFeedback>
                                     {getFieldDecorator("email", {
                                         rules: [
                                             {
@@ -147,11 +192,14 @@ class Register extends Component {
                                             {
                                                 required: true,
                                                 message: "Please input your E-mail!"
+                                            },
+                                            {
+                                                validator: this.validateToEmail
                                             }
                                         ]
                                     })(<Input/>)}
                                 </FormItem>
-                                <FormItem {...formItemLayout} label="Password">
+                                <FormItem label="Password" hasFeedback>
                                     {getFieldDecorator("password", {
                                         rules: [
                                             {
@@ -162,9 +210,9 @@ class Register extends Component {
                                                 validator: this.validateToNextPassword
                                             }
                                         ]
-                                    })(<Input type="password"/>)}
+                                    })(<Input.Password/>)}
                                 </FormItem>
-                                <FormItem {...formItemLayout} label="Confirm Password">
+                                <FormItem label="Confirm Password" hasFeedback>
                                     {getFieldDecorator("confirm", {
                                         rules: [
                                             {
@@ -172,10 +220,10 @@ class Register extends Component {
                                                 message: "Please confirm your password!"
                                             },
                                             {
-                                                validator: this.compareToFirstPassword
+                                                validator: this.compareToFirstPassword,
                                             }
                                         ]
-                                    })(<Input type="password" onBlur={this.handleConfirmBlur}/>)}
+                                    })(<Input.Password onBlur={this.handleConfirmBlur}/>)}
                                 </FormItem>
                                 <FormItem {...tailFormItemLayout}>
                                     {getFieldDecorator("agreement", {

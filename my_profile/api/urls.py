@@ -11,4 +11,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('user/<int:pk>/apply/', views.apply_editor_permission, name='apply-editor-permission'),
     path('user/<int:pk>/cancel_apply/', views.cancel_apply_editor_permission, name='cancel-apply-editor-perm'),
+    path('user_name/validate/<str:username>', views.validate_username, name='user-name-validate'),
+    path('user_email/validate/<str:email>', views.validate_email, name='user-email-validate'),
+    path('user_password/validate/<str:password>', views.validate_password, name='user-email-password'),
 ]

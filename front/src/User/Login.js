@@ -1,8 +1,6 @@
 import React from 'react'
-// import {Button, Grid, Header, Message, Segment} from 'semantic-ui-react'
 import {connect} from 'react-redux';
 import * as actions from '../Store/actions/auth';
-import {Redirect} from 'react-router-dom';
 import {Form, Icon, Input, Button, Checkbox, Layout, Row, Col, message} from 'antd';
 
 class LoginForm extends React.Component {

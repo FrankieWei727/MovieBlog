@@ -7,7 +7,6 @@ import MovieSourceEditor from "./User/Profile/components/UploadMovieSource";
 import MovieStillsSourceEditor from "./User/Profile/components/UploadMovieStills";
 import Login from "./User/Login";
 import Logout from "./User/Logout";
-import SignUp from "./User/SignUp";
 import Register from "./User/Register";
 import Home from "./Home/components/Home";
 import EventList from "./Event/containers/EventListContainer";
