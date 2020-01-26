@@ -31,49 +31,6 @@ class MovieDetail extends React.Component {
         this.setState({prelock: true});
     }
 
-// render() {
-//
-//     let likes = 0;
-//     if (this.state.movie.users_like) {
-//         likes = this.state.movie.users_like.length;
-//     } else {
-//         likes = 0;
-//     }
-//
-//     return (
-//         <Grid container style={{paddingTop: '10em'}}>
-//             <Grid>
-//                 <Header as={'h1'}>{this.state.movie.name}</Header>
-//             </Grid>
-//             <Grid.Row>
-//                 <Grid.Column width={9}>
-//                     <Image src={this.state.movie.poster}/>
-//                 </Grid.Column>
-//                 <Grid.Column width={3}>
-//                     <Statistic size='mini' horizontal label='Views' value={this.state.movie.movie_views}/>
-//                     <Statistic size='mini' horizontal label='Likes' value={likes}/>
-//                     <Icon size='large' color='red' name='like'/>
-//                 </Grid.Column>
-//             </Grid.Row>
-//             <Grid>
-//                 <Container style={{paddingBottom: '5em'}}>
-//                     <List size='large'>
-//                         <List.Item><List.Header>Year</List.Header> {this.state.movie.year}</List.Item>
-//                         <List.Item><List.Header>Language</List.Header> {this.state.movie.language}</List.Item>
-//                         <List.Item><List.Header>Director</List.Header>{this.state.movie.director}</List.Item>
-//                         <List.Item><List.Header>Scriptwriter</List.Header> {this.state.movie.scriptwriter}
-//                         </List.Item>
-//                         <List.Item><List.Header>Nation</List.Header> {this.state.movie.nation}</List.Item>
-//                         <List.Item><List.Header>Star</List.Header> {this.state.movie.star}</List.Item>
-//                         <List.Item><List.Header>Description</List.Header> <p>{this.state.movie.description}</p>
-//                         </List.Item>
-//                     </List>
-//                 </Container>
-//             </Grid>
-//         </Grid>
-//
-//     )
-// }
     render() {
 
         const {prelock} = this.state;
@@ -163,7 +120,7 @@ class MovieDetail extends React.Component {
                                                 <div style={{color: '#fff', fontWeight: '700'}}>{movie.language}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Rank</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.rank}</div>
+                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.rank}/5.00</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Views</span>}>
                                                 <div
@@ -189,7 +146,8 @@ class MovieDetail extends React.Component {
                                         <Descriptions>
                                             <Descriptions.Item>
                                                 <div style={{paddingTop: "4px"}}>
-                                                    <Icon type="heart" theme="filled" style={{fontSize: '20px',color:"red"}}/>
+                                                    <Icon type="heart" theme="filled"
+                                                          style={{fontSize: '20px', color: "red"}}/>
                                                 </div>
                                             </Descriptions.Item>
                                         </Descriptions>

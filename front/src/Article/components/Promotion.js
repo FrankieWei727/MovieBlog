@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1242637_ng8zkbwomt.js'
+    scriptUrl: '//at.alicdn.com/t/font_1621723_d4ja70ia33v.js'
 })
 
 const {Title} = Typography;
@@ -56,10 +56,9 @@ class PromotionList extends Component {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'right'
                         }}>
-                            <IconFont type='icon-article' style={{fontSize: '36px'}}/>
-                            <div>Write Article</div>
+                            <IconFont type='iconxiewenzhang' style={{fontSize: '36px'}}/>
                         </div>
                     </Link>
                     <Link to={this.state.switch ? '/book_editor_page' : '/settings/account'}>
@@ -69,8 +68,7 @@ class PromotionList extends Component {
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}>
-                            <IconFont type='icon-book' style={{fontSize: '36px'}}/>
-                            <div>推书籍</div>
+                            <IconFont type='iconshuben' style={{fontSize: '36px'}}/>
                         </div>
                     </Link>
                     <Link to={this.state.switch ? '/movie_editor_page' : '/settings/account'}>
@@ -78,10 +76,9 @@ class PromotionList extends Component {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'left'
                         }}>
-                            <IconFont type='icon-movie' style={{fontSize: '36px'}}/>
-                            <div>推影视</div>
+                            <IconFont type='icondianying' style={{fontSize: '36px'}}/>
                         </div>
                     </Link>
                 </div>

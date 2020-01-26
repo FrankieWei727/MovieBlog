@@ -36,66 +36,55 @@ class DesktopContainer extends Component {
                 <Visibility
                     once={false}
                     onBottomPassed={this.showFixedMenu}
-                    onBottomPassedReverse={this.hideFixedMenu}
-                >
-                    <Segment
-                        inverted
-                        textAlign='center'
-                        style={{minHeight: 100, padding: '1em 0em'}}
-                        vertical
-                    >
-                        <Menu
-                            fixed={fixed ? 'top' : null}
-                            inverted={!fixed}
-                            pointing={!fixed}
-                            secondary={!fixed}
-                            size='large'
-                        >
-                            <Container>
-                                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-                                    Home
-                                </Menu.Item>
-                                <Menu.Item name='movie' active={activeItem === 'movie'} onClick={this.handleItemClick}>
-                                    Movie
-                                </Menu.Item>
-                                <Menu.Item name='article' active={activeItem === 'article'}
-                                           onClick={this.handleItemClick}>
-                                    Blog</Menu.Item>
-                                <Menu.Item name='event' active={activeItem === 'event'} onClick={this.handleItemClick}>
-                                    Event
-                                </Menu.Item>
+                    onBottomPassedReverse={this.hideFixedMenu}>
+                    <Menu
+                        fixed={fixed ? 'top' : null}
+                        pointing={!fixed}
+                        secondary={!fixed}
+                        size='large'>
+                        <Container>
+                            <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
+                                Home
+                            </Menu.Item>
+                            <Menu.Item name='movie' active={activeItem === 'movie'} onClick={this.handleItemClick}>
+                                Movie
+                            </Menu.Item>
+                            <Menu.Item name='article' active={activeItem === 'article'}
+                                       onClick={this.handleItemClick}>
+                                Blog</Menu.Item>
+                            <Menu.Item name='event' active={activeItem === 'event'} onClick={this.handleItemClick}>
+                                Event
+                            </Menu.Item>
+                            {
+                                this.props.isAuthenticated ?
+                                    <Menu.Item name='profile' active={activeItem === 'profile'}
+                                               onClick={this.handleItemClick}>
+                                        Profile
+                                    </Menu.Item>
+                                    :
+                                    <div></div>
+
+                            }
+                            <Menu.Item position='right'>
                                 {
                                     this.props.isAuthenticated ?
-                                        <Menu.Item name='profile' active={activeItem === 'profile'}
-                                                   onClick={this.handleItemClick}>
-                                            Profile
-                                        </Menu.Item>
+                                        <Button inverted={!fixed} onClick={this.props.logout}>
+                                            <Link to={'/logout'}>Log out</Link>
+                                        </Button>
                                         :
-                                        <div></div>
-
-                                }
-                                <Menu.Item position='right'>
-                                    {
-                                        this.props.isAuthenticated ?
-                                            <Button inverted={!fixed} onClick={this.props.logout}>
-                                                <Link to={'/logout'}>Log out</Link>
+                                        <div>
+                                            <Button inverted={!fixed}>
+                                                <Link to={'/login'}>Log in</Link>
                                             </Button>
-                                            :
-                                            <div>
-                                                <Button inverted={!fixed}>
-                                                    <Link to={'/login'}>Log in</Link>
-                                                </Button>
-                                                <Button inverted={!fixed} style={{marginLeft: '0.5em'}}>
-                                                    <Link to={'/signup'}>Sign Up</Link>
-                                                </Button>
-                                            </div>
-                                    }
-                                </Menu.Item>
-                            </Container>
-                        </Menu>
-                    </Segment>
+                                            <Button inverted={!fixed} style={{marginLeft: '0.5em'}}>
+                                                <Link to={'/signup'}>Sign Up</Link>
+                                            </Button>
+                                        </div>
+                                }
+                            </Menu.Item>
+                        </Container>
+                    </Menu>
                 </Visibility>
-
                 {children}
             </Responsive>
         )

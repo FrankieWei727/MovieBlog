@@ -40,17 +40,13 @@ class Movie(models.Model):
     region = models.CharField(max_length=100)
     actors = models.CharField(max_length=200)
     length = models.CharField(max_length=100)
-
     release_date = models.CharField(max_length=100, default="")
     language = models.CharField(max_length=200, blank=True, null=True)
-
     description = models.TextField(blank=True)
     poster = models.CharField(max_length=300, blank=True, default="")
     rank = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
     users_like = models.ManyToManyField(User,
                                         related_name='movies_liked',
                                         blank=True)

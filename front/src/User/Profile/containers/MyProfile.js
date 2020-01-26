@@ -45,7 +45,7 @@ function beforeUpload(file) {
 }
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1242637_bctqp8owe4o.js'
+    scriptUrl: '//at.alicdn.com/t/font_1621723_d4ja70ia33v.js'
 });
 
 class MyProfile extends Component {
@@ -138,7 +138,7 @@ class MyProfile extends Component {
     render() {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
-                <Row style={{marginTop: '15px'}}>
+                <Row style={{padding: '0 50px',paddingTop:'50px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                         <div style={{
@@ -222,7 +222,7 @@ class MyProfile extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{flex: '1 0', paddingTop: '15px', paddingBottom: '30px'}}>
+                <Row style={{flex: '1 0', padding: '20px 50px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 14, offset: 2}} md={{span: 14, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{
                         background: '#fff',
@@ -231,13 +231,13 @@ class MyProfile extends Component {
                         boxShadow: '0 1px 3px rgba(26,26,26,.1)'
                     }}>
                         <Tabs defaultActiveKey='1' size='large'>
-                            <TabPane tab={<span><IconFont type='icon-wenzhang'/>My Articles</span>} key='1'>
+                            <TabPane tab={<span><IconFont type='iconwenzhang'/>My Articles</span>} key='1'>
                                 <MyArticleList/>
                             </TabPane>
-                            <TabPane tab={<span><IconFont type='icon-meishi1'/>我的关注</span>} key='2'>
+                            <TabPane tab={<span><IconFont type='iconfabu-'/>我的关注</span>} key='2'>
                                 {/*<FollowList/>*/}
                             </TabPane>
-                            <TabPane tab={<span><IconFont type='icon-meishi1'/>关注我的</span>} key='3'>
+                            <TabPane tab={<span><IconFont type='iconfensi'/>关注我的</span>} key='3'>
                                 {/*<FollowerList/>*/}
                             </TabPane>
                         </Tabs>

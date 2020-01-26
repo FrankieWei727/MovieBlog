@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Comment, Avatar, Form, Button, List, Input, message, Rate} from 'antd'
+import {Comment, Avatar, Form, Button, List, Input, message, Rate, Tooltip} from 'antd'
 import moment from 'moment'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
@@ -20,7 +20,15 @@ const CommentList = ({comments, username}) => (
                     to={(item.id + '' === window.localStorage.getItem('user_id') ? '/profile/' : '/visit/') + item.id}><Avatar
                     src={item.user ? item.avatar : item.avatar}/></Link>)}
                 content={item.content}
-                datetime={moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
+                datetime={
+                    <div>
+                        <Tooltip title={moment(item.created).format('YYYY-MM-DD HH:mm:ss')}>
+                            <span>{moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}</span>
+                        </Tooltip>
+                        <Rate disabled={true} style={{fontSize: 12, paddingLeft: '6px'}} allowHalf
+                              value={item.rate ? parseFloat(item.rate) : parseFloat(this.state.rate)}/>
+                    </div>
+                }
             />
         )}
     />
@@ -61,7 +69,7 @@ class AddMovieReview extends Component {
         username: '',
         avatarUrl: '',
         user: {},
-        rate: 2.5,
+        rate: 0,
     };
 
     componentDidMount = async (v) => {
@@ -116,6 +124,30 @@ class AddMovieReview extends Component {
         }
     };
 
+    handleMovieRank = async (rate) => {
+        const {comments} = this.state;
+        let RateArray = 0;
+        if (comments.length === 1) {
+            RateArray = RateArray + parseFloat(comments.rate)
+        } else if (comments.length === 0) {
+            RateArray = 0
+        } else {
+            comments.map((comment) =>
+                RateArray = RateArray + parseFloat(comment.rate))
+        }
+        let rank = (RateArray + rate) / (comments.length + 1);
+        console.log("comments", comments, "eeeee", rank, typeof rank, "RateArray", RateArray);
+        await axios.patch('http://127.0.0.1:8000/api/movie/update_movie_rank/' + this.props.movieId,
+            {
+                rank: rank.toFixed(2),
+                id: this.props.movieId,
+            },
+            {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}})
+            .catch(err => {
+                console.log(err.response.data)
+            })
+    };
+
     sendComment = async (value, rate) => {
         try {
             let config = {
@@ -137,6 +169,7 @@ class AddMovieReview extends Component {
         } catch (error) {
             console.log(error)
         }
+        this.handleMovieRank(rate)
     };
 
     handleSubmit = () => {
@@ -156,6 +189,7 @@ class AddMovieReview extends Component {
                     {
                         username: this.state.username,
                         avatar: this.state.avatarUrl,
+                        rate: this.state.rate,
                         content: <p>{this.state.value}</p>,
                         created: moment()
                     }

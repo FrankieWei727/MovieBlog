@@ -28,7 +28,7 @@ class BlogList extends Component {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
                 <BackTop/>
-                <Row style={{flex: '1 0', padding: '15px 0'}}>
+                <Row style={{flex: '1 0', padding: '50px 50px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{
                         marginBottom: '20px',

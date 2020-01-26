@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views import (
     MovieView,
     MovieCreateView,
+    MovieRankUpdateView,
     ActivityView,
     CategoryView,
     CategoryGroupView,
@@ -21,5 +22,6 @@ router.register(r'videos', VideoSourceView)
 urlpatterns = [
 
     path(r'', include(router.urls)),
-    path('create_movie/', MovieCreateView.as_view(), name='create_movie')
+    path('create_movie/', MovieCreateView.as_view(), name='create_movie'),
+    path('update_movie_rank/<int:pk>', MovieRankUpdateView.as_view(), name='update_movie_rank')
 ]

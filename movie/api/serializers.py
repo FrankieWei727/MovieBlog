@@ -64,8 +64,19 @@ class MovieCreateSerializer(serializers.ModelSerializer):
         movie = Movie.objects.create(**validated_data)
         movie.category.set(categories)
         movie.save()
-
         return movie
+
+
+class MovieRankUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ('id', 'name', 'rank')
+
+    def update(self, instance, validated_data):
+        print(validated_data)
+        instance.rank = validated_data.get('rank', instance.rank)
+        instance.save()
+        return instance
 
 
 class MovieListSerializer(serializers.ModelSerializer):
