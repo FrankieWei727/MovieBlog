@@ -1,5 +1,6 @@
 import django_heroku
 import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
@@ -11,7 +12,7 @@ SECRET_KEY = '=8&e5@9(1-*t6rtapt(f=kwm@vf!bp7pj7!*h*397tgfd(_j*j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mlinked.herokuapp.com', '127.0.0.1', 'localhost:3000']
+ALLOWED_HOSTS = ['mlinked.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -200,7 +201,6 @@ ACCOUNT_EMAIL_REQUIRED = False
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'my_profile.api.serializers.UserSerializer',
 }
-
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
