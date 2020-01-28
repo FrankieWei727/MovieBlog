@@ -29,10 +29,10 @@ const HomepageHeading = ({mobile}) => {
         </Container>
     )
 
-}
+};
 
 HomepageHeading.propTypes = {
     mobile: PropTypes.bool,
-}
+};
 
 export default HomepageHeading;
