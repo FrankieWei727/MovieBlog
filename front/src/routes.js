@@ -14,7 +14,8 @@ import EventDetail from "./Event/containers/EventDetailContainer";
 import Blog from "./Article/containers/ArticleListContainer";
 import CreateArticle from "./Article/components/CreateArticle";
 import ArticleDetail from "./Article/containers/ArticleDetailContainer";
-import MyProfile from "./User/Profile/containers/MyProfile";
+import MyProfileContainer from "./User/Profile/containers/MyProfileContainer";
+import VisitOtherUserProfile from "./User/Profile/containers/VisitOtherUserProfileContainer";
 import EditProfile from "./User/Profile/components/EditProfile";
 import SetPermission from "./User/Profile/components/SetPermission";
 import ReviseArticle from "./User/Profile/components/ReviseArticle";
@@ -32,7 +33,8 @@ const BaseRouter = () => (
         <Route exact path='/login/' component={Login}/>
         <Route exact path='/logout/' component={Logout}/>
         <Route exact path='/signup/' component={Register}/>
-        <Route exact path='/profile/' component={MyProfile}/>
+        <Route exact path='/profile/' component={MyProfileContainer}/>
+        <Route exact path='/visit/profile/:id' component={VisitOtherUserProfile}/>
         <Route exact path='/profile/setting/' component={EditProfile}/>
         <Route exact path='/permission/setting/' component={SetPermission}/>
         <Route exact path='/article' component={Blog}/>

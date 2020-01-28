@@ -6,7 +6,7 @@ const Content = props => (
     <div style={{display: "flex", flexDirection: "column", width: "360px"}}>
         <div
             style={{
-                backgroundImage: `url(${props.user.profile.cover})`,
+                backgroundImage: `url(${props.author.profile.cover})`,
                 backgroundSize: "cover",
                 height: "100px"
             }}
@@ -16,7 +16,7 @@ const Content = props => (
                 icon="user"
                 shape="square"
                 size={72}
-                src={props.user.profile.avatar}
+                src={props.author.profile.avatar}
                 style={{marginTop: "-24px", marginLeft: "30px", border: '3px solid white'}}
             />
             <div
@@ -33,18 +33,18 @@ const Content = props => (
                         fontSize: "18px"
                     }}
                 >
-                    {props.user.username}
+                    {props.author.username}
                 </div>
                 <div>
-                    {props.user.profile.bio &&
-                    props.user.profile.bio.slice(0, 14) + "..."}
+                    {props.author.profile.bio &&
+                    props.author.profile.bio.slice(0, 14) + "..."}
                 </div>
             </div>
         </div>
         <div style={{padding: "20px 30px"}}>
-            {props.user.profile.profession && (
+            {props.author.profile.profession && (
                 <Tag color="#f50" style={{height: "26px", fontSize: "16px"}}>
-                    {props.user.profile.profession}
+                    {props.author.profile.profession}
                 </Tag>
             )}
         </div>
@@ -67,16 +67,15 @@ class AvatarFlow extends Component {
                 <div>
                     <Link
                         to={
-                            ((this.props.user && this.props.user.id) + "" ===
-                            window.localStorage.getItem("user_id")
-                                ? "/profile/"
-                                : "/visit/") + (this.props.user && this.props.user.id)
+                            (this.props.author.id === this.props.userId
+                                ? "/profile/" + this.props.userId
+                                : "/visit/profile/" + this.props.author.id)
                         }
                     >
                         <Avatar
                             shape="square"
                             icon="user"
-                            src={this.props.user && this.props.user.profile.avatar}
+                            src={this.props.author && this.props.author.profile.avatar}
                         />
                     </Link>
                 </div>

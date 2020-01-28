@@ -14,4 +14,8 @@ urlpatterns = [
     path('user_name/validate/<str:username>', views.validate_username, name='user-name-validate'),
     path('user_email/validate/<str:email>', views.validate_email, name='user-email-validate'),
     path('user_password/validate/<str:password>', views.validate_password, name='user-email-password'),
+    path('user/<int:pk>/follow/', views.follow, name='follow-user'),
+    path('user/<int:pk>/unfollow/', views.unfollow, name='unfollow-user'),
+    path('user/<int:pk>/is_followed/', views.isfollow, name='isfollow-user'),
+    path('user/followers/', views.FollowUserList.as_view(), name='followers-list'),
 ]

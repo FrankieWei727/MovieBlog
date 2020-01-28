@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile
+from .models import Profile, FollowUser
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -8,3 +8,10 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Profile, ProfileAdmin)
+
+
+class FollowUserAdmin(admin.ModelAdmin):
+    list_display = ['user', 'follower']
+
+
+admin.site.register(FollowUser, FollowUserAdmin)

@@ -5,8 +5,8 @@ import axios from 'axios'
 
 
 import MyArticleList from "../components/MyArticleList";
-// import FollowList from './FollowList'
-// import FollowerList from './FollowerList'
+import FollowingList from "../components/FollowingList";
+import FollowerList from "../components/FollowerList";
 // import PropertyList from './PropertyList'
 
 const TabPane = Tabs.TabPane;
@@ -45,10 +45,10 @@ function beforeUpload(file) {
 }
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1621723_d4ja70ia33v.js'
+    scriptUrl: '//at.alicdn.com/t/font_1621723_9cj9xgq951n.js'
 });
 
-class MyProfile extends Component {
+class MyProfileContainer extends Component {
     state = {
         data: [],
         urlAvatar: '',
@@ -57,7 +57,8 @@ class MyProfile extends Component {
         property: 0,
         profession: '',
         loading: false,
-        cover: ''
+        cover: '',
+        id: '',
     };
 
     componentDidMount = async (v) => {
@@ -76,6 +77,7 @@ class MyProfile extends Component {
                     property: response.data.profile.property,
                     profession: response.data.profile.profession,
                     cover: response.data.profile.cover,
+                    id: response.data.id
                 })
             }
         ).catch(err => {
@@ -138,7 +140,7 @@ class MyProfile extends Component {
     render() {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
-                <Row style={{padding: '0 50px',paddingTop:'50px'}}>
+                <Row style={{padding: '0 50px', paddingTop: '50px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                         <div style={{
@@ -235,10 +237,10 @@ class MyProfile extends Component {
                                 <MyArticleList/>
                             </TabPane>
                             <TabPane tab={<span><IconFont type='iconfabu-'/>Following</span>} key='2'>
-                                {/*<FollowList/>*/}
+                                <FollowingList userId={this.state.id}/>
                             </TabPane>
                             <TabPane tab={<span><IconFont type='iconfensi'/>Follower</span>} key='3'>
-                                {/*<FollowerList/>*/}
+                                <FollowerList id={this.state.id}/>
                             </TabPane>
                         </Tabs>
                     </Col>
@@ -277,4 +279,4 @@ class MyProfile extends Component {
     }
 }
 
-export default MyProfile
+export default MyProfileContainer

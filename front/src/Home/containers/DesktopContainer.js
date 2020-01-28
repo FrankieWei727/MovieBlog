@@ -70,7 +70,7 @@ class DesktopContainer extends Component {
                         secondary
                         style={{backgroundColor: '#FFFFFF'}}
                         size='large'>
-                        <Container verticalAlign="bottom">
+                        <Container verticalalign="bottom">
                             <Menu.Item>
                                 <Image src='https://i.imgur.com/pRMV4vy.png' size='small'/>
                             </Menu.Item>
@@ -92,7 +92,7 @@ class DesktopContainer extends Component {
                                             hideOnScroll
                                             on="click"
                                             content={
-                                                <Menu vertical borderless fixed style={{maxWidth: "100px"}}>
+                                                <Menu vertical borderless style={{maxWidth: "100px"}}>
                                                     <Menu.Item
                                                         name="profile"
                                                         href={'/profile'}

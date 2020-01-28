@@ -19,7 +19,7 @@ const count = 3;
 const confirm = Modal.confirm;
 const briefLength = 200;
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1621723_nxc00dnzcg8.js"
+    scriptUrl: "//at.alicdn.com/t/font_1621723_9cj9xgq951n.js"
 });
 
 
@@ -260,7 +260,7 @@ class MyArticleList extends Component {
                                         >
                                             {" "}
                                             <IconFont
-                                                type="icon-edit"
+                                                type="iconbianji"
                                                 style={{paddingLeft: "5px", color: "#76839b"}}
                                             />{" "}
                                             Edit{" "}
@@ -270,7 +270,7 @@ class MyArticleList extends Component {
                                         style={{
                                             color: "#76839b",
                                             backgroundColor: "transparent",
-                                            display: "inline-block",
+                                            display: "iconshanchu1",
                                             fontSize: "14px",
                                             fontWeight: "500"
                                         }}
@@ -278,7 +278,7 @@ class MyArticleList extends Component {
                                         onClick={() => this.deleteArticle(item.id)}
                                     >
                                         <IconFont
-                                            type="icon-delete-fill"
+                                            type="iconshanchu1"
                                             style={{paddingLeft: "5px", color: "#76839b"}}
                                         />{" "}
                                         Delete{" "}
@@ -332,7 +332,7 @@ class MyArticleList extends Component {
                                         >
                                             <IconFont
                                                 type={
-                                                    item.status === "2" ? "icon-fabu1" : "icon-caogao"
+                                                    item.status === "2" ? "iconfabu" : "iconcaogao"
                                                 }
                                                 style={{paddingLeft: "5px", color: "#76839b"}}
                                             />{" "}

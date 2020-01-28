@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 
-from my_profile.models import Profile, User
+from my_profile.models import Profile, User,FollowUser
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -34,3 +34,13 @@ class UserSingUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email')
+
+
+class FollowUserSerializer(serializers.ModelSerializer):
+    follower = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = FollowUser
+        fields = ('id', 'user', 'follower')
+        read_only_fields = ('id', 'user', 'follower')

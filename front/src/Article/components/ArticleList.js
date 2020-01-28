@@ -21,7 +21,8 @@ class ArticleList extends Component {
         loading: false,
         initLoading: true,
         next: "",
-        username:""
+        username:"",
+        id: null,
     };
 
     componentDidMount = async v => {
@@ -45,13 +46,12 @@ class ArticleList extends Component {
     };
     getUserData = async (v) => {
         try {
-
             const response = await axios.get(
                 'http://127.0.0.1:8000/rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
             );
             this.setState(function (state) {
-                return {username: response.data.username}
+                return {username: response.data.username, id: response.data.id}
             })
         } catch (error) {
             console.log(error)
@@ -191,8 +191,8 @@ class ArticleList extends Component {
                                 >
                                     {" "}
                                     <IconFont
-                                        type="icon-eye-fill"
-                                        style={{paddingLeft: "5px", color: "#76839b"}}
+                                        type="iconliulan"
+                                        style={{paddingLeft: "1px", color: "#76839b"}}
                                     />{" "}
                                     Views {item.views}
                                 </Button>
@@ -217,13 +217,13 @@ class ArticleList extends Component {
                                                     ((item.author && item.author.username) + "" ===
                                                     this.state.username
                                                         ? "/profile/"
-                                                        : "/visit/"+ (item.author && item.author.id))
+                                                        : "/visit/profile/"+ (item.author && item.author.id))
                                                 }
                                             >
                                                 <div>
                                                     {item.author && item.author.username}
                                                     {(item.author &&
-                                                        item.author.profile.media_editor_auth) ===
+                                                        item.author.profile.permission) ===
                                                     "reviewed" ? (
                                                         <IconFont
                                                             type="iconbadge"
@@ -233,7 +233,7 @@ class ArticleList extends Component {
                                                 </div>
                                             </Link>
                                         }
-                                        avatar={<AvatarFlow kwy={'avatarFlow'} user={item.author}/>}
+                                        avatar={<AvatarFlow kwy={'avatarFlow'} author={item.author} userId={this.state.id}/>}
                                         description={
                                             item.created && moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()
                                         }
