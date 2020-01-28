@@ -8,19 +8,25 @@ import AvatarFlow from "./AvatarFlow";
 
 const TextArea = Input.TextArea;
 
-const CommentList = ({comments}) => (
-    <List
-        dataSource={comments}
-        header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-        itemLayout='horizontal'
-        renderItem={item => (
-            <Comment
-                author={item.author ? item.author.username : item.username}
-                avatar={<AvatarFlow user={item.author}></AvatarFlow>}
-                content={item.content}
-                datetime={moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
-            />
-        )}
+const CommentList = ({comments, userId}) => (
+    <List style={{paddingBottom: '40px'}}
+          dataSource={comments}
+          header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+          itemLayout='horizontal'
+          renderItem={item => (
+              <Comment
+                  author={item.author ? item.author.username : item.username}
+                  avatar={
+                      (item.author ?
+                              <div>
+                                  <AvatarFlow author={item.author} userId={userId}></AvatarFlow>
+                              </div> :
+                              null
+                      )}
+                  content={item.content}
+                  datetime={moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
+              />
+          )}
     />
 );
 
@@ -48,6 +54,7 @@ const count = 8;
 
 class CreateArticleComment extends Component {
     state = {
+        id: null,
         comments: [],
         submitting: false,
         value: '',
@@ -80,13 +87,16 @@ class CreateArticleComment extends Component {
 
     getUserData = async (v) => {
         try {
-
             const response = await axios.get(
                 'http://127.0.0.1:8000/rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
             );
             this.setState(function (state) {
-                return {username: response.data.username, avatar: response.data.profile.avatar}
+                return {
+                    id: response.data.id,
+                    username: response.data.username,
+                    avatar: response.data.profile.avatar
+                }
             })
         } catch (error) {
             console.log(error)
@@ -113,21 +123,17 @@ class CreateArticleComment extends Component {
     };
 
     sendComment = async (value) => {
-        try {
-            const response = await axios.post(
-                'http://127.0.0.1:8000/api/comment/article_comments/',
-                {
-                    content: value,
-                    article: this.props.articleUrl
-                },
-                {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
-            );
-            if (response.status !== 201) {
-                message('error')
-            }
-        } catch (error) {
-            console.log(error)
-        }
+        await axios.post(
+            'http://127.0.0.1:8000/api/comment/article_comments/',
+            {
+                content: value,
+                article: this.props.articleId
+            },
+            {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+        ).catch(err => {
+            console.log(err);
+            message('error');
+        });
     };
 
     handleSubmit = () => {
@@ -165,7 +171,6 @@ class CreateArticleComment extends Component {
         const {comments, submitting, value} = this.state;
         return (
             <div>
-                {comments.length > 0 && <CommentList comments={comments}/>}
                 {window.localStorage.getItem('token') !== null ?
                     <div>
                         <Comment
@@ -191,6 +196,7 @@ class CreateArticleComment extends Component {
                             comment...</p>
                     </div>
                 }
+                {comments.length > 0 && <CommentList comments={comments} userId={this.state.id}/>}
             </div>
         )
     }

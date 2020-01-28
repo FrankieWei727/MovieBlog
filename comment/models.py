@@ -52,4 +52,3 @@ class ArticleComment(models.Model):
     article = models.ForeignKey(Article,
                                 related_name='article_comments', default="", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)

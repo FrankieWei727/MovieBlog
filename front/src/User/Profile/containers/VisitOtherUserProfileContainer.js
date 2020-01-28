@@ -87,7 +87,7 @@ class VisitOtherUserProfile extends Component {
 
     getProfileData = async (v) => {
         await axios.get(
-            'http://127.0.0.1:8000/api/account/users/' + this.props.match.params.id + '?format=json'
+            'http://127.0.0.1:8000/api/account/users/' + this.props.match.params.id + '/?format=json'
         ).then(res => {
             this.setState({
                 user: res.data,

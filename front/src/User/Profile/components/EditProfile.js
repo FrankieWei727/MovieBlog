@@ -81,21 +81,26 @@ class SettingProfile extends Component {
     };
 
     validateToUsername = async (rule, value, callback) => {
-        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
-            .then(response => {
-                if (value === response.data.username) {
+        if (value !== this.state.username) {
+            await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
+                .then(response => {
+                    if (value === response.data.username) {
+                        this.setState({
+                            usernameError: "This username has been registered!",
+                        });
+                    }
+                }).catch(err => {
                     this.setState({
-                        usernameError: "This username has been registered!",
+                        usernameError: null
                     });
-                }
-            }).catch(err => {
-                this.setState({
-                    usernameError: null
                 });
-            });
-        if (this.state.usernameError) {
-            callback(this.state.usernameError);
-        } else {
+            if (this.state.usernameError) {
+                callback(this.state.usernameError);
+            } else {
+                callback();
+            }
+        }
+        else {
             callback();
         }
     };

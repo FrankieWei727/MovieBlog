@@ -1,4 +1,4 @@
-import {Button, Container, Menu, Responsive, Visibility, Image, Popup, Input} from "semantic-ui-react";
+import {Button, Container, Menu, Responsive, Visibility, Image, Popup} from "semantic-ui-react";
 import PropTypes from "prop-types";
 import React, {Component} from 'react'
 import {Link, withRouter} from "react-router-dom";

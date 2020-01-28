@@ -6,32 +6,40 @@ import {Link} from 'react-router-dom'
 
 const TextArea = Input.TextArea;
 
-const CommentList = ({comments, username}) => (
-    <List
-        dataSource={comments}
-        header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-        itemLayout='horizontal'
-        renderItem={item => (
-            <Comment
-                author={item.user ? item.user.username : item.username}
-                avatar={item.user ? (<Link
-                    to={(item.user.username + '' === username ? '/profile/' : '/visit/') + item.user.id}><Avatar
-                    src={item.user.profile.avatar}/></Link>) : (<Link
-                    to={(item.id + '' === window.localStorage.getItem('user_id') ? '/profile/' : '/visit/') + item.id}><Avatar
-                    src={item.user ? item.avatar : item.avatar}/></Link>)}
-                content={item.content}
-                datetime={
-                    <div>
-                        <Tooltip title={moment(item.created).format('YYYY-MM-DD HH:mm:ss')}>
-                            <span>{moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}</span>
-                        </Tooltip>
-                        <Rate disabled={true} style={{fontSize: 12, paddingLeft: '6px'}} allowHalf
-                              value={item.rate ? parseFloat(item.rate) : parseFloat(this.state.rate)}/>
-                    </div>
-                }
-            />
-        )}
-    />
+const CommentList = ({comments, username, avatarUrl}) => (
+    <div>
+        <List
+            style={{paddingBottom: '40px'}}
+            dataSource={comments}
+            header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+            itemLayout='horizontal'
+            renderItem={item => (
+                <Comment
+                    author={item.user ? item.user.username : item.username}
+                    avatar={item.user ?
+                        (<Link
+                            to={item.user.username === username ? '/profile/' : '/visit/profile/' + item.user.id}>
+                            <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
+                        </Link>)
+                        :
+                        (<Link to={'/profile/'}>
+                                <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
+                            </Link>
+                        )}
+                    content={item.content}
+                    datetime={
+                        <div>
+                            <Tooltip title={moment(item.created).format('YYYY-MM-DD HH:mm:ss')}>
+                                <span>{moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}</span>
+                            </Tooltip>
+                            <Rate disabled={true} style={{fontSize: 12, paddingLeft: '6px'}} allowHalf
+                                  value={item.rate ? parseFloat(item.rate) : parseFloat(this.state.rate)}/>
+                        </div>
+                    }
+                />
+            )}
+        />
+    </div>
 );
 
 const Editor = ({onChangeText, onChangeRate, onSubmit, submitting, value, rate}) => (
@@ -210,7 +218,7 @@ class AddMovieReview extends Component {
     };
 
     render() {
-        const {comments, username, submitting, value, rate} = this.state;
+        const {comments, username, submitting, value, rate, avatarUrl} = this.state;
         let comment_number = 0;
         if (this.state.comments)
             comment_number = this.state.comments.length;
@@ -218,7 +226,6 @@ class AddMovieReview extends Component {
             comment_number = 0;
         return (
             <div>
-                {comment_number > 0 && <CommentList comments={comments} username={username}/>}
                 {window.localStorage.getItem('token') !== null ?
                     <div style={{paddingTop: "30px"}}><Comment
                         avatar={(
@@ -245,6 +252,7 @@ class AddMovieReview extends Component {
                             review...</p>
                     </div>
                 }
+                {comment_number > 0 && <CommentList comments={comments} username={username} avatarUrl={avatarUrl}/>}
             </div>
         )
     }

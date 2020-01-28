@@ -68,7 +68,7 @@ class AvatarFlow extends Component {
                     <Link
                         to={
                             (this.props.author.id === this.props.userId
-                                ? "/profile/" + this.props.userId
+                                ? "/profile/"
                                 : "/visit/profile/" + this.props.author.id)
                         }
                     >

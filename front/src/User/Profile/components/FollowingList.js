@@ -77,7 +77,6 @@ class FollowingList extends Component {
     };
 
     render() {
-        console.log(this.state.data);
         return (
             <List
                 style={{paddingBottom: '20px'}}
