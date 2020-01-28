@@ -12,7 +12,7 @@ SECRET_KEY = '=8&e5@9(1-*t6rtapt(f=kwm@vf!bp7pj7!*h*397tgfd(_j*j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mlinked.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['mlinked.herokuapp.com', '127.0.0.1:8000', 'localhost:3000']
 
 # Application definition
 
