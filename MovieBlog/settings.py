@@ -1,5 +1,5 @@
+import django_heroku
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
@@ -200,3 +200,7 @@ ACCOUNT_EMAIL_REQUIRED = False
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'my_profile.api.serializers.UserSerializer',
 }
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
