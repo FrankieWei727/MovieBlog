@@ -158,6 +158,7 @@ class MovieList extends React.Component {
         await this.setState({
             loading: true,
             search: value
+            // search: this.props.location.state.searchName
         });
         this.getData();
         const temp = tip[1] + "  : " + value + " ";
@@ -167,16 +168,6 @@ class MovieList extends React.Component {
         });
     };
 
-    // render() {
-    //
-    //     return (
-    //         <div className="ui stackable four column grid" style={{padding: '30px', paddingBottom: '20em'}}>
-    //             {this.state.movies.map((movie) =>
-    //                 <Movies movie={movie} key={'movie'+movie.id}/>)}
-    //         </div>
-    //     )
-    // }
-
     render() {
         return (
             <Layout style={{minHeight: "100vh"}}>
@@ -184,10 +175,8 @@ class MovieList extends React.Component {
                 <div style={{flex: "1 0 ", backgroundColor: "#ffffff"}}>
                     <Affix offsetTop={this.state.top}>
                         <Row style={{
-                            padding: "10px 60px",
-                            marginBottom: "20px",
-                            background: "#fff",
-                            boxShadow: "0px 2px 2px #888888"
+                            padding: "20px 64px",
+                            marginBottom: "10px",
                         }}>
                             <Col xxl={{span: 8, offset: 1}} xl={{span: 13, offset: 1}} md={{span: 13, offset: 1}}
                                  xs={{span: 22, offset: 1}}>

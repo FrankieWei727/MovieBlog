@@ -19,8 +19,9 @@ const count = 3;
 const confirm = Modal.confirm;
 const briefLength = 200;
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1242637_estflglakgj.js"
+    scriptUrl: "//at.alicdn.com/t/font_1621723_nxc00dnzcg8.js"
 });
+
 
 class MyArticleList extends Component {
     state = {
@@ -346,10 +347,10 @@ class MyArticleList extends Component {
                                             <div>
                                                 {item.author && item.author.username}
                                                 {(item.author &&
-                                                    item.author.profile.media_editor_auth) ===
-                                                "审核通过" ? (
+                                                    item.author.profile.permission) ===
+                                                "reviewed" ? (
                                                     <IconFont
-                                                        type="icon-renzhenghuizhang"
+                                                        type="iconbadge"
                                                         style={{paddingLeft: "10px"}}
                                                     />
                                                 ) : null}

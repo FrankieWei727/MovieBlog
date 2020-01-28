@@ -31,7 +31,7 @@ class ArticlePage extends Component {
 
     componentDidMount = async (v) => {
         await this.getArticle()
-    }
+    };
 
     getArticle = async (v) => {
         try {

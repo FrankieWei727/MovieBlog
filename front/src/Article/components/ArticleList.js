@@ -9,7 +9,7 @@ import moment from "moment";
 const count = 6;
 const briefLength = 200;
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1242637_vfurgm6ec3b.js"
+    scriptUrl: "//at.alicdn.com/t/font_1621723_nxc00dnzcg8.js"
 });
 const {Search} = Input;
 
@@ -224,9 +224,9 @@ class ArticleList extends Component {
                                                     {item.author && item.author.username}
                                                     {(item.author &&
                                                         item.author.profile.media_editor_auth) ===
-                                                    "审核通过" ? (
+                                                    "reviewed" ? (
                                                         <IconFont
-                                                            type="icon-renzhenghuizhang"
+                                                            type="iconbadge"
                                                             style={{paddingLeft: "10px"}}
                                                         />
                                                     ) : null}

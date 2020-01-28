@@ -8,7 +8,7 @@ import MovieStillsSourceEditor from "./User/Profile/components/UploadMovieStills
 import Login from "./User/Login";
 import Logout from "./User/Logout";
 import Register from "./User/Register";
-import Home from "./Home/components/Home";
+// import Home from "./Home/components/Home";
 import EventList from "./Event/containers/EventListContainer";
 import EventDetail from "./Event/containers/EventDetailContainer";
 import Blog from "./Article/containers/ArticleListContainer";
@@ -22,7 +22,7 @@ import ReviseArticle from "./User/Profile/components/ReviseArticle";
 
 const BaseRouter = () => (
     <div>
-        <Route exact path='/home/' component={Home}/>
+        {/*<Route exact path='/home/' component={Home}/>*/}
         <Route exact path='/movie/' component={MovieList}/>
         <Route exact path='/movie/:movieID/' component={MovieDetail}/>
         <Route exact path='/movie_upload' component={MovieSourceEditor}/>

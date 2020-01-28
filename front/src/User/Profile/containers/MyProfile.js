@@ -167,7 +167,7 @@ class MyProfile extends Component {
                                     action='https://api.imgur.com/3/image'
                                 >
                                     <Button ghost style={{width: '150px', color: '#fff'}}>
-                                        <Icon type='upload'/>Edit
+                                        <Icon type='upload'/>Upload Cover
                                     </Button>
                                 </Upload>
                             </div>
@@ -216,7 +216,7 @@ class MyProfile extends Component {
                                 padding: '20px'
                             }}>
                                 <Button type='primary' ghost style={{width: '150px'}}>
-                                    <Link to='/profile/setting/'>Setting</Link>
+                                    <Link to='/profile/setting/'>Edit Profile</Link>
                                 </Button>
                             </div>
                         </div>
@@ -231,13 +231,13 @@ class MyProfile extends Component {
                         boxShadow: '0 1px 3px rgba(26,26,26,.1)'
                     }}>
                         <Tabs defaultActiveKey='1' size='large'>
-                            <TabPane tab={<span><IconFont type='iconwenzhang'/>My Articles</span>} key='1'>
+                            <TabPane tab={<span><IconFont type='iconwenzhang'/>Articles</span>} key='1'>
                                 <MyArticleList/>
                             </TabPane>
-                            <TabPane tab={<span><IconFont type='iconfabu-'/>我的关注</span>} key='2'>
+                            <TabPane tab={<span><IconFont type='iconfabu-'/>Following</span>} key='2'>
                                 {/*<FollowList/>*/}
                             </TabPane>
-                            <TabPane tab={<span><IconFont type='iconfensi'/>关注我的</span>} key='3'>
+                            <TabPane tab={<span><IconFont type='iconfensi'/>Follower</span>} key='3'>
                                 {/*<FollowerList/>*/}
                             </TabPane>
                         </Tabs>

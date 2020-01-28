@@ -60,6 +60,7 @@ class PromotionList extends Component {
                         }}>
                             <IconFont type='iconxiewenzhang' style={{fontSize: '36px'}}/>
                         </div>
+                        Article
                     </Link>
                     <Link to={this.state.switch ? '/book_editor_page' : '/settings/account'}>
                         <div style={{
@@ -70,6 +71,7 @@ class PromotionList extends Component {
                         }}>
                             <IconFont type='iconshuben' style={{fontSize: '36px'}}/>
                         </div>
+                        Book
                     </Link>
                     <Link to={this.state.switch ? '/movie_editor_page' : '/settings/account'}>
                         <div style={{
@@ -79,6 +81,7 @@ class PromotionList extends Component {
                             alignItems: 'left'
                         }}>
                             <IconFont type='icondianying' style={{fontSize: '36px'}}/>
+                            Movie
                         </div>
                     </Link>
                 </div>

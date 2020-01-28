@@ -41,7 +41,7 @@ class BlogList extends Component {
                             <TabPane tab='All' key='1'>
                                 <ArticleList/>
                             </TabPane>
-                            <TabPane tab='关注' key='2'>
+                            <TabPane tab='Subscription' key='2'>
                                 {/*<ArticleFollowList />*/}
                             </TabPane>
                         </Tabs>

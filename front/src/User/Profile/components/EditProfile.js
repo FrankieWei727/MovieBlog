@@ -80,6 +80,47 @@ class SettingProfile extends Component {
         }
     };
 
+    validateToUsername = async (rule, value, callback) => {
+        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
+            .then(response => {
+                if (value === response.data.username) {
+                    this.setState({
+                        usernameError: "This username has been registered!",
+                    });
+                }
+            }).catch(err => {
+                this.setState({
+                    usernameError: null
+                });
+            });
+        if (this.state.usernameError) {
+            callback(this.state.usernameError);
+        } else {
+            callback();
+        }
+    };
+
+
+    validateToEmail = async (rule, value, callback) => {
+        await axios.get('http://127.0.0.1:8000/api/account/user_email/validate/' + value)
+            .then(response => {
+                if (value === response.data.email) {
+                    this.setState({
+                        emailError: "This email address has been registered!",
+                    });
+                }
+            }).catch(err => {
+                this.setState({
+                    emailError: null
+                });
+            });
+        if (this.state.emailError) {
+            callback(this.state.emailError);
+        } else {
+            callback();
+        }
+    };
+
     normFile = e => {
         // console.log('Upload event:', e);
         if (Array.isArray(e)) {
@@ -239,7 +280,10 @@ class SettingProfile extends Component {
                                                     rules: [{
                                                         required: true,
                                                         message: 'Please input username.'
-                                                    }]
+                                                    },
+                                                        {
+                                                            validator: this.validateToUsername
+                                                        }]
                                                 })(
                                                     <Input size='default'/>
                                                 )}
@@ -277,6 +321,8 @@ class SettingProfile extends Component {
                                                     rules: [{
                                                         required: true,
                                                         message: 'Please input email.'
+                                                    }, {
+                                                        validator: this.validateToEmail
                                                     }]
                                                 })(
                                                     <Input size='default'/>

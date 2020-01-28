@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
         try {
             this.props.onAuth(values.username, values.password);
             message.success('Welcome Back ' + values.username + '!');
-            this.props.history.replace('/home')
+            this.props.history.replace('/article')
         } catch (error) {
             message.error('The username or password is incorrect!');
             console.log(error)
