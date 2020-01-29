@@ -10,14 +10,15 @@ class LoginForm extends React.Component {
         password: '',
     };
 
-    LoginForm = async (values) => {
-        try {
-            this.props.onAuth(values.username, values.password);
-            message.success('Welcome Back ' + values.username + '!');
-            this.props.history.replace('/article')
-        } catch (error) {
+
+    LoginForm = (values) => {
+        this.setState({
+            username: values.username
+        });
+        this.props.onAuth(values.username, values.password);
+        if (this.props.error !== null) {
             message.error('The username or password is incorrect!');
-            console.log(error)
+            console.log(this.props.error);
         }
     };
 
@@ -103,6 +104,10 @@ class LoginForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        if (this.props.token) {
+            message.success('Welcome Back ' + this.state.username + '!');
+            this.props.history.replace('/article')
+        }
         return (
             <Layout style={{minHeight: "100vh"}}>
                 <div style={{flex: "1 0 "}}>
@@ -160,11 +165,11 @@ class LoginForm extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
         error: state.auth.error,
-        token: state.auth.token
+        token: state.auth.token,
     }
 };
 

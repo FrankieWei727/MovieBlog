@@ -1,4 +1,3 @@
-# import django_heroku
 import dj_database_url
 import os
 
@@ -95,12 +94,6 @@ DATABASES = {
     }
 }
 
-# we only need the engine name, as heroku takes care of the rest
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#     }
-# }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -215,5 +208,3 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'my_profile.api.serializers.UserSerializer',
 }
 
-# Activate Django-Heroku.
-# django_heroku.settings(locals())
