@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Col, Icon, List, Row, Skeleton, Affix} from "antd";
+import {Button, Col, Icon, List, Row, Skeleton, Affix, Typography} from "antd";
 import {Link} from "react-router-dom";
 import AvatarFlow from "./AvatarFlow";
 import moment from "moment";
 
+const {Text} = Typography;
 const briefLength = 350;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
@@ -20,6 +21,8 @@ class Article extends Component {
     state = {
         isExtractBrief: true,
         height: window.innerHeight,
+        affixed: "",
+        style: [],
     };
 
     extractText = HTMLString => {
@@ -50,6 +53,32 @@ class Article extends Component {
         }
     };
 
+    handleAffix = async (value) => {
+        await this.setState({
+            affixed: value
+        });
+        if (this.state.affixed === true) {
+            this.setState({
+                style: {
+                    paddingTop: '10px',
+                    backgroundColor: "white",
+                    borderStyle: 'solid',
+                    borderWidth: '1px',
+                    borderColor: '#CFCFCF transparent transparent transparent'
+                }
+            })
+        } else {
+            this.setState({
+                style: {
+                    paddingTop: '10px',
+                    backgroundColor: "white",
+                }
+            })
+        }
+
+    };
+
+
     render() {
         const {item, userId} = this.props;
         const {isExtractBrief} = this.state;
@@ -71,14 +100,14 @@ class Article extends Component {
                             fontWeight: "600",
                             fontSize: "18px",
                             fontStretch: "100%",
-                            paddingBottom: '5px',
+                            padding: '0 20px'
                         }}
                         >
                             {item.title}
                         </h3>
                     </Link>
                     <Skeleton avatar title={false} loading={item.loading} active>
-                        <Row type="flex" style={{paddingTop: '8px'}} justify="start">
+                        <Row type="flex" style={{paddingTop: '10px', padding: '0 20px'}} justify="start">
                             <Col span={21}>
                                 <List.Item.Meta
                                     title={
@@ -110,7 +139,7 @@ class Article extends Component {
                                 {item.created && moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
                             </Col>
                         </Row>
-                        <div style={{color: "#646464", fontSize: "15px"}}>
+                        <div style={{color: "#646464", fontSize: "15px", padding: '0 20px'}}>
                             {isExtractBrief ?
                                 <div>
                                     <div className='braft-output-content' style={{overflow: 'auto'}}
@@ -126,56 +155,29 @@ class Article extends Component {
                                 </div>
                             }
                         </div>
-                        {isExtractBrief ?
-                            <Row type="flex" style={{paddingTop: '10px', color: "white"}} justify="start">
-                                <Col span={21}>
-                                    <Col span={7} order={1} style={{color: "#76839b"}}>
-                                        <IconFont type="iconliulan"/> Views {item.views}
-                                    </Col>
-                                    <Col span={7} order={2}>
-                                        {/*3 col-order-2*/}
-                                    </Col>
-                                    <Col span={7} order={3}>
-                                        {/*3 col-order-3*/}
-                                    </Col>
-                                </Col>
-                                <Col span={3}>
-                                    <Col span={24} order={4}>
-                                        <div style={{alignItems: 'right'}}>
-                                            {isExtractBrief === false ?
-                                                <Button type="link" onClick={this.SetTextState}>
-                                                    <Icon type="up-circle"/>
-                                                </Button> :
-                                                null
-                                            }
-                                        </div>
-                                    </Col>
-                                </Col>
-                            </Row>
-                            :
-                            <Affix offsetBottom={0}>
-                                <Row type="flex"
-                                     style={{
-                                         backgroundColor: "#fff",
-                                         paddingTop: '10px'
-                                     }} justify="start">
-                                    <Col span={21}>
-                                        <Col span={7} order={1} style={{color: "#76839b"}}>
+                        <div>
+                            {isExtractBrief ?
+                                <Row type="flex" justify="start" style={{paddingTop: '10px', backgroundColor: "white"}}>
+                                    <Col span={20}>
+                                        <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
                                             <IconFont type="iconliulan"/> Views {item.views}
                                         </Col>
-                                        <Col span={7} order={2}>
+                                        <Col span={5} order={2}>
                                             {/*3 col-order-2*/}
                                         </Col>
-                                        <Col span={7} order={3}>
+                                        <Col span={5} order={3}>
+                                            {/*3 col-order-3*/}
+                                        </Col>
+                                        <Col span={5} order={4}>
                                             {/*3 col-order-3*/}
                                         </Col>
                                     </Col>
-                                    <Col span={3}>
-                                        <Col span={24} order={4}>
+                                    <Col span={4}>
+                                        <Col span={24} offset={1} order={1}>
                                             <div style={{alignItems: 'right'}}>
                                                 {isExtractBrief === false ?
                                                     <Button type="link" onClick={this.SetTextState}>
-                                                        <Icon type="up-circle"/>
+                                                        Collapse <Icon type="up-circle"/>
                                                     </Button> :
                                                     null
                                                 }
@@ -183,8 +185,39 @@ class Article extends Component {
                                         </Col>
                                     </Col>
                                 </Row>
-                            </Affix>
-                        }
+                                :
+                                <Affix offsetBottom={0} onChange={affixed => this.handleAffix(affixed)}>
+                                    <Row type="flex" justify="start" style={this.state.style}>
+                                        <Col span={20}>
+                                            <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
+                                                <IconFont type="iconliulan"/> Views {item.views}
+                                            </Col>
+                                            <Col span={5} order={2}>
+                                                {/*3 col-order-2*/}
+                                            </Col>
+                                            <Col span={5} order={3}>
+                                                {/*3 col-order-3*/}
+                                            </Col>
+                                            <Col span={5} order={4}>
+                                                {/*3 col-order-3*/}
+                                            </Col>
+                                        </Col>
+                                        <Col span={4}>
+                                            <Col span={24} offset={1} order={1}>
+                                                <div style={{alignItems: 'right'}}>
+                                                    {isExtractBrief === false ?
+                                                        <Button type="link" onClick={this.SetTextState}>
+                                                            Collapse <Icon type="up-circle"/>
+                                                        </Button> :
+                                                        null
+                                                    }
+                                                </div>
+                                            </Col>
+                                        </Col>
+                                    </Row>
+                                </Affix>
+                            }
+                        </div>
                     </Skeleton>
                 </div>
             </List.Item>

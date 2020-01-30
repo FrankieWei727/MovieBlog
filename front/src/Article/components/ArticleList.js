@@ -129,7 +129,7 @@ class ArticleList extends Component {
                     style={{
                         textAlign: "center",
                         marginTop: 12,
-                        height: 32,
+                        height: 50,
                         lineHeight: "32px"
                     }}
                 >
@@ -143,17 +143,12 @@ class ArticleList extends Component {
             ) : null;
 
         return (
-            <div
-                style={{
-                    backgroundColor: "#fff",
-                    boxShadow: "0 1px 3px rgba(26,26,26,.1)",
-                    borderRadius: "1px"
-                }}
-            >
+            <div>
                 <Search
                     placeholder="Please input keywords"
                     onSearch={value => this.search(value)}
                     enterButton
+                    style={{padding: '0 20px',paddingTop:'10px'}}
                 />
                 {loading === false ?
                     <List
@@ -166,7 +161,6 @@ class ArticleList extends Component {
                         )}/> :
                     null
                 }
-
             </div>
         );
     }

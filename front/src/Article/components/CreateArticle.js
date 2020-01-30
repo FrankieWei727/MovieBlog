@@ -6,7 +6,6 @@ import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
 
 
-// 提示框
 const openNotificationWithIconS = (type) => {
     notification[type]({
         message: 'Succeed',
@@ -26,14 +25,13 @@ const excludeControls = [
     'letter-spacing',
     'line-height',
     'clear',
-    'headings',
-    'list-ol',
-    'list-ul',
     'remove-styles',
     'superscript',
     'subscript',
-    'hr',
-    'text-align'
+    'code',
+    'undo',
+    'redo',
+    'text-indent'
 ];
 
 class ArticleEditor extends Component {
@@ -92,15 +90,15 @@ class ArticleEditor extends Component {
         const {getFieldDecorator} = this.props.form;
 
         return (
-            <Layout style={{minHeight: '100vh'}}>
-                <Row style={{backgroundColor: '#fff', paddingTop: '30px'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#fff'}}>
+                <Row style={{flex: '1 0', paddingTop: '20px'}}>
                     <Col xxl={{span: 12, offset: 6}} xl={{span: 16, offset: 4}} xs={{span: 22, offset: 1}}>
-                        <div className='editor-wrapper'>
+                        <div className='editor-wrapper' style={{wordWrap: 'break-word'}}>
                             <Form onSubmit={this.handleSubmit} className='text-editor-form'>
                                 <div style={{
                                     display: 'flex',
                                     flexDirection: 'row-reverse',
-                                    justifyContent: 'space-between'
+                                    justifyContent: 'space-between',
                                 }}>
                                     <Form.Item>
                                         <Button loading={this.state.uploading} type='primary' htmlType='submit'>
@@ -142,11 +140,11 @@ class ArticleEditor extends Component {
                                         }]
                                     })(
                                         <BraftEditor
-                                            className='my-editor'
                                             excludeControls={excludeControls}
                                             placeholder='Content'
-                                            language={'en'}
-                                            media={{image: true}}
+                                            language='en'
+                                            textAlignOptions='left'
+                                            media={{image: true, video: true}}
                                         />
                                     )}
                                 </Form.Item>

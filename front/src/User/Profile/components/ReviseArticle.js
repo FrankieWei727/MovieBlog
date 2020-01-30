@@ -24,14 +24,13 @@ const excludeControls = [
     'letter-spacing',
     'line-height',
     'clear',
-    'headings',
-    'list-ol',
-    'list-ul',
     'remove-styles',
     'superscript',
     'subscript',
-    'hr',
-    'text-align'
+    'code',
+    'undo',
+    'redo',
+    'text-indent'
 ];
 
 class Revise extends Component {

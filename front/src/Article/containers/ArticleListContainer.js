@@ -23,25 +23,26 @@ class BlogList extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
+            <Layout style={{minHeight: '100vh'}}>
                 <BackTop/>
                 <Row style={{flex: '1 0', padding: '40px 60px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{
                         marginBottom: '20px',
                         backgroundColor: '#fff',
-                        padding: '20px 20px',
                         boxShadow: '0 1px 3px rgba(26,26,26,.1)',
                         borderRadius: '1px'
                     }}>
-                        <Tabs defaultActiveKey='1'>
-                            <TabPane tab='All' key='1'>
-                                <ArticleList/>
-                            </TabPane>
-                            <TabPane tab='Subscription' key='2'>
-                                {/*<ArticleFollowList />*/}
-                            </TabPane>
-                        </Tabs>
+                        <div className="card-container">
+                            <Tabs defaultActiveKey='1' type="card">
+                                <TabPane tab='All' key='1'>
+                                    <ArticleList/>
+                                </TabPane>
+                                <TabPane tab='Subscription' key='2'>
+                                    {/*<ArticleFollowList />*/}
+                                </TabPane>
+                            </Tabs>
+                        </div>
                     </Col>
                     <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
                          xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
