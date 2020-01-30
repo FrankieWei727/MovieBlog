@@ -75,7 +75,7 @@ class ArticlePage extends Component {
                 <BackTop/>
                 <Row style={{
                     background: '#fff',
-                    padding: '20px 0',
+                    padding: '20px 60px',
                     marginBottom: '15px',
                     boxShadow: '0px 2px 2px #888888'
                 }}>
@@ -96,7 +96,7 @@ class ArticlePage extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{flex: '1 0'}}>
+                <Row style={{flex: '1 0', padding: '0 60px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 14, offset: 2}} md={{span: 15, offset: 1}}
                          xs={{span: 22, offset: 1}}>
                         <div type='flex'
@@ -114,7 +114,7 @@ class ArticlePage extends Component {
                     </Col>
                     <Col xxl={{span: 4, offset: 0}} xl={{span: 6, offset: 0}} md={{span: 7, offset: 0}}
                          xs={{span: 22, offset: 1}} style={{paddingBottom: '20px', paddingLeft: '15px'}}>
-                        <Affix offsetTop={0} style={{paddingTop:'30px'}}>
+                        <Affix offsetTop={0} style={{paddingTop: '30px'}}>
                             <AuthorInfo authorId={this.state.authorId}/>
                         </Affix>
                     </Col>

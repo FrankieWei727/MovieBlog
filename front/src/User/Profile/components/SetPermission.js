@@ -118,7 +118,7 @@ class SetPermission extends Component {
                                             <TabPane
                                                 tab={
                                                     <span>
-                                                        <Icon type='apple'/>权限申请
+                                                        <Icon type='apple'/>Apply Permission
                                                     </span>
                                                 }
                                                 key='1'
@@ -128,16 +128,16 @@ class SetPermission extends Component {
                                                     flexDirection: 'row',
                                                     alignItems: 'baseline'
                                                 }}>
-                                                    <Title style={{padding: '24px 0'}} level={4}>1.书籍影视资源编辑</Title>
+                                                    <Title style={{padding: '24px 0'}} level={4}>1. Film resource editor</Title>
                                                     <Divider type='vertical'/>
-                                                    <Link to='/editor_guidance'>编辑须知</Link>
+                                                    <Link to='/editor_guidance'>Note to editors</Link>
                                                 </div>
                                                 <Permission/>
                                             </TabPane>
                                             <TabPane
                                                 tab={
                                                     <span>
-                                                         <Icon type='android'/>敬请期待
+                                                         <Icon type='android'/>In coming
                                                     </span>
                                                 }
                                                 key='2'

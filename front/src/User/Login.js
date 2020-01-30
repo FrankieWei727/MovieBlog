@@ -7,7 +7,6 @@ class LoginForm extends React.Component {
 
     state = {
         username: '',
-        password: '',
     };
 
 
@@ -16,9 +15,10 @@ class LoginForm extends React.Component {
             username: values.username
         });
         this.props.onAuth(values.username, values.password);
-        if (this.props.error !== null) {
+
+        if (this.state.error !== null) {
             message.error('The username or password is incorrect!');
-            console.log(this.props.error);
+            console.log(this.state.error);
         }
     };
 
@@ -31,83 +31,12 @@ class LoginForm extends React.Component {
         })
     };
 
-    // render() {
-    //     const {error, token} = this.props;
-    //
-    //     return (
-    //         <div>
-    //             {
-    //                 this.props.loading ?
-    //                     <div style={{height: '100vh'}}>
-    //                         <p style={{paddingTop: '10em', textAlign: 'center'}}>Waiting...</p>
-    //                         <div className="ui active centered inline loader">
-    //                             {token &&
-    //                             <Redirect to="/profile"/>
-    //                             }
-    //                         </div>
-    //                     </div>
-    //                     :
-    //                     <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
-    //                         <Grid.Column style={{maxWidth: 450}}>
-    //                             <Header as='h2' color='teal' textAlign='center'>
-    //                                 Log-in to your account
-    //                             </Header>
-    //                             {error &&
-    //                             <div>
-    //                                 <Message color='red'>
-    //                                     <Message.Header align='left'>Error</Message.Header>
-    //                                     <Message.List>
-    //                                         <Message.Item>
-    //                                             {this.props.error.message}
-    //                                         </Message.Item>
-    //                                     </Message.List>
-    //                                 </Message>
-    //                             </div>
-    //                             }
-    //                             <Form size='large' onSubmit={this.handleSubmit}>
-    //                                 <Segment stacked>
-    //                                     <Form.Input
-    //                                         fluid icon='user'
-    //                                         iconPosition='left'
-    //                                         placeholder='Username'
-    //                                         onChange={(e) => this.setState({username: e.target.value})}
-    //                                         name="username"
-    //                                         required={true}
-    //                                         error={this.state.usernameError}
-    //                                     />
-    //                                     <Form.Input
-    //                                         fluid
-    //                                         icon='lock'
-    //                                         iconPosition='left'
-    //                                         placeholder='Password'
-    //                                         type='password'
-    //                                         onChange={(e) => this.setState({password: e.target.value})}
-    //                                         name={"password"}
-    //                                         error={this.state.passwordError}
-    //                                         required={true}
-    //                                     />
-    //                                     <Button color='teal' fluid size='large'>
-    //                                         Login
-    //                                     </Button>
-    //                                 </Segment>
-    //                             </Form>
-    //                             <Message>
-    //                                 New to us? <a href={'/signup/'}>Sign Up</a>
-    //                             </Message>
-    //                         </Grid.Column>
-    //                     </Grid>
-    //             }
-    //         </div>
-    //     )
-    //
-    // }
-
     render() {
-        const {getFieldDecorator} = this.props.form;
         if (this.props.token) {
             message.success('Welcome Back ' + this.state.username + '!');
-            this.props.history.replace('/article')
+            this.props.history.replace('/article');
         }
+        const {getFieldDecorator} = this.props.form;
         return (
             <Layout style={{minHeight: "100vh"}}>
                 <div style={{flex: "1 0 "}}>

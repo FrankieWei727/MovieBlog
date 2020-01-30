@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1621723_d4ja70ia33v.js'
-})
+});
 
 const {Title} = Typography;
 
@@ -32,7 +32,7 @@ class PromotionList extends Component {
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(response => {
                 this.setState({
-                    switch: (response.data.profile.media_editor_auth === '审核通过')
+                    switch: (response.data.profile.permission === 'reviewed')
                 })
             }
         ).catch(err => {
@@ -73,7 +73,7 @@ class PromotionList extends Component {
                         </div>
                         Book
                     </Link>
-                    <Link to={this.state.switch ? '/movie_editor_page' : '/settings/account'}>
+                    <Link to={this.state.switch ? '/movie_upload' : '/permission/setting'}>
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',

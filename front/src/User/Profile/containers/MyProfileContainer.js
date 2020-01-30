@@ -140,7 +140,7 @@ class MyProfileContainer extends Component {
     render() {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
-                <Row style={{padding: '0 50px', paddingTop: '50px'}}>
+                <Row style={{padding: '0 60px', paddingTop: '40px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                         <div style={{
@@ -224,7 +224,7 @@ class MyProfileContainer extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{flex: '1 0', padding: '20px 50px'}}>
+                <Row style={{flex: '1 0', padding: '20px 60px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 14, offset: 2}} md={{span: 14, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{
                         background: '#fff',

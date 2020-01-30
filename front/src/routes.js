@@ -36,7 +36,7 @@ const BaseRouter = () => (
         <Route exact path='/profile/' component={MyProfileContainer}/>
         <Route exact path='/visit/profile/:id' component={VisitOtherUserProfile}/>
         <Route exact path='/profile/setting/' component={EditProfile}/>
-        <Route exact path='/permission/setting/' component={SetPermission}/>
+        <Route exact path='/permission/setting' component={SetPermission}/>
         <Route exact path='/article' component={Blog}/>
         <Route exact path='/create_article' component={CreateArticle}/>
         <Route exact path='/article/:articleID/' component={ArticleDetail}/>

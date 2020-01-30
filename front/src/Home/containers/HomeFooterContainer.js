@@ -13,10 +13,9 @@ class FooterContainer extends React.Component {
                             <Grid.Column width={3}>
                                 <Header inverted as='h4' content='About'/>
                                 <List link inverted>
-                                    <List.Item as='a'>Sitemap</List.Item>
+                                    <List.Item as='a'>Mlinked</List.Item>
                                     <List.Item as='a'>Contact Us</List.Item>
-                                    <List.Item as='a'>Religious Ceremonies</List.Item>
-                                    <List.Item as='a'>Gazebo Plans</List.Item>
+                                    <List.Item as='a'>Team</List.Item>
                                 </List>
                             </Grid.Column>
                             <Grid.Column width={3}>
@@ -30,10 +29,10 @@ class FooterContainer extends React.Component {
                             </Grid.Column>
                             <Grid.Column width={7}>
                                 <Header as='h4' inverted>
-                                    Footer Header
+                                    Mlinked
                                 </Header>
                                 <p>
-                                    Extra space for a call to action inside the footer that could help re-engage users.
+                                    Mlinked is here. The best place to share your ideas.
                                 </p>
                             </Grid.Column>
                         </Grid.Row>

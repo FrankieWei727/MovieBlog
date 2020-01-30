@@ -172,10 +172,10 @@ class MovieList extends React.Component {
         return (
             <Layout style={{minHeight: "100vh"}}>
                 <BackTop/>
-                <div style={{flex: "1 0 ", backgroundColor: "#ffffff"}}>
+                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding:'0px 60px'}}>
                     <Affix offsetTop={this.state.top}>
                         <Row style={{
-                            padding: "20px 64px",
+                            padding: "20px 60px",
                             marginBottom: "10px",
                         }}>
                             <Col xxl={{span: 8, offset: 1}} xl={{span: 13, offset: 1}} md={{span: 13, offset: 1}}

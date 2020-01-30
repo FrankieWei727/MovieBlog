@@ -20,15 +20,12 @@ class BlogList extends Component {
         this.setState({collapsed})
     };
 
-    goToEditorPage = () => {
-        this.props.history.replace('/textEditorPage')
-    };
 
     render() {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
                 <BackTop/>
-                <Row style={{flex: '1 0', padding: '50px 50px'}}>
+                <Row style={{flex: '1 0', padding: '40px 60px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{
                         marginBottom: '20px',

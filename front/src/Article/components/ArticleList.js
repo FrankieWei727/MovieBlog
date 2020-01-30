@@ -1,15 +1,12 @@
 import React, {Component} from "react";
-import {List, Button, Skeleton, Icon, Input} from "antd";
+import {List, Button, Icon, Input} from "antd";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import Article from "./Article";
 
-import AvatarFlow from "../components/AvatarFlow";
-import moment from "moment";
 
-const count = 6;
-const briefLength = 200;
+const count = 5;
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1621723_nxc00dnzcg8.js"
+    scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
 });
 const {Search} = Input;
 
@@ -21,7 +18,7 @@ class ArticleList extends Component {
         loading: false,
         initLoading: true,
         next: "",
-        username:"",
+        username: "",
         id: null,
     };
 
@@ -31,19 +28,6 @@ class ArticleList extends Component {
         this.setState({initLoading: false});
     };
 
-    extractText = HTMLString => {
-        let span = document.createElement("span");
-        span.innerHTML = HTMLString;
-        return span.textContent || span.innerText;
-    };
-
-    extractBrief = HTMLString => {
-        const text = this.extractText(HTMLString);
-        if (text.length > briefLength) {
-            return text.slice(0, briefLength) + "……";
-        }
-        return text;
-    };
     getUserData = async (v) => {
         try {
             const response = await axios.get(
@@ -171,93 +155,18 @@ class ArticleList extends Component {
                     onSearch={value => this.search(value)}
                     enterButton
                 />
-                <List
-                    itemLayout="vertical"
-                    dataSource={cache}
-                    loadMore={loadMore}
-                    loading={initLoading}
-                    renderItem={item => (
-                        <List.Item
-                            actions={[
-                                <Button
-                                    style={{
-                                        color: "#76839b",
-                                        backgroundColor: "transparent",
-                                        display: "inline-block",
-                                        fontSize: "14px",
-                                        fontWeight: "500"
-                                    }}
-                                    type="link"
-                                >
-                                    {" "}
-                                    <IconFont
-                                        type="iconliulan"
-                                        style={{paddingLeft: "1px", color: "#76839b"}}
-                                    />{" "}
-                                    Views {item.views}
-                                </Button>
-                            ]}
-                        >
-                            <div
-                                style={
-                                    item.originality === "Y"
-                                        ? {
-                                            borderLeft: "8px solid",
-                                            borderColor: "#269f42",
-                                            paddingLeft: "15px"
-                                        }
-                                        : {}
-                                }
-                            >
-                                <Skeleton avatar title={false} loading={item.loading} active>
-                                    <List.Item.Meta
-                                        title={
-                                            <Link
-                                                to={
-                                                    ((item.author && item.author.username) + "" ===
-                                                    this.state.username
-                                                        ? "/profile/"
-                                                        : "/visit/profile/"+ (item.author && item.author.id))
-                                                }
-                                            >
-                                                <div>
-                                                    {item.author && item.author.username}
-                                                    {(item.author &&
-                                                        item.author.profile.permission) ===
-                                                    "reviewed" ? (
-                                                        <IconFont
-                                                            type="iconbadge"
-                                                            style={{paddingLeft: "10px"}}
-                                                        />
-                                                    ) : null}
-                                                </div>
-                                            </Link>
-                                        }
-                                        avatar={<AvatarFlow kwy={'avatarFlow'} author={item.author} userId={this.state.id}/>}
-                                        description={
-                                            item.created && moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()
-                                        }
-                                    />
-                                    <Link to={"/article/" + item.id}>
-                                        <h3
-                                            style={{
-                                                color: "#1a1a1a",
-                                                fontWeight: "600",
-                                                fontSize: "18px",
-                                                fontStretch: "100%"
-                                            }}
-                                        >
-                                            {item.title}
-                                        </h3>
-                                        <div style={{color: "#646464", fontSize: "15px"}}>
-                                            {this.extractBrief(item.content)}
-                                        </div>
-                                    </Link>
-                                </Skeleton>
-                            </div>
-                        </List.Item>
-                    )}
-                />
+                {loading === false ?
+                    <List
+                        itemLayout="vertical"
+                        dataSource={cache}
+                        loadMore={loadMore}
+                        loading={initLoading}
+                        renderItem={item => (
+                            <Article item={item} userId={this.state.id} key={'Article_item' + item.id}/>
+                        )}/> :
+                    null
+                }
+
             </div>
         );
     }
