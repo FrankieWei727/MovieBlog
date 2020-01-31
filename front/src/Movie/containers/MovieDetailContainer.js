@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Layout, Row, Col, Descriptions, Tag, Typography, List, BackTop, Icon} from 'antd'
 import StillList from "../components/Stills";
 import AddMovieReview from "../components/AddMovieReview";
+import moment from "moment";
 
 const {Title} = Typography;
 
@@ -108,7 +109,7 @@ class MovieDetail extends React.Component {
                                                 <div style={{
                                                     color: '#fff',
                                                     fontWeight: '700'
-                                                }}>{movie.release_date}</div>
+                                                }}>{moment(movie.release_date).format('YYYY-MM')}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Length</span>}>
                                                 <div style={{color: '#fff', fontWeight: '700'}}>{movie.length}</div>

@@ -25,7 +25,7 @@ const BaseRouter = () => (
     <div>
         {/*<Route exact path='/home/' component={Home}/>*/}
         <Route exact path='/movie/' component={MovieList}/>
-        <Route exact path='/movie/:movieID/' component={MovieDetail}/>
+        <Route path='/movie/:movieID' component={MovieDetail}/>
         <Route exact path='/movie_upload' component={MovieSourceEditor}/>
         <Route exact path='/video_source_upload' component={MoviePlaySourceEditor}/>
         <Route exact path='/stills_upload' component={MovieStillsSourceEditor}/>

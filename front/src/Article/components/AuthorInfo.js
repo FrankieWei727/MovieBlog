@@ -3,7 +3,7 @@ import {Card, Avatar, Tag} from 'antd'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
-const {Meta} = Card
+const {Meta} = Card;
 
 class AuthorInfo extends Component {
     state = {
@@ -12,14 +12,35 @@ class AuthorInfo extends Component {
         username: '',
         bio: '',
         id: '',
-        profession: ''
-    }
+        profession: '',
+        userId : "",
+    };
 
     componentDidUpdate(prevProps) {
         if (prevProps.authorId !== this.props.authorId) {
-            this.getProfileData()
+            this.getProfileData();
+            this.getUserData()
         }
     }
+
+       getUserData = async (v) => {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
+            try {
+                const response = await axios.get(
+                    'http://127.0.0.1:8000/rest-auth/user/',
+                    {headers: {'Authorization': 'Token ' + token}}
+                );
+                this.setState(function (state) {
+                    return {
+                        userId: response.data.id,
+                    }
+                })
+            } catch (error) {
+                // console.log(error)
+            }
+        }
+    };
 
     getProfileData = async (v) => {
         try {
@@ -49,7 +70,7 @@ class AuthorInfo extends Component {
             }}>
                 <Meta
                     avatar={<Link
-                        to={(this.state.id + '' === window.localStorage.getItem('user_id') ? '/profile/' : '/visit/') + this.state.id}><Avatar
+                        to={this.state.id === this.state.userId ? '/profile' : '/visit/profile/' + this.state.id}><Avatar
                         shape='square' src={this.state.urlAvatar}/></Link>}
                     title={<div>
                         <div style={{display: 'flex', alignItems: 'center'}}>

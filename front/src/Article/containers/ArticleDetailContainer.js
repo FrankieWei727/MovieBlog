@@ -37,7 +37,7 @@ class ArticlePage extends Component {
         try {
             const response = await axios.get(
                 "http://127.0.0.1:8000/api/comment/articles/" + this.props.match.params.articleID
-            )
+            );
             this.setState(function (state) {
                 return {
                     title: response.data.title,

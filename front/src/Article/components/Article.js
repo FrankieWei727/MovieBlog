@@ -100,7 +100,8 @@ class Article extends Component {
                             fontWeight: "600",
                             fontSize: "18px",
                             fontStretch: "100%",
-                            padding: '0 20px'
+                            padding: '0 20px',
+                            paddingBottom: '5px'
                         }}
                         >
                             {item.title}

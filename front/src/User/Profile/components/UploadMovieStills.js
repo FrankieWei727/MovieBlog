@@ -35,11 +35,12 @@ class MovieStillsEditor extends Component {
 
     state = {
         loading: false,
+        movieId:"",
     };
 
     componentDidMount() {
         //get the new movie data
-        axios.get('http://127.0.0.1:8000/api/movie/movies?name=' + this.props.location.state.name)
+        axios.get('http://127.0.0.1:8000/api/movie/movies/?name=' + this.props.location.state.name)
             .then(res => {
                 this.setState({
                     movieId: res.data.results[0].id,
@@ -100,10 +101,12 @@ class MovieStillsEditor extends Component {
                         this.setState({
                             stillsDataState: true,
                         });
-                        if (response.status === 201) {
-                            openNotificationWithIconS('success');
-                            this.props.history.replace({pathname: '/video_source_upload', state: {name: this.props.location.state.name}})
-                        }
+                        openNotificationWithIconS('success');
+                        this.props.history.replace({
+                            pathname: '/video_source_upload',
+                            state: {name: this.props.location.state.name}
+                        })
+
                     }
                 }).catch(error => {
                     console.log(error.response.data);

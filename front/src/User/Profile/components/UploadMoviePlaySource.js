@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {BackTop, Button, Col, Divider, Form, Icon, Layout, Row, Typography, Input} from "antd";
+import {BackTop, Button, Col, Divider, Form, Icon, Layout, Row, Typography, Input, notification} from "antd";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import axios from "axios";
@@ -7,11 +7,30 @@ import axios from "axios";
 const {Title} = Typography;
 let id = 0;
 
+const openNotificationWithIconS = (type) => {
+    notification[type]({
+        message: 'Successful',
+        description: 'Upload Successfully',
+        duration: 2
+    })
+};
+const openNotificationWithIconE = (type) => {
+    notification[type]({
+        message: 'Error',
+        description: "You don't have permission",
+        duration: 2
+    })
+};
+
 class MoviePlaySource extends Component {
+
+    state = {
+        movieId: null,
+    };
 
     componentDidMount() {
         //get the new movie data
-        axios.get('http://127.0.0.1:8000/api/movie/movies?name=' + this.props.location.state.name)
+        axios.get('http://127.0.0.1:8000/api/movie/movies/?name=' + this.props.location.state.name)
             .then(res => {
                 this.setState({
                     movieId: res.data.results[0].id,
@@ -57,6 +76,27 @@ class MoviePlaySource extends Component {
                 console.log('Received values of form: ', values);
                 console.log('Merged values:', keys.map(key => websites[key]));
                 console.log('Merged values:', keys.map(key => urls[key]));
+                keys.map(key =>
+                    axios.post('http://127.0.0.1:8000/api/movie/videos/',
+                        {
+                            website: websites[key],
+                            url: urls[key],
+                            movie: this.state.movieId
+                        },
+                        {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+                    ).then(res => {
+                        console.log(res.data);
+                        openNotificationWithIconS('success');
+                        if (res.status === 201) {
+                            this.props.history.replace(`/movie/${this.state.movieId}`)
+                        }
+                    }).catch(error => {
+                        console.log(error.response.data);
+                        if (error.response.status === 403) {
+                            openNotificationWithIconE('error');
+                        }
+                    })
+                )
             }
         });
     };
@@ -76,10 +116,10 @@ class MoviePlaySource extends Component {
         getFieldDecorator('keys', {initialValue: [1]});
         const keys = getFieldValue('keys');
         const formItems = keys.map((k) => (
-            <div>
+            <div key={'upload_source' + k}>
                 <Form.Item label="Url"
                            required={true}
-                           key={k}
+                           key={'url' + k}
                            {...formItemLayout}
                 >
                     {getFieldDecorator(`urls[${k}]`, {
@@ -95,7 +135,7 @@ class MoviePlaySource extends Component {
                 </Form.Item>
                 <Form.Item label="Website"
                            required={true}
-                           key={k}
+                           key={'website' + k}
                            {...formItemLayout}
                 >
                     {getFieldDecorator(`websites[${k}]`, {
