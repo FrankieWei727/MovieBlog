@@ -3,7 +3,6 @@ import {List, Button, Icon, Input} from "antd";
 import axios from "axios";
 import Article from "./Article";
 
-
 const count = 5;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
@@ -28,17 +27,23 @@ class ArticleList extends Component {
         this.setState({initLoading: false});
     };
 
-    getUserData = async (v) => {
-        try {
-            const response = await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
-                {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
-            );
-            this.setState(function (state) {
-                return {username: response.data.username, id: response.data.id}
-            })
-        } catch (error) {
-            console.log(error)
+    async getUserData() {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
+            try {
+                const response = await axios.get(
+                    'http://127.0.0.1:8000/rest-auth/user/',
+                    {headers: {'Authorization': 'Token ' + token}}
+                );
+                this.setState(function (state) {
+                    return {
+                        username: response.data.username,
+                        id: response.data.id
+                    }
+                })
+            } catch (error) {
+                console.log(error)
+            }
         }
     };
 
@@ -148,7 +153,7 @@ class ArticleList extends Component {
                     placeholder="Please input keywords"
                     onSearch={value => this.search(value)}
                     enterButton
-                    style={{padding: '0 20px',paddingTop:'10px'}}
+                    style={{padding: '0 20px', paddingTop: '10px'}}
                 />
                 {loading === false ?
                     <List

@@ -200,7 +200,7 @@ class MovieEditor extends Component {
                             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline'}}>
                                 <Title level={3}>Step 1 - Upload Basic Movie Info</Title>
                                 <Divider type='vertical'/>
-                                <Link to='/editor_guidance'>编辑须知</Link>
+                                <Link to='/editor_guidance'>Note to editors</Link>
                             </div>
                             <Form onSubmit={this.handleSubmit} className='movie-editor-form'>
                                 <Form.Item

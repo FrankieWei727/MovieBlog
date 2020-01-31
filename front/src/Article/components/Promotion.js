@@ -25,19 +25,21 @@ class PromotionList extends Component {
         })
     };
 
-    getUserProfile = async (v) => {
-
-        await axios.get(
-            'http://127.0.0.1:8000/rest-auth/user/',
-            {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
-        ).then(response => {
-                this.setState({
-                    switch: (response.data.profile.permission === 'reviewed')
-                })
-            }
-        ).catch(err => {
-            console.log(err)
-        });
+    async getUserProfile() {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
+            await axios.get(
+                'http://127.0.0.1:8000/rest-auth/user/',
+                {headers: {'Authorization': 'Token ' + token}}
+            ).then(response => {
+                    this.setState({
+                        switch: (response.data.profile.permission === 'reviewed')
+                    })
+                }
+            ).catch(err => {
+                console.log(err)
+            });
+        }
     };
 
     render() {

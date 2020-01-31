@@ -5,7 +5,10 @@ from movie.models import Category, CategoryGroup, Movie, Activity, StillsGallery
 class VideoSourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoSource
-        fields = ('website', 'url')
+        fields = ('website', 'url','movie')
+
+        def create(self, validated_data):
+            print(validated_data)
 
 
 class CategorySerializer(serializers.ModelSerializer):

@@ -7,8 +7,9 @@ import axios from 'axios';
 import AvatarFlow from "./AvatarFlow";
 
 const TextArea = Input.TextArea;
+const token = window.localStorage.getItem('token');
 
-const CommentList = ({comments, userId}) => (
+const CommentList = ({comments, userId, user}) => (
     <List style={{paddingBottom: '40px'}}
           dataSource={comments}
           header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
@@ -18,10 +19,9 @@ const CommentList = ({comments, userId}) => (
                   author={item.author ? item.author.username : item.username}
                   avatar={
                       (item.author ?
-                              <div>
-                                  <AvatarFlow author={item.author} userId={userId}></AvatarFlow>
-                              </div> :
-                              null
+                              <AvatarFlow author={item.author} userId={userId}></AvatarFlow>
+                              :
+                              <AvatarFlow author={user} userId={userId}></AvatarFlow>
                       )}
                   content={item.content}
                   datetime={moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
@@ -54,6 +54,7 @@ const count = 8;
 
 class CreateArticleComment extends Component {
     state = {
+        user: {},
         id: null,
         comments: [],
         submitting: false,
@@ -86,24 +87,27 @@ class CreateArticleComment extends Component {
     };
 
     getUserData = async (v) => {
-        try {
-            const response = await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
-                {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
-            );
-            this.setState(function (state) {
-                return {
-                    id: response.data.id,
-                    username: response.data.username,
-                    avatar: response.data.profile.avatar
-                }
-            })
-        } catch (error) {
-            console.log(error)
+        if (token !== null) {
+            try {
+                const response = await axios.get(
+                    'http://127.0.0.1:8000/rest-auth/user/',
+                    {headers: {'Authorization': 'Token ' + token}}
+                );
+                this.setState(function (state) {
+                    return {
+                        user: response.data,
+                        id: response.data.id,
+                        username: response.data.username,
+                        avatar: response.data.profile.avatar
+                    }
+                })
+            } catch (error) {
+                // console.log(error)
+            }
         }
     };
 
-    getCommentData = async (v) => {
+    async getCommentData() {
         if (this.props.articleId) {
             try {
                 const response = await axios.get(
@@ -129,7 +133,7 @@ class CreateArticleComment extends Component {
                 content: value,
                 article: this.props.articleId
             },
-            {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+            {headers: {'Authorization': 'Token ' + token}}
         ).catch(err => {
             console.log(err);
             message('error');
@@ -168,17 +172,17 @@ class CreateArticleComment extends Component {
     };
 
     render() {
-        const {comments, submitting, value} = this.state;
+        const {comments, submitting, value, user} = this.state;
         return (
             <div>
-                {window.localStorage.getItem('token') !== null ?
+                {token !== null ?
                     <div>
                         <Comment
                             avatar={(
                                 <Avatar
                                     shape='square'
                                     src={this.state.avatar}
-                                    alt={this.state.username}
+                                    alt={user.username}
                                 />
                             )}
                             content={(
@@ -196,7 +200,8 @@ class CreateArticleComment extends Component {
                             comment...</p>
                     </div>
                 }
-                {comments.length > 0 && <CommentList comments={comments} userId={this.state.id}/>}
+                {comments.length > 0 &&
+                <CommentList comments={comments} userId={user.id} user={user}/>}
             </div>
         )
     }

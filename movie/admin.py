@@ -3,7 +3,7 @@ from .models import Category, CategoryGroup, Movie, Activity, StillsGallery, Vid
 
 
 class VideoSourceAdmin(admin.ModelAdmin):
-    list_display = ['movie_name', 'website', 'url']
+    list_display = ['movie', 'website', 'url']
 
 
 admin.site.register(VideoSource, VideoSourceAdmin)

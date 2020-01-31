@@ -63,12 +63,12 @@ class Movie(models.Model):
 
 
 class VideoSource(models.Model):
-    movie_name = models.ForeignKey(Movie, related_name='videos', on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, related_name='videos', on_delete=models.CASCADE)
     website = models.CharField(max_length=128, default='')
     url = models.CharField(max_length=128)
 
     def __str__(self):
-        return self.movie_name.name + str(self.id)
+        return self.movie.name + str(self.id)
 
 
 class StillsGallery(models.Model):

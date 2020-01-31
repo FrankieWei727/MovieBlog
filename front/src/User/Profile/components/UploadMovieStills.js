@@ -38,7 +38,6 @@ class MovieStillsEditor extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props.location.state.name);
         //get the new movie data
         axios.get('http://127.0.0.1:8000/api/movie/movies?name=' + this.props.location.state.name)
             .then(res => {
@@ -103,7 +102,7 @@ class MovieStillsEditor extends Component {
                         });
                         if (response.status === 201) {
                             openNotificationWithIconS('success');
-                            // this.props.history.replace('/stills_upload')
+                            this.props.history.replace({pathname: '/video_source_upload', state: {name: this.props.location.state.name}})
                         }
                     }
                 }).catch(error => {
@@ -139,7 +138,7 @@ class MovieStillsEditor extends Component {
                             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline'}}>
                                 <Title level={3}>Step 2 - Upload Movie Stills</Title>
                                 <Divider type='vertical'/>
-                                <Link to='/editor_guidance'>编辑须知</Link>
+                                <Link to='/editor_guidance'>Note to editors</Link>
                             </div>
                             <Form onSubmit={this.handleSubmit} className='movie-editor-form'
                                   style={{paddingTop: '40px'}}>

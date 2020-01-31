@@ -11,6 +11,7 @@ const getWidth = () => {
 
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 };
+const token = window.localStorage.getItem('token');
 
 class DesktopContainer extends Component {
 
@@ -29,23 +30,21 @@ class DesktopContainer extends Component {
 
     };
 
-    componentDidMount = async (v) => {
-        await this.getUserData()
-    };
-
-    getUserData = async (v) => {
-        await axios.get(
-            'http://127.0.0.1:8000/rest-auth/user/' + '?format=json',
-            {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
-        ).then(response => {
-                this.setState({
-                    username: response.data.username,
-                    avatar: response.data.profile.avatar,
-                })
-            }
-        ).catch(err => {
-            console.log(err)
-        });
+    componentDidMount() {
+        if (token !== null) {
+            axios.get(
+                'http://127.0.0.1:8000/rest-auth/user/' + '?format=json',
+                {headers: {'Authorization': 'Token ' + token}}
+            ).then(response => {
+                    this.setState({
+                        username: response.data.username,
+                        avatar: response.data.profile.avatar,
+                    })
+                }
+            ).catch(err => {
+                console.log(err)
+            });
+        }
     };
 
     hideFixedMenu = () => this.setState({fixed: false});

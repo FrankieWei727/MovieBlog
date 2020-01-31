@@ -2,11 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux';
 import * as actions from '../Store/actions/auth';
 import {Form, Icon, Input, Button, Checkbox, Layout, Row, Col, message} from 'antd';
+import axios from "axios";
 
 class LoginForm extends React.Component {
 
     state = {
         username: '',
+        usernameError: null,
     };
 
 
@@ -16,10 +18,32 @@ class LoginForm extends React.Component {
         });
         this.props.onAuth(values.username, values.password);
 
-        if (this.state.error !== null) {
-            message.error('The username or password is incorrect!');
-            console.log(this.state.error);
+        if (this.state.usernameError !== null) {
+            message.error('The username is not exist!');
         }
+    };
+
+    handleError() {
+        this.setState({
+            usernameError: "The username is not exist!"
+        });
+    };
+
+    setUser = (username) => {
+        this.setState({
+            username: username,
+            usernameError: null
+        })
+    };
+
+    checkUsername = async (e) => {
+        const username = e.target.value;
+        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + username)
+            .then(res => {
+                this.setUser(username)
+            }).catch(err => {
+                this.handleError()
+            });
     };
 
     handleSubmit = (e) => {
@@ -30,6 +54,7 @@ class LoginForm extends React.Component {
             }
         })
     };
+
 
     render() {
         if (this.props.token) {
@@ -57,6 +82,7 @@ class LoginForm extends React.Component {
                                         <Input
                                             prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                             placeholder="Username"
+                                            onChange={this.checkUsername}
                                         />,
                                     )}
                                 </Form.Item>
@@ -76,7 +102,7 @@ class LoginForm extends React.Component {
                                         valuePropName: 'checked',
                                         initialValue: true,
                                     })(<Checkbox>Remember me</Checkbox>)}
-                                    <a className="login-form-forgot" href="">
+                                    <a className="login-form-forgot" href="/">
                                         Forgot password
                                     </a>
                                     <Button type="primary" htmlType="submit" className="login-form-button"
