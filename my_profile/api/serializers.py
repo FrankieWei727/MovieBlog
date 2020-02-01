@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 
-from my_profile.models import Profile, User,FollowUser
+from my_profile.models import Profile, User, FollowUser
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -36,9 +36,37 @@ class UserSingUpSerializer(serializers.ModelSerializer):
         fields = ('username', 'email')
 
 
+"""
+    Serializer data of the following relationship 
+    for both users and followers
+"""
+
+
+class FollowProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('id', 'avatar', 'bio')
+
+
+class UserBriefSerializer(serializers.ModelSerializer):
+    profile = FollowProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = ('id', 'url', 'username', 'profile')
+
+
+class FollowerBriefSerializer(serializers.ModelSerializer):
+    profile = FollowProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = ('id', 'url', 'username', 'profile')
+
+
 class FollowUserSerializer(serializers.ModelSerializer):
-    follower = UserSerializer(read_only=True)
-    user = UserSerializer(read_only=True)
+    follower = FollowerBriefSerializer(read_only=True)
+    user = UserBriefSerializer(read_only=True)
 
     class Meta:
         model = FollowUser

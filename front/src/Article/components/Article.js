@@ -23,6 +23,14 @@ class Article extends Component {
         height: window.innerHeight,
         affixed: "",
         style: [],
+        position: "",
+    };
+
+    getOffset = () => {
+        console.log(this.myDiv.current.offsetTop);
+        this.setState({
+            position: this.myDiv.current.offsetTop
+        })
     };
 
     extractText = HTMLString => {
@@ -84,16 +92,19 @@ class Article extends Component {
         const {isExtractBrief} = this.state;
         return (
             <List.Item>
-                <div
-                    style={
-                        item.originality === "Y"
-                            ? {
-                                borderLeft: "8px solid",
-                                borderColor: "#269f42",
-                                paddingLeft: "15px"
-                            }
-                            : {}
-                    }>
+                <div ref={this.myDiv}
+                    // ref={node => {
+                    //     this.container = node;
+                    // }}
+                     style={
+                         item.originality === "Y"
+                             ? {
+                                 borderLeft: "8px solid",
+                                 borderColor: "#269f42",
+                                 paddingLeft: "15px"
+                             }
+                             : {}
+                     }>
                     <Link to={"/article/" + item.id}>
                         <h3 style={{
                             color: "#1a1a1a",

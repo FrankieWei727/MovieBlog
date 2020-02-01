@@ -3,7 +3,7 @@ import {Layout, Row, Col, Tabs, Form, BackTop} from 'antd'
 import {withRouter} from 'react-router'
 
 import ArticleList from "../components/ArticleList";
-// import ArticleFollowList from './ArticleFollowList'
+import SubscriptionArticleList from "../components/SubscriptionArticleList";
 import PromotionList from "../components/Promotion";
 // import MicroList from './MicroList'
 // import PropertyRank from './PropertyRank'
@@ -39,7 +39,7 @@ class BlogList extends Component {
                                     <ArticleList/>
                                 </TabPane>
                                 <TabPane tab='Subscription' key='2'>
-                                    {/*<ArticleFollowList />*/}
+                                    <SubscriptionArticleList/>
                                 </TabPane>
                             </Tabs>
                         </div>

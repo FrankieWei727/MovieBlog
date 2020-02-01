@@ -3,6 +3,7 @@ from .views import (ArticleListView,
                     ArticleDetailView,
                     MyArticleListView,
                     MyArticleDetailView,
+                    SubscriptionArticleListView,
                     ReviewView,
                     ArticleCommentView
                     )
@@ -17,6 +18,7 @@ urlpatterns = [
     path('articles/<int:pk>', ArticleDetailView.as_view(), name='article-detail'),
     path('my_articles/', MyArticleListView.as_view(), name='my-article-list'),
     path('my_articles/<int:pk>', MyArticleDetailView.as_view(), name='my-article-detail'),
+    path('following_articles/', SubscriptionArticleListView.as_view(), name='following-article-list'),
     path(r'', include(router.urls)),
 
 ]

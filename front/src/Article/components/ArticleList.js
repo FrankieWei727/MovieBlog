@@ -127,7 +127,7 @@ class ArticleList extends Component {
     };
 
     render() {
-        const {initLoading, loading, cache, data, next} = this.state;
+        const {initLoading, loading, cache, data, next, id} = this.state;
         const loadMore =
             !initLoading && !loading && next ? (
                 <div
@@ -162,7 +162,7 @@ class ArticleList extends Component {
                         loadMore={loadMore}
                         loading={initLoading}
                         renderItem={item => (
-                            <Article item={item} userId={this.state.id} key={'Article_item' + item.id}/>
+                            <Article item={item} userId={id} key={'Article_item' + item.id}/>
                         )}/> :
                     null
                 }

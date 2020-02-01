@@ -52,7 +52,7 @@ class ArticleListView(generics.ListCreateAPIView):
     pagination_class = ArticlePagination
     filter_backends = (res_fliters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = ArticleFilter
-    search_fields = ('title', 'content')
+    search_fields = ('title', 'author__username')
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -68,6 +68,23 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
         article.views = article.views + 1
         article.save()
         return self.retrieve(request, *args, **kwargs)
+
+
+class SubscriptionArticleListView(generics.ListAPIView):
+    serializer_class = ArticleSerializer
+    pagination_class = ArticlePagination
+    filter_backends = (filters.SearchFilter,)
+    filterset_class = ArticleFilter
+    search_fields = ('title', 'author__username')
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        id_string = self.request.GET.get('id')
+        if id_string is not None:
+            ids = [int(id) for id in id_string.split(',')]
+            return queryset.filter(author__id__in=ids)
+        else:
+            return queryset
 
 
 class MyArticleFilter(filters.BaseFilterBackend):

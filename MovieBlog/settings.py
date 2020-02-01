@@ -99,93 +99,93 @@ DATABASES = {
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'standard': {
-            'format': '%(asctime)s [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s] %(message)s'}
-    },
-    'filters': {
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        },
-        'default': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/mlinked_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-        'error': {
-            'level': 'ERROR',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Error/mlinked_Error_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-        'request_handler': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Request/mlinked_Request_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-        'scripts_handler': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '{}/Log/Script/mlinked_Script_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
-            'maxBytes': 1024 * 1024 * 5,
-            'backupCount': 5,
-            'formatter': 'standard',
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['default'],
-            'level': 'DEBUG',
-            'propagate': False
-        },
-        'django.request': {
-            'handlers': ['request_handler'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-        'scripts': {
-            'handlers': ['scripts_handler'],
-            'level': 'INFO',
-            'propagate': False
-        },
-        'console': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-        # API/Views
-        'views': {
-            'handlers': ['default', 'error'],
-            'level': 'DEBUG',
-            'propagate': True
-        },
-        'util': {
-            'handlers': ['error'],
-            'level': 'ERROR',
-            'propagate': True
-        },
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {
+#         'standard': {
+#             'format': '%(asctime)s [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s] %(message)s'}
+#     },
+#     'filters': {
+#     },
+#     'handlers': {
+#         'mail_admins': {
+#             'level': 'ERROR',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'include_html': True,
+#         },
+#         'default': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': '{}/Log/mlinked_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
+#             'maxBytes': 1024 * 1024 * 5,
+#             'backupCount': 5,
+#             'formatter': 'standard',
+#         },
+#         'error': {
+#             'level': 'ERROR',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': '{}/Log/Error/mlinked_Error_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
+#             'maxBytes': 1024 * 1024 * 5,
+#             'backupCount': 5,
+#             'formatter': 'standard',
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'standard'
+#         },
+#         'request_handler': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': '{}/Log/Request/mlinked_Request_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
+#             'maxBytes': 1024 * 1024 * 5,
+#             'backupCount': 5,
+#             'formatter': 'standard',
+#         },
+#         'scripts_handler': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'filename': '{}/Log/Script/mlinked_Script_{}.log'.format(BASE_DIR, datetime.datetime.now().date()),
+#             'maxBytes': 1024 * 1024 * 5,
+#             'backupCount': 5,
+#             'formatter': 'standard',
+#         }
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['default'],
+#             'level': 'DEBUG',
+#             'propagate': False
+#         },
+#         'django.request': {
+#             'handlers': ['request_handler'],
+#             'level': 'DEBUG',
+#             'propagate': False,
+#         },
+#         'scripts': {
+#             'handlers': ['scripts_handler'],
+#             'level': 'INFO',
+#             'propagate': False
+#         },
+#         'console': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True
+#         },
+#         # API/Views
+#         'views': {
+#             'handlers': ['default', 'error'],
+#             'level': 'DEBUG',
+#             'propagate': True
+#         },
+#         'util': {
+#             'handlers': ['error'],
+#             'level': 'ERROR',
+#             'propagate': True
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

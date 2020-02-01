@@ -8,15 +8,21 @@ import {
     BackTop,
     Input,
     Affix,
+    Icon,
 } from "antd";
 
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
+import {Link} from "react-router-dom";
 
 const count = 5;
 const {Title} = Typography;
 const {Search} = Input;
 const tip = ["All", "Search Result"];
+const token = window.localStorage.getItem('token');
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: '//at.alicdn.com/t/font_1621723_13u19gbl1o2s.js'
+});
 
 class MovieList extends React.Component {
 
@@ -30,12 +36,38 @@ class MovieList extends React.Component {
         filterTag: "",
         loading: true,
         selectedTags: [],
+        current: '',
+        switch: false,
     };
 
     componentDidMount = async v => {
         await this.getData();
+        await this.getUserProfile();
         this.setState({loading: false});
     };
+
+    handleClick = (e) => {
+        this.setState({
+            current: e.key
+        })
+    };
+
+    async getUserProfile() {
+        if (token !== null) {
+            await axios.get(
+                'http://127.0.0.1:8000/rest-auth/user/',
+                {headers: {'Authorization': 'Token ' + token}}
+            ).then(response => {
+                    this.setState({
+                        switch: (response.data.profile.permission === 'reviewed')
+                    })
+                }
+            ).catch(err => {
+                console.log(err)
+            });
+        }
+    };
+
 
     getData = async v => {
         try {
@@ -172,7 +204,7 @@ class MovieList extends React.Component {
         return (
             <Layout style={{minHeight: "100vh"}}>
                 <BackTop/>
-                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding:'0px 60px'}}>
+                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding: '0px 60px'}}>
                     <Affix offsetTop={this.state.top}>
                         <Row style={{
                             padding: "20px 60px",
@@ -214,7 +246,30 @@ class MovieList extends React.Component {
                         </Col>
                         <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
                              xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
-                            {/*<CategoryList/>*/}
+                            <div style={{
+                                padding: '20px 20px',
+                                background: '#fff',
+                                borderRadius: '1px',
+                                boxShadow: '0 1px 3px rgba(26,26,26,.1)',
+                                marginBottom: '10px'
+                            }}>
+                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <Link to={token ? (this.state.switch ? '/movie_upload' : '/permission/setting') : 'login'}>
+                                        <div style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'center',
+                                            alignItems: 'right'
+                                        }}>
+                                            <IconFont type='iconfabu1' style={{fontSize: '36px'}}/>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </Col>
+                        <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
+                             xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
+
                             <Tags
                                 key={'TagsItemList'}
                                 data={this.state.tags}
