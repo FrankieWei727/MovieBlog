@@ -3,7 +3,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import User
-from embed_video.fields import EmbedVideoField
 
 
 class CategoryGroup(models.Model):

@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
-    'embed_video',
 
     'movie',
     'comment',
