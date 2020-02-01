@@ -4,4 +4,3 @@ db.sqlite3
 .idea
 __pycache__
 package-lock.json
-MovieBlog/settings.py
