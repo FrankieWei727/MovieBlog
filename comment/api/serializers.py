@@ -1,4 +1,3 @@
-from django.utils import formats
 from rest_framework import serializers
 from comment.models import Article, ArticleComment, Review
 from my_profile.api.serializers import UserSerializer
