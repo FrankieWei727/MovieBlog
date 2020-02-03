@@ -99,8 +99,7 @@ class SettingProfile extends Component {
             } else {
                 callback();
             }
-        }
-        else {
+        } else {
             callback();
         }
     };
@@ -216,7 +215,7 @@ class SettingProfile extends Component {
         return (
             <Layout style={{minHeight: '100vh', backgroundColor: '#fff'}}>
                 <div style={{flex: '1 0'}}>
-                    <Row style={{flex: '1 0', paddingTop: '20px'}}>
+                    <Row style={{flex: '1 0', padding: '40px 60px'}}>
                         <Col xxl={{span: 3, offset: 5}} xl={{span: 4, offset: 2}} md={{span: 5, offset: 1}}
                              xs={{span: 22, offset: 1}} style={{marginBottom: '20px'}}>
                             <nav style={{border: '1px solid #d1d5da', borderRadius: '3px'}}>

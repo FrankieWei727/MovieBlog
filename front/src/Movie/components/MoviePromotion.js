@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import {Icon} from 'antd'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import {connect} from 'react-redux';
 
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1621723_d874tqmi7pk.js'
 });
 
 
-class PromotionList extends Component {
+class MoviePromotionList extends Component {
     state = {
         current: '',
         switch: false
@@ -51,16 +52,19 @@ class PromotionList extends Component {
                 marginBottom: '10px'
             }}>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <Link to={(window.localStorage.getItem('token') !== null) ? '/create_article' : '/login'}>
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'right'
-                        }}>
-                            <IconFont type='iconbianji1' style={{fontSize: '36px'}}/>
-                        </div>
-                    </Link>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Link
+                            to={this.props.token ? (this.state.switch ? '/movie_upload' : '/permission/setting') : 'login'}>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'right'
+                            }}>
+                                <IconFont type='iconfabu1' style={{fontSize: '36px'}}/>
+                            </div>
+                        </Link>
+                    </div>
                     {/*<Link to={this.state.switch ? '/book_editor_page' : '/settings/account'}>*/}
                     {/*    <div style={{*/}
                     {/*        display: 'flex',*/}
@@ -89,4 +93,10 @@ class PromotionList extends Component {
     }
 }
 
-export default PromotionList
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+    }
+};
+
+export default connect(mapStateToProps, null)(MoviePromotionList)

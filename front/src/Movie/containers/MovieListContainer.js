@@ -14,6 +14,7 @@ import {
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
 import {Link} from "react-router-dom";
+import MoviePromotion from "../components/MoviePromotion";
 
 const count = 5;
 const {Title} = Typography;
@@ -246,30 +247,10 @@ class MovieList extends React.Component {
                         </Col>
                         <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
                              xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
-                            <div style={{
-                                padding: '20px 20px',
-                                background: '#fff',
-                                borderRadius: '1px',
-                                boxShadow: '0 1px 3px rgba(26,26,26,.1)',
-                                marginBottom: '10px'
-                            }}>
-                                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <Link to={token ? (this.state.switch ? '/movie_upload' : '/permission/setting') : 'login'}>
-                                        <div style={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'center',
-                                            alignItems: 'right'
-                                        }}>
-                                            <IconFont type='iconfabu1' style={{fontSize: '36px'}}/>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
+                            <MoviePromotion/>
                         </Col>
                         <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
                              xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
-
                             <Tags
                                 key={'TagsItemList'}
                                 data={this.state.tags}

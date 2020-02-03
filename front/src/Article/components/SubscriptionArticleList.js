@@ -2,13 +2,13 @@ import React, {Component} from "react";
 import {List, Button, Icon, Input} from "antd";
 import axios from "axios";
 import Article from "./Article";
+import {connect} from 'react-redux';
 
 const count = 5;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
 });
 const {Search} = Input;
-const token = window.localStorage.getItem('token');
 
 class SubscriptionArticleList extends Component {
     page = 1;
@@ -24,6 +24,14 @@ class SubscriptionArticleList extends Component {
     };
 
     componentDidMount = async v => {
+        // // Make first two requests
+        // const [firstResponse, secondResponse] = await Promise.all([
+        //     this.getUserData(),
+        //     this.getFollowingData()
+        // ]);
+        // // Make third request using responses from the first two
+        // const thirdResponse = await this.getArticleData();
+
         await this.getUserData();
         await this.getFollowingData();
         await this.getArticleData();
@@ -31,11 +39,11 @@ class SubscriptionArticleList extends Component {
     };
 
     async getUserData() {
-        if (token !== null) {
+        if (this.props.token !== null) {
             try {
                 const response = await axios.get(
                     'http://127.0.0.1:8000/rest-auth/user/',
-                    {headers: {'Authorization': 'Token ' + token}}
+                    {headers: {'Authorization': 'Token ' + this.props.token}}
                 );
                 this.setState(function (state) {
                     return {
@@ -50,7 +58,7 @@ class SubscriptionArticleList extends Component {
     };
 
     async getFollowingData() {
-        if (token !== null) {
+        if (this.props.token !== null) {
             await axios.get(
                 'http://127.0.0.1:8000/api/account/user/followers/?format=json&follower=' + this.state.id)
                 .then(res => {
@@ -198,4 +206,10 @@ class SubscriptionArticleList extends Component {
     }
 }
 
-export default SubscriptionArticleList;
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+    }
+};
+
+export default connect(mapStateToProps, null)(SubscriptionArticleList);

@@ -16,10 +16,14 @@ class LoginForm extends React.Component {
         this.setState({
             username: values.username
         });
-        this.props.onAuth(values.username, values.password);
+        try {
+            this.props.onAuth(values.username, values.password);
 
-        if (this.state.usernameError !== null) {
-            message.error('The username is not exist!');
+            if (this.state.usernameError !== null) {
+                message.error('The username is not exist!');
+            }
+        } catch (e) {
+            console.log(e);
         }
     };
 
@@ -59,7 +63,7 @@ class LoginForm extends React.Component {
     render() {
         if (this.props.token) {
             message.success('Welcome Back ' + this.state.username + '!');
-            this.props.history.replace('/article');
+            this.props.history.replace({pathname: '/article', state: {token: this.props.token}});
         }
         const {getFieldDecorator} = this.props.form;
         return (

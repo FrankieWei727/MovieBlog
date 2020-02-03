@@ -1,6 +1,6 @@
 from ..models import (
     Movie,
-    Activity,
+    Event,
     Category,
     CategoryGroup,
     StillsGallery,
@@ -9,7 +9,7 @@ from ..models import (
 from movie.api.serializers import (MovieSerializer,
                                    MovieCreateSerializer,
                                    MovieRankUpdateSerializer,
-                                   ActivitySerializer,
+                                   EventSerializer,
                                    CategorySerializer,
                                    CategoryGroupSerializer,
                                    StillsGallerySerializer,
@@ -19,24 +19,6 @@ from rest_framework.viewsets import ModelViewSet, generics
 from rest_framework.pagination import PageNumberPagination
 import django_filters.rest_framework as res_fliters
 from rest_framework import filters
-
-
-class MoviePagination(PageNumberPagination):
-    page_size = 4
-    page_size_query_param = 'page_size'
-    max_page_size = 128
-
-    class Meta:
-        model = Movie
-        fields = '__all__'
-
-
-class MovieFilter(res_fliters.FilterSet):
-    class Meta:
-        model = Movie
-        exclude = ['poster', 'video', 'description', 'stills',
-                   'rank', 'created', 'updated', 'users_like', 'movie_views', 'length',
-                   'video_source']
 
 
 class CategoryView(ModelViewSet):
@@ -59,6 +41,29 @@ class VideoSourceView(ModelViewSet):
     serializer_class = VideoSourceSerializer
 
 
+"""
+    Movie API 
+"""
+
+
+class MoviePagination(PageNumberPagination):
+    page_size = 4
+    page_size_query_param = 'page_size'
+    max_page_size = 128
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+
+class MovieFilter(res_fliters.FilterSet):
+    class Meta:
+        model = Movie
+        exclude = ['poster', 'video', 'description', 'stills',
+                   'rank', 'created', 'updated', 'users_like', 'movie_views', 'length',
+                   'video_source']
+
+
 class MovieView(ModelViewSet):
     queryset = Movie.objects.all().order_by('-release_date')
     serializer_class = MovieSerializer
@@ -78,6 +83,17 @@ class MovieRankUpdateView(generics.UpdateAPIView):
     serializer_class = MovieRankUpdateSerializer
 
 
-class ActivityView(ModelViewSet):
-    queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
+class EventPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 128
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
+
+class EventView(ModelViewSet):
+    queryset = Event.objects.all().order_by('-start_date')
+    pagination_class = EventPagination
+    serializer_class = EventSerializer

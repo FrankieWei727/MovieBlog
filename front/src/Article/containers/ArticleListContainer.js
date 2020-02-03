@@ -9,7 +9,6 @@ import PromotionList from "../components/Promotion";
 // import PropertyRank from './PropertyRank'
 
 const TabPane = Tabs.TabPane;
-
 class BlogList extends Component {
     state = {
         collapsed: false
@@ -19,7 +18,6 @@ class BlogList extends Component {
         console.log(collapsed);
         this.setState({collapsed})
     };
-
 
     render() {
         return (

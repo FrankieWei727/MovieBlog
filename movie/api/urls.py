@@ -4,7 +4,7 @@ from .views import (
     MovieView,
     MovieCreateView,
     MovieRankUpdateView,
-    ActivityView,
+    EventView,
     CategoryView,
     CategoryGroupView,
     StillsGalleryView,
@@ -13,7 +13,7 @@ from .views import (
 
 router = routers.DefaultRouter()
 router.register(r'movies', MovieView)
-router.register(r'activities', ActivityView)
+router.register(r'events', EventView)
 router.register(r'categories', CategoryView)
 router.register(r'categories_group', CategoryGroupView)
 router.register(r'stills', StillsGalleryView)

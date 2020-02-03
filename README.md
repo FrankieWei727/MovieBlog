@@ -7,9 +7,11 @@ run requirements
     pip install -r requirements.txt
     npm install 
 
-install webpack 
+run project
     
-    npm i -D webpack webpack-cli
+    ./manage.py runserver
+    npm bulid
+    npm start
 
 
 

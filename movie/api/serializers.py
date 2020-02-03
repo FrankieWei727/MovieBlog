@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from movie.models import Category, CategoryGroup, Movie, Activity, StillsGallery, VideoSource
+from movie.models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource
 
 
 class VideoSourceSerializer(serializers.ModelSerializer):
@@ -25,10 +25,10 @@ class CategoryGroupSerializer(serializers.ModelSerializer):
         fields = ('name', 'category')
 
 
-class ActivitySerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Activity
-        fields = ('id', 'url', 'title', 'created', 'start_date', 'body', 'poster', 'location', 'end_date')
+        model = Event
+        fields = ('id', 'url', 'title', 'created', 'start_date', 'content', 'poster', 'location', 'end_date')
 
 
 class StillsGallerySerializer(serializers.ModelSerializer):

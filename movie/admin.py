@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, CategoryGroup, Movie, Activity, StillsGallery, VideoSource
+from .models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource
 
 
 class VideoSourceAdmin(admin.ModelAdmin):
@@ -33,13 +33,13 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(Movie, MovieAdmin)
 
 
-class ActivityAdmin(admin.ModelAdmin):
+class EventAdmin(admin.ModelAdmin):
     list_display = ['title', 'created']
     list_filter = ['created']
     prepopulated_fields = {'slug': ('title',)}
 
 
-admin.site.register(Activity, ActivityAdmin)
+admin.site.register(Event, EventAdmin)
 
 
 class StillsAdmin(admin.ModelAdmin):

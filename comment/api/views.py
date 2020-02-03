@@ -2,9 +2,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from comment.api.serializers import (ArticleSerializer,
                                      ReviewSerializer,
-                                     ArticleCommentSerializer
-                                     )
-
+                                     ArticleCommentSerializer)
 from rest_framework.viewsets import ModelViewSet
 from ..models import Article, Review, ArticleComment
 import django_filters.rest_framework as res_fliters

@@ -11,9 +11,15 @@ const getWidth = () => {
 
     return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
 };
-const token = window.localStorage.getItem('token');
 
 class DesktopContainer extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            token: props.token
+        };
+    }
 
     state = {
         username: "",
@@ -30,16 +36,16 @@ class DesktopContainer extends Component {
 
     };
 
-    componentDidMount() {
-        if (token !== null) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.token !== null) {
             axios.get(
                 'http://127.0.0.1:8000/rest-auth/user/' + '?format=json',
-                {headers: {'Authorization': 'Token ' + token}}
+                {headers: {'Authorization': 'Token ' + nextProps.token}}
             ).then(response => {
                     this.setState({
                         username: response.data.username,
                         avatar: response.data.profile.avatar,
-                    })
+                    });
                 }
             ).catch(err => {
                 console.log(err)
@@ -56,7 +62,6 @@ class DesktopContainer extends Component {
         const {fixed} = this.state;
         const {activeItem} = this.state;
         return (
-
             <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
                 <Visibility
                     once={false}
@@ -132,6 +137,8 @@ class DesktopContainer extends Component {
 DesktopContainer.propTypes = {
     children: PropTypes.node,
 };
+
+
 const mapDispatchToProps = (dispatch) => {
     return {
         logout: () => dispatch(actions.logout())
