@@ -7,6 +7,10 @@ run requirements
     pip install -r requirements.txt
     npm install 
 
+migrate data
+    
+    ./manage.py migrate
+    
 run project
     
     ./manage.py runserver
