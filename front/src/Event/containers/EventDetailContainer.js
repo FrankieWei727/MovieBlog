@@ -6,17 +6,16 @@ class EventDetail extends React.Component {
 
     state = {
         event: {}
-    }
+    };
 
     componentDidMount() {
         const eventID = this.props.match.params.eventID;
 
-        axios.get(`http://127.0.0.1:8000/api/movie/activities/${eventID}`)
+        axios.get(`http://127.0.0.1:8000/api/movie/events/${eventID}/`)
             .then(res => {
                     this.setState({
                         event: res.data
                     });
-                    console.log(res.data)
                 }
             )
     }
@@ -32,7 +31,7 @@ class EventDetail extends React.Component {
                     <div style={{paddingBottom: '1em'}}>
                         <Icon name={'calendar times'}/> {this.state.event.start_date} to {this.state.event.end_date}
                     </div>
-                    <p style={{whiteSpace: 'pre-wrap'}}>{this.state.event.body}</p>
+                    <p style={{whiteSpace: 'pre-wrap'}}>{this.state.event.content}</p>
                 </Container>
                 <Grid centered columns={2} style={{paddingTop: '5em'}}>
                     <Grid.Column>

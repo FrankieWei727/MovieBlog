@@ -21,6 +21,6 @@ const Event = (props) => {
             </Item.Content>
         </Item>
     )
-}
+};
 
 export default Event

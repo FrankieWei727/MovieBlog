@@ -51,7 +51,7 @@ class EventList extends Component {
                                         description={item.description}
                                         /> */}
                 <List.Item.Meta
-                    title={<a href={item.href}>{item.title}</a>}
+                    title={<a href={'/event/' + item.id}>{item.title}</a>}
                 />
                 <div className='braft-output-content' style={{overflow: 'auto'}}
                      dangerouslySetInnerHTML={{__html: this.extractBrief(item.content)}}/>
