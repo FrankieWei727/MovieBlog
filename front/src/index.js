@@ -11,8 +11,15 @@ import {applyMiddleware, compose, createStore, combineReducers} from "redux";
 import thunk from "redux-thunk";
 import axios from 'axios';
 
-// axios.defaults.baseURL = ' http://0.0.0.0:45307/';
-axios.defaults.baseURL = ' https://mlinked.herokuapp.com/';
+let env = process.env.NODE_ENV;
+let baseUrl = '';
+if (env === 'development') {
+    baseUrl = "http://127.0.0.1:8000/"
+} else if (env === 'production') {
+    baseUrl = 'https://mlinked.herokuapp.com/'
+}
+
+axios.defaults.baseURL = baseUrl;
 
 const rootReducer = combineReducers({
     auth: authReducer,
