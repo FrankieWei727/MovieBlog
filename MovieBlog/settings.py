@@ -1,5 +1,5 @@
 import datetime
-
+import django_heroku
 import dj_database_url
 import os
 
@@ -292,3 +292,6 @@ ACCOUNT_EMAIL_REQUIRED = False
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'my_profile.api.serializers.UserSerializer',
 }
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
