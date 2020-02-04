@@ -19,7 +19,7 @@ SECRET_KEY = '=8&e5@9(1-*t6rtapt(f=kwm@vf!bp7pj7!*h*397tgfd(_j*j'
 if ENV_PROFILE == "production":
     DEBUG = False
 else:
-    DEBUG = True
+    DEBUG = False
 
 ALLOWED_HOSTS = ['mlinked.herokuapp.com', '127.0.0.1', 'localhost']
 
