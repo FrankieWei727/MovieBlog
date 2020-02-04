@@ -57,7 +57,7 @@ class MovieDetail extends React.Component {
             stills_numbers = 0;
         }
         return (
-            <Layout style={{minHeight: '100vh', background: 'unset'}}>
+            <Layout style={{minHeight: '100vh', background: 'unset',paddingTop:'60px'}}>
                 <BackTop/>
                 <div style={{flex: '1 0 '}}>
                     <Row style={{boxShadow: '0px 0px 5px #888888'}}>

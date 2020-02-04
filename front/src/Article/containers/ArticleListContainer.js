@@ -21,7 +21,7 @@ class BlogList extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh'}}>
+            <Layout style={{minHeight: '100vh',paddingTop:'60px'}}>
                 <BackTop/>
                 <Row style={{flex: '1 0', padding: '40px 60px'}}>
                     <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}

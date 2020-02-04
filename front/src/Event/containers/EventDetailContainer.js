@@ -22,7 +22,7 @@ class EventDetail extends React.Component {
 
     render() {
         return (
-            <div style={{paddingTop: '10em', paddingBottom: '20em'}}>
+            <div style={{paddingTop:'60px', paddingBottom: '20em'}}>
                 <Container text>
                     <Header as='h2'>{this.state.event.title}</Header>
                     <div style={{paddingBottom: '1em'}}>

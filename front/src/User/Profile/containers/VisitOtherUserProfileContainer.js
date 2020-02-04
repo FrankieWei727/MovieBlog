@@ -104,7 +104,7 @@ class VisitOtherUserProfile extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7',paddingTop:'60px'}}>
                 <Row style={{marginTop: '15px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>

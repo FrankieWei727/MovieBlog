@@ -186,7 +186,7 @@ class MovieEditor extends Component {
         const {selectedTags, tagsFromServer} = this.state;
 
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7',paddingTop:'60px'}}>
                 <BackTop/>
                 <div>
                     <Row style={{paddingTop: '30px', paddingBottom: '30px'}} type={"flex"} justify={"center"}>

@@ -109,7 +109,7 @@ class Revise extends Component {
 
         return (
             <Layout style={{minHeight: '100vh'}}>
-                <Row style={{backgroundColor: '#fff', paddingTop: '30px'}}>
+                <Row style={{backgroundColor: '#fff', paddingTop: '60px'}}>
                     <Col xxl={{span: 12, offset: 6}} xl={{span: 16, offset: 4}} xs={{span: 22, offset: 1}}>
                         <div className='editor-wrapper'>
                             <Form onSubmit={this.handleSubmit} className='text-editor-form'>

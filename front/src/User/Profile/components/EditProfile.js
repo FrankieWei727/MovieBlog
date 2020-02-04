@@ -213,7 +213,7 @@ class SettingProfile extends Component {
         const {getFieldDecorator} = this.props.form;
 
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#fff'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#fff',paddingTop:'60px'}}>
                 <div style={{flex: '1 0'}}>
                     <Row style={{flex: '1 0', padding: '40px 60px'}}>
                         <Col xxl={{span: 3, offset: 5}} xl={{span: 4, offset: 2}} md={{span: 5, offset: 1}}

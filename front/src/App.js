@@ -1,11 +1,13 @@
 import React from 'react';
 import BaseRouter from "./routes";
+import {Layout} from 'antd';
 import {BrowserRouter as Router} from "react-router-dom";
-import DesktopContainer from "./Home/containers/DesktopContainer";
-import MobileContainer from "./Home/containers/MobileContainer";
-import FooterContainer from "./Home/containers/HomeFooterContainer";
+import HomeFooter from "./Home/containers/HomeFooterContainer";
 import {connect} from 'react-redux';
 import * as actions from './Store/actions/auth';
+import HomeHeader from "./Home/containers/HeaderContainer";
+
+const {Content} = Layout;
 
 class App extends React.Component {
 
@@ -19,10 +21,13 @@ class App extends React.Component {
         return (
             <div>
                 <Router>
-                    <DesktopContainer {...this.props}/>
-                    <MobileContainer {...this.props}/>
-                    <BaseRouter/>
-                    <FooterContainer/>
+                    <Layout>
+                        <HomeHeader {...this.props}/>
+                        <Content>
+                            <BaseRouter/>
+                        </Content>
+                        <HomeFooter/>
+                    </Layout>
                 </Router>
             </div>
         );

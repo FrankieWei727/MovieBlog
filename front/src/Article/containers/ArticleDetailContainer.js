@@ -71,7 +71,7 @@ class ArticlePage extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#fff'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#fff',paddingTop:'60px'}}>
                 <BackTop/>
                 <Row style={{
                     background: '#fff',
@@ -114,7 +114,7 @@ class ArticlePage extends Component {
                     </Col>
                     <Col xxl={{span: 4, offset: 0}} xl={{span: 6, offset: 0}} md={{span: 7, offset: 0}}
                          xs={{span: 22, offset: 1}} style={{paddingBottom: '20px', paddingLeft: '15px'}}>
-                        <Affix offsetTop={0} style={{paddingTop: '30px'}}>
+                        <Affix offsetTop={100} style={{paddingTop: '60px'}}>
                             <AuthorInfo authorId={this.state.authorId}/>
                         </Affix>
                     </Col>

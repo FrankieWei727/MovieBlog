@@ -28,7 +28,7 @@ class EventListContainer extends React.Component {
     render() {
         const {events} = this.state;
         return (
-            <Layout style={{minHeight: '100vh'}}>
+            <Layout style={{minHeight: '100vh',paddingTop:'60px'}}>
                 <BackTop/>
                 <Row type="flex" gutter={{xs: 8, sm: 16, md: 24, lg: 32}}
                      style={{padding: '40px 145px', alignItems: "start"}}>

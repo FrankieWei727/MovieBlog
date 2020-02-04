@@ -143,7 +143,7 @@ class Register extends Component {
             }
         };
         return (
-            <Layout style={{minHeight: "100vh"}}>
+            <Layout style={{minHeight: "100vh",paddingTop:'60px'}}>
                 <div style={{flex: "1 0 "}}>
                     <Row style={{margin: '30px 0'}}>
                         <Col

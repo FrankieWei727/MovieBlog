@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
         }
         const {getFieldDecorator} = this.props.form;
         return (
-            <Layout style={{minHeight: "100vh"}}>
+            <Layout style={{minHeight: "100vh",paddingTop:'60px'}}>
                 <div style={{flex: "1 0 "}}>
                     <Row style={{margin: '40px 40px 30px 30px'}}>
                         <Col

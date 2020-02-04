@@ -203,24 +203,26 @@ class MovieList extends React.Component {
 
     render() {
         return (
-            <Layout style={{minHeight: "100vh"}}>
+            <Layout style={{minHeight: "100vh", paddingTop: '60px'}}>
                 <BackTop/>
-                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding: '0px 60px'}}>
-                    <Affix offsetTop={this.state.top}>
-                        <Row style={{
-                            padding: "20px 60px",
-                            marginBottom: "10px",
-                        }}>
-                            <Col xxl={{span: 8, offset: 1}} xl={{span: 13, offset: 1}} md={{span: 13, offset: 1}}
-                                 xs={{span: 22, offset: 1}}>
-                                <Search
-                                    placeholder="Please enter keywords"
-                                    onSearch={value => this.search(value)}
-                                    enterButton
-                                />
-                            </Col>
-                        </Row>
-                    </Affix>
+                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding: '20px 60px'}}>
+                    {/*<Affix offsetTop={60}>*/}
+                    <Row style={{
+                        padding: "30px 60px",
+                        marginBottom: "10px",
+                        height: '70px',
+                        backgroundColor: "#ffffff",
+                    }}>
+                        <Col xxl={{span: 8, offset: 1}} xl={{span: 13, offset: 1}} md={{span: 13, offset: 1}}
+                             xs={{span: 22, offset: 1}}>
+                            <Search
+                                placeholder="Please enter keywords"
+                                onSearch={value => this.search(value)}
+                                enterButton
+                            />
+                        </Col>
+                    </Row>
+                    {/*</Affix>*/}
                     <Row style={{paddingTop: "0px", paddingBottom: "30px"}}>
                         <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 14, offset: 1}}
                              xs={{span: 22, offset: 1}} style={{paddingTop: "0px", paddingBottom: "30px"}}>

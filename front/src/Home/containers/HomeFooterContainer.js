@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Grid, Header, List, Segment} from "semantic-ui-react";
 
 
-class FooterContainer extends React.Component {
+class HomeFooter extends React.Component {
 
     render() {
         return (
@@ -43,4 +43,4 @@ class FooterContainer extends React.Component {
     }
 }
 
-export default FooterContainer
+export default HomeFooter
