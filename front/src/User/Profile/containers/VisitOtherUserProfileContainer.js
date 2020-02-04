@@ -31,7 +31,7 @@ class VisitOtherUserProfile extends Component {
     isFollow = async (v) => {
         try {
             const response = await axios.post(
-                'http://127.0.0.1:8000/api/account/user/' + this.props.match.params.id + '/is_followed/?format=json',
+                'api/account/user/' + this.props.match.params.id + '/is_followed/?format=json',
                 {},
                 {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
             );
@@ -46,7 +46,7 @@ class VisitOtherUserProfile extends Component {
         try {
             this.setState({loading: true});
             axios.post(
-                'http://127.0.0.1:8000/api/account/user/' + this.props.match.params.id + '/follow/?format=json',
+                'api/account/user/' + this.props.match.params.id + '/follow/?format=json',
                 {},
                 {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
             ).then(res => {
@@ -70,7 +70,7 @@ class VisitOtherUserProfile extends Component {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
             };
             axios.post(
-                'http://127.0.0.1:8000/api/account/user/' + this.props.match.params.id + '/unfollow/?format=json',
+                'api/account/user/' + this.props.match.params.id + '/unfollow/?format=json',
                 {},
                 config
             );
@@ -87,7 +87,7 @@ class VisitOtherUserProfile extends Component {
 
     getProfileData = async (v) => {
         await axios.get(
-            'http://127.0.0.1:8000/api/account/users/' + this.props.match.params.id + '/?format=json'
+            'api/account/users/' + this.props.match.params.id + '/?format=json'
         ).then(res => {
             this.setState({
                 user: res.data,

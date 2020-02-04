@@ -90,7 +90,7 @@ class CreateArticleComment extends Component {
         if (token !== null) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/rest-auth/user/',
+                    'rest-auth/user/',
                     {headers: {'Authorization': 'Token ' + token}}
                 );
                 this.setState(function (state) {
@@ -111,7 +111,7 @@ class CreateArticleComment extends Component {
         if (this.props.articleId) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/comment/article_comments/?format=json&page='
+                    'api/comment/article_comments/?format=json&page='
                     + this.state.page + '&page_size='
                     + count + '&article='
                     + this.props.articleId
@@ -128,7 +128,7 @@ class CreateArticleComment extends Component {
 
     sendComment = async (value) => {
         await axios.post(
-            'http://127.0.0.1:8000/api/comment/article_comments/',
+            'api/comment/article_comments/',
             {
                 content: value,
                 article: this.props.articleId

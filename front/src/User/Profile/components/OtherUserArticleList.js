@@ -43,7 +43,7 @@ class OtherUserArticleList extends Component {
     getArticleData = async (v) => {
         try {
             const response = await axios.get(
-                'http://127.0.0.1:8000/api/comment/articles/?format=json'
+                'api/comment/articles/?format=json'
                 + '&page=' + this.state.page + '&page_size=' + count + '&author=' + this.props.visitUserId
             );
             this.data = response.data.results;
@@ -65,7 +65,7 @@ class OtherUserArticleList extends Component {
         try {
             this.state.page = this.state.page + 1;
             const response = await axios.get(
-                'http://127.0.0.1:8000/api/comment/articles/?format=json'
+                'api/comment/articles/?format=json'
                 + '&page=' + this.state.page + '&page_size=' + count + '&author=' + this.props.visitUserId
             );
             if (response.status !== 404) {

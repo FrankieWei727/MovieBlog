@@ -26,7 +26,7 @@ class UploadAvatar extends Component {
             headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
         };
         await axios.patch(
-            'http://127.0.0.1:8000/api/account/profiles/',
+            'api/account/profiles/',
             {
                 'avatar': avatarURL
             },

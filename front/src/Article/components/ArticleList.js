@@ -32,7 +32,7 @@ class ArticleList extends Component {
         if (token !== null) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/rest-auth/user/',
+                    'rest-auth/user/',
                     {headers: {'Authorization': 'Token ' + token}}
                 );
                 this.setState(function (state) {
@@ -50,7 +50,7 @@ class ArticleList extends Component {
     getArticleData = async v => {
         try {
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/articles/?format=json" +
+                "api/comment/articles/?format=json" +
                 "&page=" +
                 this.page +
                 "&page_size=" +
@@ -76,7 +76,7 @@ class ArticleList extends Component {
         try {
             this.page = this.page + 1;
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/articles/?format=json" +
+                "api/comment/articles/?format=json" +
                 "&page=" +
                 this.page +
                 "&page_size=" +
@@ -107,7 +107,7 @@ class ArticleList extends Component {
         });
         try {
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/articles/?format=json" +
+                "api/comment/articles/?format=json" +
                 "&page=" +
                 this.page +
                 "&page_size=" +

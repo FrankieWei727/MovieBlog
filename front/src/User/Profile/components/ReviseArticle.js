@@ -55,7 +55,7 @@ class Revise extends Component {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
             };
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/my_articles/" + this.props.match.params.articleID,
+                "api/comment/my_articles/" + this.props.match.params.articleID,
                 config
             );
             this.setState({
@@ -82,7 +82,7 @@ class Revise extends Component {
                 };
                 try {
                     const response = await axios.patch(
-                        "http://127.0.0.1:8000/api/comment/my_articles/" + this.props.match.params.articleID,
+                        "api/comment/my_articles/" + this.props.match.params.articleID,
                         {
                             title: submitData.title,
                             content: submitData.content,

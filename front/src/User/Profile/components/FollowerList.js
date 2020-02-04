@@ -33,7 +33,7 @@ class FollowerList extends Component {
     getProfileData = async (v) => {
         try {
             let url = '';
-            url = 'http://127.0.0.1:8000/api/account/user/followers/' + '?format=json' + '&page=' + this.page
+            url = 'api/account/user/followers/' + '?format=json' + '&page=' + this.page
                 + '&page_size=' + count + '&user=' + this.props.id;
             const response = await axios.get(url);
             const temp = [];
@@ -60,7 +60,7 @@ class FollowerList extends Component {
         });
         try {
             let url = '';
-            url = 'http://127.0.0.1:8000/api/account/user/followers/' + '?format=json' + '&page=' + page
+            url = 'api/account/user/followers/' + '?format=json' + '&page=' + page
                 + '&page_size=' + count + '&user=' + this.props.id;
             const response = await axios.get(url);
             let temp = this.state.data;

@@ -40,7 +40,7 @@ class MovieStillsEditor extends Component {
 
     componentDidMount() {
         //get the new movie data
-        axios.get('http://127.0.0.1:8000/api/movie/movies/?name=' + this.props.location.state.name)
+        axios.get('api/movie/movies/?name=' + this.props.location.state.name)
             .then(res => {
                 this.setState({
                     movieId: res.data.results[0].id,
@@ -86,7 +86,7 @@ class MovieStillsEditor extends Component {
             );
             console.log(tmpArray);
             tmpArray.map((still) =>
-                axios.post('http://127.0.0.1:8000/api/movie/stills/',
+                axios.post('api/movie/stills/',
                     {
                         photo: still,
                         movie: this.state.movieId

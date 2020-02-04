@@ -56,7 +56,7 @@ class MovieList extends React.Component {
     async getUserProfile() {
         if (token !== null) {
             await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
+                'rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + token}}
             ).then(response => {
                     this.setState({
@@ -75,7 +75,7 @@ class MovieList extends React.Component {
             let url = "";
             if (this.state.filterTag.length === 0) {
                 url =
-                    "http://127.0.0.1:8000/api/movie/movies/?format=json" +
+                    "api/movie/movies/?format=json" +
                     "&page=" +
                     this.page +
                     "&page_size=" +
@@ -84,7 +84,7 @@ class MovieList extends React.Component {
                     this.state.search;
             } else {
                 url =
-                    "http://127.0.0.1:8000/api/movie/movies/?format=json" +
+                    "api/movie/movies/?format=json" +
                     "&page=" +
                     this.page +
                     "&page_size=" +
@@ -111,7 +111,7 @@ class MovieList extends React.Component {
             });
             if (this.state.selectedTags.length === 0) {
                 const responseTag = await axios.get(
-                    "http://127.0.0.1:8000/api/movie/categories_group/?format=json"
+                    "api/movie/categories_group/?format=json"
                 );
                 this.setState({tags: responseTag.data});
             }
@@ -128,7 +128,7 @@ class MovieList extends React.Component {
             let url = "";
             if (this.state.filterTag.length === 0) {
                 url =
-                    "http://127.0.0.1:8000/api/movie/movies/?format=json" +
+                    "api/movie/movies/?format=json" +
                     "&page=" +
                     page +
                     "&page_size=" +
@@ -137,7 +137,7 @@ class MovieList extends React.Component {
                     this.state.search;
             } else {
                 url =
-                    "http://127.0.0.1:8000/api/movie/movies/?format=json" +
+                    "api/movie/movies/?format=json" +
                     "&page=" +
                     page +
                     "&page_size=" +

@@ -32,7 +32,7 @@ class PermissionSetting extends Component {
     getProfileData = async (v) => {
         try {
             const response = await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
+                'rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
             );
             this.data = response.data.results;

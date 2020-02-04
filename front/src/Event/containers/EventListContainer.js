@@ -16,7 +16,7 @@ class EventListContainer extends React.Component {
     };
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/movie/events/')
+        axios.get('api/movie/events/')
             .then(res => {
                     this.setState({
                         events: res.data.results

@@ -28,7 +28,7 @@ class AuthorInfo extends Component {
         if (token !== null) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/rest-auth/user/',
+                    'rest-auth/user/',
                     {headers: {'Authorization': 'Token ' + token}}
                 );
                 this.setState(function (state) {

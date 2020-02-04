@@ -105,7 +105,7 @@ class AddMovieReview extends Component {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
             };
             const response = await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
+                'rest-auth/user/',
                 config
             );
             this.setState(function (state) {
@@ -120,7 +120,7 @@ class AddMovieReview extends Component {
         if (this.props.movieId) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/comment/reviews/?format=json&page=' + this.state.page + '&page_size=' + count + '&movie=' + this.props.movieId
+                    'api/comment/reviews/?format=json&page=' + this.state.page + '&page_size=' + count + '&movie=' + this.props.movieId
                 );
                 this.comments = response.data.results;
                 this.setState(function (state) {
@@ -145,7 +145,7 @@ class AddMovieReview extends Component {
         }
         let rank = (RateArray + rate) / (comments.length + 1);
         console.log("comments", comments, "eeeee", rank, typeof rank, "RateArray", RateArray);
-        await axios.patch('http://127.0.0.1:8000/api/movie/update_movie_rank/' + this.props.movieId,
+        await axios.patch('api/movie/update_movie_rank/' + this.props.movieId,
             {
                 rank: rank.toFixed(2),
                 id: this.props.movieId,
@@ -162,7 +162,7 @@ class AddMovieReview extends Component {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
             };
             const response = await axios.post(
-                'http://127.0.0.1:8000/api/comment/reviews/',
+                'api/comment/reviews/',
                 {
                     content: value,
                     movie: this.props.movieId,

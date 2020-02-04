@@ -42,7 +42,7 @@ class SubscriptionArticleList extends Component {
         if (this.props.token !== null) {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/rest-auth/user/',
+                    'rest-auth/user/',
                     {headers: {'Authorization': 'Token ' + this.props.token}}
                 );
                 this.setState(function (state) {
@@ -60,7 +60,7 @@ class SubscriptionArticleList extends Component {
     async getFollowingData() {
         if (this.props.token !== null) {
             await axios.get(
-                'http://127.0.0.1:8000/api/account/user/followers/?format=json&follower=' + this.state.id)
+                'api/account/user/followers/?format=json&follower=' + this.state.id)
                 .then(res => {
                         // get following list
                         const temp = [];
@@ -85,7 +85,7 @@ class SubscriptionArticleList extends Component {
     getArticleData = async v => {
         try {
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/following_articles/?id=" + this.state.ids +
+                "api/comment/following_articles/?id=" + this.state.ids +
                 "&page=" +
                 this.page +
                 "&page_size=" +
@@ -111,7 +111,7 @@ class SubscriptionArticleList extends Component {
         try {
             this.page = this.page + 1;
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/following_articles/?id=" + this.state.ids +
+                "api/comment/following_articles/?id=" + this.state.ids +
                 "&page=" +
                 this.page +
                 "&page_size=" +
@@ -142,7 +142,7 @@ class SubscriptionArticleList extends Component {
         });
         try {
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/following_articles/?id=" + this.state.ids +
+                "api/comment/following_articles/?id=" + this.state.ids +
                 "&page=" +
                 this.page +
                 "&page_size=" +

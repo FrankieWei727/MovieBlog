@@ -47,7 +47,7 @@ class MyArticleList extends Component {
     onClick = async (key, status, title) => {
         if (status === "2") {
             try {
-                let url = "http://127.0.0.1:8000/api/comment/my_articles/" + key;
+                let url = "api/comment/my_articles/" + key;
                 let config = {
                     headers: {
                         Authorization: "Token " + window.localStorage.getItem("token")
@@ -65,7 +65,7 @@ class MyArticleList extends Component {
         }
         if (status === "1") {
             try {
-                let url = "http://127.0.0.1:8000/api/comment/my_articles/" + key;
+                let url = "api/comment/my_articles/" + key;
                 let config = {
                     headers: {
                         Authorization: "Token " + window.localStorage.getItem("token")
@@ -112,7 +112,7 @@ class MyArticleList extends Component {
                 }
             };
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/my_articles/?format=json" +
+                "api/comment/my_articles/?format=json" +
                 "&page=" +
                 this.state.page +
                 "&page_size=" +
@@ -147,7 +147,7 @@ class MyArticleList extends Component {
                 }
             };
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/comment/my_articles/?format=json" +
+                "api/comment/my_articles/?format=json" +
                 "&page=" +
                 this.state.page +
                 "&page_size=" +
@@ -185,7 +185,7 @@ class MyArticleList extends Component {
                         }
                     };
                     const response = await axios.delete(
-                        "http://127.0.0.1:8000/api/comment/my_articles/" + id,
+                        "api/comment/my_articles/" + id,
                         config
                     );
                     if (response.status === 204) {

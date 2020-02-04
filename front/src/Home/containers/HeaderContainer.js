@@ -27,7 +27,7 @@ class HomeHeader extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.token !== null) {
             axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/' + '?format=json',
+                'rest-auth/user/' + '?format=json',
                 {headers: {'Authorization': 'Token ' + nextProps.token}}
             ).then(response => {
                     this.setState({

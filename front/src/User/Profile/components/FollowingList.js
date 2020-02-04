@@ -33,7 +33,7 @@ class FollowingList extends Component {
     getProfileData = async (v) => {
         try {
             const response = await axios.get(
-                'http://127.0.0.1:8000/api/account/user/followers/' + '?format=json'
+                'api/account/user/followers/' + '?format=json'
                 + '&page=' + this.page + '&page_size=' + count + '&follower=' + this.props.userId);
             const temp = [];
             for (let index = 0; index < response.data.count; index++) {
@@ -59,7 +59,7 @@ class FollowingList extends Component {
         });
         try {
             const response = await axios.get(
-                'http://127.0.0.1:8000/api/account/user/followers/' + '?format=json'
+                'api/account/user/followers/' + '?format=json'
                 + '&page=' + page + '&page_size=' + count + '&follower=' + this.props.userId);
             let temp = this.state.data;
             let i = (page - 1) * count;

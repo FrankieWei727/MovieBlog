@@ -70,7 +70,7 @@ class MovieEditPermission extends Component {
             headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
         };
         await axios.post(
-            'http://127.0.0.1:8000/api/account/user/' + this.state.userId + '/apply/',
+            'api/account/user/' + this.state.userId + '/apply/',
             {},
             config
         );
@@ -83,7 +83,7 @@ class MovieEditPermission extends Component {
             headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
         };
         await axios.post(
-            'http://127.0.0.1:8000/api/account/user/' + this.state.userId + '/cancel_apply/',
+            'api/account/user/' + this.state.userId + '/cancel_apply/',
             {},
             config
         );

@@ -61,7 +61,7 @@ class SettingProfile extends Component {
                 headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
             };
             const response = await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
+                'rest-auth/user/',
                 config
             );
             this.data = response.data.results;
@@ -82,7 +82,7 @@ class SettingProfile extends Component {
 
     validateToUsername = async (rule, value, callback) => {
         if (value !== this.state.username) {
-            await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
+            await axios.get('api/account/user_name/validate/' + value)
                 .then(response => {
                     if (value === response.data.username) {
                         this.setState({
@@ -106,7 +106,7 @@ class SettingProfile extends Component {
 
 
     validateToEmail = async (rule, value, callback) => {
-        await axios.get('http://127.0.0.1:8000/api/account/user_email/validate/' + value)
+        await axios.get('api/account/user_email/validate/' + value)
             .then(response => {
                 if (value === response.data.email) {
                     this.setState({
@@ -179,7 +179,7 @@ class SettingProfile extends Component {
                         headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
                     };
                     const response = await axios.patch(
-                        'http://127.0.0.1:8000/rest-auth/user/',
+                        'rest-auth/user/',
                         {
                             username: submitData.username,
                             profile: {

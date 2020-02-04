@@ -11,7 +11,7 @@ class EventDetail extends React.Component {
     componentDidMount() {
         const eventID = this.props.match.params.eventID;
 
-        axios.get(`http://127.0.0.1:8000/api/movie/events/${eventID}/`)
+        axios.get(`api/movie/events/${eventID}/`)
             .then(res => {
                     this.setState({
                         event: res.data

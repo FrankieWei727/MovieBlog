@@ -67,7 +67,7 @@ class MyProfileContainer extends Component {
 
     getProfileData = async (v) => {
         await axios.get(
-            'http://127.0.0.1:8000/rest-auth/user/' + '?format=json',
+            'rest-auth/user/' + '?format=json',
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(response => {
                 this.setState({
@@ -87,7 +87,7 @@ class MyProfileContainer extends Component {
 
     CoverAvatarUrl = async (avatarURL) => {
         await axios.patch(
-            'http://127.0.0.1:8000/rest-auth/user/',
+            'rest-auth/user/',
             {
                 profile: {cover: avatarURL}
             },

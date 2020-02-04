@@ -19,7 +19,7 @@ class MovieDetail extends React.Component {
     componentDidMount() {
         const movieID = this.props.match.params.movieID;
 
-        axios.get(`http://127.0.0.1:8000/api/movie/movies/${movieID}/?format=json`)
+        axios.get(`api/movie/movies/${movieID}/?format=json`)
             .then(res => {
                 this.setState({
                     movie: res.data,

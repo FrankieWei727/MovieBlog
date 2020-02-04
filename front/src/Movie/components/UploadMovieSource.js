@@ -63,7 +63,7 @@ class MovieEditor extends Component {
     };
 
     getCategoryData = async v => {
-        await axios.get('http://127.0.0.1:8000/api/movie/categories/?format=json')
+        await axios.get('api/movie/categories/?format=json')
             .then(res => {
                 this.setState({
                     tagsFromServer: res.data,
@@ -113,7 +113,7 @@ class MovieEditor extends Component {
                         language: values.language,
                     };
                     await axios.post(
-                        'http://127.0.0.1:8000/api/movie/create_movie/',
+                        'api/movie/create_movie/',
                         {
                             name: submitData.name,
                             region: submitData.region,

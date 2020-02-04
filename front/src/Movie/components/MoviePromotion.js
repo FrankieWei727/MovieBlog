@@ -29,7 +29,7 @@ class MoviePromotionList extends Component {
         const token = window.localStorage.getItem('token');
         if (token !== null) {
             await axios.get(
-                'http://127.0.0.1:8000/rest-auth/user/',
+                'rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + token}}
             ).then(response => {
                     this.setState({

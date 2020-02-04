@@ -30,7 +30,7 @@ class MoviePlaySource extends Component {
 
     componentDidMount() {
         //get the new movie data
-        axios.get('http://127.0.0.1:8000/api/movie/movies/?name=' + this.props.location.state.name)
+        axios.get('api/movie/movies/?name=' + this.props.location.state.name)
             .then(res => {
                 this.setState({
                     movieId: res.data.results[0].id,
@@ -77,7 +77,7 @@ class MoviePlaySource extends Component {
                 console.log('Merged values:', keys.map(key => websites[key]));
                 console.log('Merged values:', keys.map(key => urls[key]));
                 keys.map(key =>
-                    axios.post('http://127.0.0.1:8000/api/movie/videos/',
+                    axios.post('api/movie/videos/',
                         {
                             website: websites[key],
                             url: urls[key],

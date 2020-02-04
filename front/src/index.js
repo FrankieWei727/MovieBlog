@@ -9,7 +9,9 @@ import authReducer from "./Store/reducers/auth";
 import {Provider} from 'react-redux';
 import {applyMiddleware, compose, createStore, combineReducers} from "redux";
 import thunk from "redux-thunk";
+import axios from 'axios';
 
+axios.defaults.baseURL = ' http://0.0.0.0:45307/';
 
 const rootReducer = combineReducers({
     auth: authReducer,
