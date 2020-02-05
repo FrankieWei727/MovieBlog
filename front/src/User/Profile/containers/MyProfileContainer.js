@@ -59,15 +59,19 @@ class MyProfileContainer extends Component {
         loading: false,
         cover: '',
         id: '',
+        countFollowing: 0,
+        countFollower: 0,
     };
 
     componentDidMount = async (v) => {
-        await this.getProfileData()
+        await this.getProfileData();
+        await this.getFollowingData();
+        await this.getFollowerData();
     };
 
-    getProfileData = async (v) => {
+    async getProfileData() {
         await axios.get(
-            'rest-auth/user/' + '?format=json',
+            'rest-auth/user/?format=json',
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(response => {
                 this.setState({
@@ -84,6 +88,30 @@ class MyProfileContainer extends Component {
             console.log(err)
         });
     };
+
+    async getFollowingData() {
+        try {
+            const response = await axios.get(
+                'api/account/user/followers/?format=json&follower=' + this.state.id);
+            this.setState({
+                countFollowing: response.data.count,
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getFollowerData() {
+        try {
+            const response = await axios.get(
+                'api/account/user/followers/?format=json&user=' + this.state.id);
+            this.setState({
+                countFollower: response.data.count,
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     CoverAvatarUrl = async (avatarURL) => {
         await axios.patch(
@@ -137,9 +165,10 @@ class MyProfileContainer extends Component {
         }
     };
 
+
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7',paddingTop:'60px'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7', paddingTop: '60px'}}>
                 <Row style={{padding: '0 60px', paddingTop: '40px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
@@ -257,16 +286,16 @@ class MyProfileContainer extends Component {
                             {/*<PropertyList property={this.state.property}/>*/}
                         </Card>
                         <Card
-                            title={
-                                <div style={{color: '#646464', fontWeight: '600', fontSize: '15px'}}>
-                                    成就
-                                </div>
-                            }
+                            // title={
+                            //     <div style={{color: '#646464', fontWeight: '600', fontSize: '15px'}}>
+                            //         Achievement
+                            //     </div>
+                            // }
                             bordered={false}
                             style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                             <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-                                <Statistic title='关注了' value={0}/>
-                                <Statistic title='关注者' value={0}/>
+                                <Statistic title='Following' value={this.state.countFollowing}/>
+                                <Statistic title='Follower' value={this.state.countFollower}/>
                             </div>
                         </Card>
                     </Col>

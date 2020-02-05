@@ -23,17 +23,19 @@ class FollowingList extends Component {
     page = 1;
     state = {
         data: [],
-        loading: false
+        loading: false,
+        countData: 0,
     };
 
     componentDidMount = async (v) => {
         await this.getProfileData()
     };
 
+
     getProfileData = async (v) => {
         try {
             const response = await axios.get(
-                'api/account/user/followers/' + '?format=json'
+                'api/account/user/followers/?format=json'
                 + '&page=' + this.page + '&page_size=' + count + '&follower=' + this.props.userId);
             const temp = [];
             for (let index = 0; index < response.data.count; index++) {
@@ -46,7 +48,8 @@ class FollowingList extends Component {
                 temp[index] = response.data.results[index]
             }
             this.setState({
-                data: temp
+                data: temp,
+                countData: response.data.count,
             });
         } catch (error) {
             console.log(error)
@@ -59,7 +62,7 @@ class FollowingList extends Component {
         });
         try {
             const response = await axios.get(
-                'api/account/user/followers/' + '?format=json'
+                'api/account/user/followers/?format=json'
                 + '&page=' + page + '&page_size=' + count + '&follower=' + this.props.userId);
             let temp = this.state.data;
             let i = (page - 1) * count;
@@ -128,9 +131,9 @@ class FollowingList extends Component {
                                 }}>{item.user.username}</div>
                                 <div>{item.user.profile.bio.slice(0, 12) + '...'}</div>
                                 <div style={{display: 'flex', padding: '10px 0'}}>
-                                    <Dropdown overlay={menu} placement='bottomRight'>
-                                        <Button size='small' style={{marginRight: '10px'}}>Group</Button>
-                                    </Dropdown>
+                                    {/*<Dropdown overlay={menu} placement='bottomRight'>*/}
+                                    {/*    <Button size='small' style={{marginRight: '10px'}}>Group</Button>*/}
+                                    {/*</Dropdown>*/}
                                     <Button size='small'>Unfollow</Button>
                                 </div>
                             </div>

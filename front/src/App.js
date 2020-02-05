@@ -2,7 +2,7 @@ import React from 'react';
 import BaseRouter from "./routes";
 import {Layout} from 'antd';
 import {BrowserRouter as Router} from "react-router-dom";
-import HomeFooter from "./Home/containers/HomeFooterContainer";
+import HomeFooter from "./Home/containers/FooterContainer";
 import {connect} from 'react-redux';
 import * as actions from './Store/actions/auth';
 import HomeHeader from "./Home/containers/HeaderContainer";
@@ -26,7 +26,7 @@ class App extends React.Component {
                         <Content>
                             <BaseRouter/>
                         </Content>
-                        <HomeFooter/>
+                        <HomeFooter {...this.props}/>
                     </Layout>
                 </Router>
             </div>

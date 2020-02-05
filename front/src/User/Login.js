@@ -63,11 +63,15 @@ class LoginForm extends React.Component {
     render() {
         if (this.props.token) {
             message.success('Welcome Back ' + this.state.username + '!');
-            this.props.history.replace({pathname: '/article', state: {token: this.props.token}});
+            if (this.state.username === "admin") {
+                this.props.history.replace('admin_mlinked');
+            } else {
+                this.props.history.replace({pathname: '/article', state: {token: this.props.token}});
+            }
         }
         const {getFieldDecorator} = this.props.form;
         return (
-            <Layout style={{minHeight: "100vh",paddingTop:'60px'}}>
+            <Layout style={{minHeight: "100vh", paddingTop: '60px'}}>
                 <div style={{flex: "1 0 "}}>
                     <Row style={{margin: '40px 40px 30px 30px'}}>
                         <Col

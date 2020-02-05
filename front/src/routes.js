@@ -19,6 +19,7 @@ import VisitOtherUserProfile from "./User/Profile/containers/VisitOtherUserProfi
 import EditProfile from "./User/Profile/components/EditProfile";
 import PermissionSetting from "./User/Profile/components/PermissionSetting";
 import ReviseArticle from "./User/Profile/components/ReviseArticle";
+import AdminLayout from "./Admin/containers/AdminLayout";
 // import Switch from "react-switch";
 
 const BaseRouter = () => (
@@ -42,6 +43,8 @@ const BaseRouter = () => (
         <Route exact path='/create_article' component={CreateArticle}/>
         <Route exact path='/article/:articleID/' component={ArticleDetail}/>
         <Route exact path='/article/revise/:articleID/' component={ReviseArticle}/>
+
+        <Route exact path='/admin_mlinked/' component={AdminLayout}/>
     </div>
 
 );

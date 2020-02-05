@@ -80,30 +80,6 @@ class SettingProfile extends Component {
         }
     };
 
-    validateToUsername = async (rule, value, callback) => {
-        if (value !== this.state.username) {
-            await axios.get('api/account/user_name/validate/' + value)
-                .then(response => {
-                    if (value === response.data.username) {
-                        this.setState({
-                            usernameError: "This username has been registered!",
-                        });
-                    }
-                }).catch(err => {
-                    this.setState({
-                        usernameError: null
-                    });
-                });
-            if (this.state.usernameError) {
-                callback(this.state.usernameError);
-            } else {
-                callback();
-            }
-        } else {
-            callback();
-        }
-    };
-
 
     validateToEmail = async (rule, value, callback) => {
         await axios.get('api/account/user_email/validate/' + value)
@@ -168,7 +144,6 @@ class SettingProfile extends Component {
                     uploading: true
                 });
                 const submitData = {
-                    username: values.username,
                     bio: values.bio,
                     email: values.email,
                     profession: values.profession,
@@ -181,7 +156,6 @@ class SettingProfile extends Component {
                     const response = await axios.patch(
                         'rest-auth/user/',
                         {
-                            username: submitData.username,
                             profile: {
                                 bio: submitData.bio,
                                 profession: submitData.profession,
@@ -262,7 +236,7 @@ class SettingProfile extends Component {
                                             fontWeight: '600',
                                             color: '#24292e'
                                         }}>
-                                            Personal Info
+                                            {this.state.username}
                                         </div>
                                     </Col>
                                 </Row>
@@ -270,28 +244,6 @@ class SettingProfile extends Component {
                                     <Col xl={{span: 16, offset: 0}} xs={{span: 22, offset: 1}}
                                          style={{paddingBottom: '20px', maxWidth: '350px'}}>
                                         <Form onSubmit={this.handleSubmit}>
-                                            <div style={{
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                lineHeight: '21px',
-                                                marginBottom: '3px',
-                                                color: '#24292e'
-                                            }}>Username
-                                            </div>
-                                            <Form.Item>
-                                                {getFieldDecorator('username', {
-                                                    initialValue: this.state.username,
-                                                    rules: [{
-                                                        required: true,
-                                                        message: 'Please input username.'
-                                                    },
-                                                        {
-                                                            validator: this.validateToUsername
-                                                        }]
-                                                })(
-                                                    <Input size='default'/>
-                                                )}
-                                            </Form.Item>
                                             <div style={{
                                                 fontSize: '14px',
                                                 fontWeight: '600',

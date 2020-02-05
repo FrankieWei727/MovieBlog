@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import AvatarFlow from "./AvatarFlow";
 import moment from "moment";
 
-const {Text} = Typography;
+const {Paragraph} = Typography;
 const briefLength = 350;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
@@ -154,12 +154,10 @@ class Article extends Component {
                         <div style={{color: "#646464", fontSize: "15px", padding: '0 20px'}}>
                             {isExtractBrief ?
                                 <div>
-                                    <div className='braft-output-content' style={{overflow: 'auto'}}
-                                         dangerouslySetInnerHTML={{__html: this.extractBrief(item.content)}}/>
-                                    <Button type="link" onClick={this.SetTextState}>
-                                        Full Text
-                                        <IconFont type="iconxiala"/>
-                                    </Button>
+                                    <Paragraph ellipsis={{rows: 3, expandable: {isExtractBrief}}}
+                                               onClick={this.SetTextState}>
+                                        {this.extractText(item.content)}
+                                    </Paragraph>
                                 </div> :
                                 <div>
                                     <div className='braft-output-content' style={{overflow: 'auto'}}
