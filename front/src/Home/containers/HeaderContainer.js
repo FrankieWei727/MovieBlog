@@ -1,9 +1,8 @@
 import React from 'react'
-import {Layout, Menu, Popover, Avatar, Divider, Button, Col} from 'antd';
+import {Layout, Menu, Avatar, Divider, Button,Dropdown, Icon} from 'antd';
 import {Image} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import Row from "antd/es/grid/row";
 import * as actions from "../../Store/actions/auth";
 import {connect} from "react-redux";
 
@@ -27,7 +26,7 @@ class HomeHeader extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.token !== null) {
             axios.get(
-                'rest-auth/user/' + '?format=json',
+                'rest-auth/user/?format=json',
                 {headers: {'Authorization': 'Token ' + nextProps.token}}
             ).then(response => {
                     this.setState({
@@ -43,26 +42,46 @@ class HomeHeader extends React.Component {
 
     render() {
         const {username} = this.state;
+        const DropdownList = (
+            <Menu className="drop-list">
+                <Menu.Item key="4">
+                    <Link to={'/profile'}>
+                        <Icon type="user" style={{paddingRight: '3px'}}/>
+                        Profile
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="5">
+                    <Link to={'/profile/setting'}>
+                        <Icon type="setting" style={{paddingRight: '3px'}}/>
+                        Setting
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="6">
+                    <Link to={'/logout'} onClick={this.props.logout}>
+                        <Icon type="logout" style={{paddingRight: '3px'}}/>
+                        Logout
+                    </Link>
+                </Menu.Item>
+            </Menu>
+        );
         return (
             <div>
                 {
                     username !== 'admin' ?
                         <Header style={{
                             position: 'fixed',
-                            zIndex: 1, width: '100%',
+                            zIndex: 100, width: '100%',
                             backgroundColor: '#ffffff',
                             boxShadow: '0 1px 3px rgba(26,26,26,.1)',
                             borderColor: 'transparent transparent rgba(26,26,26,.1) transparent',
-                            borderRadius: '5px'
                         }}>
-                            <div style={{padding: '0 130px', backgroundColor: '#ffffff',}}>
-                                <div style={{float: 'left', width: '120px', margin: '16px 24px 16px 0'}}>
+                            <div style={{padding: '0 9%', backgroundColor: '#ffffff',}}>
+                                <div style={{float: 'left', width: '9%', margin:'2% 0',}}>
                                     <Image src='https://i.imgur.com/pRMV4vy.png' size='small'/>
                                 </div>
                                 <Menu
                                     theme="light"
                                     mode="horizontal"
-                                    defaultSelectedKeys={['1']}
                                     style={{lineHeight: '62px', borderColor: 'transparent',}}
                                 >
                                     <Menu.Item key="1">Article
@@ -71,35 +90,16 @@ class HomeHeader extends React.Component {
                                         <Link to={'/movie'}/></Menu.Item>
                                     <Menu.Item key="3">Event
                                         <Link to={'/event'}/></Menu.Item>
-                                    <div style={{float: 'right', paddingRight: '10px'}}>
+                                    <div style={{float: 'right', paddingRight: '1%'}}>
                                         {
                                             this.props.isAuthenticated ?
-                                                <Popover
-                                                    content={
+                                                <div>
+                                                    <Dropdown overlay={DropdownList} placement="bottomCenter">
                                                         <div>
-                                                            <Row>
-                                                                <Col style={{paddingBottom: '5px'}}>
-                                                                    <Link to={'/profile'}>
-                                                                        <p>Profile</p>
-                                                                    </Link>
-                                                                </Col>
-                                                                <Col style={{paddingBottom: '5px'}}>
-                                                                    <Link to={'/profile/setting'}>
-                                                                        <p>Setting</p>
-                                                                    </Link>
-                                                                </Col>
-                                                                <Col>
-                                                                    <Link to={'/logout'} onClick={this.props.logout}>
-                                                                        <p>Logout</p>
-                                                                    </Link>
-                                                                </Col>
-                                                            </Row>
+                                                            <Avatar shape="square" src={this.state.avatar}/>
                                                         </div>
-                                                    }
-                                                    title={this.state.username}
-                                                    trigger="click">
-                                                    <Avatar shape="square" src={this.state.avatar}/>
-                                                </Popover>
+                                                    </Dropdown>
+                                                </div>
                                                 :
                                                 <div>
                                                     <div>

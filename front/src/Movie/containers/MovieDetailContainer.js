@@ -57,7 +57,7 @@ class MovieDetail extends React.Component {
             stills_numbers = 0;
         }
         return (
-            <Layout style={{minHeight: '100vh', background: 'unset',paddingTop:'60px'}}>
+            <Layout style={{minHeight: '100vh', background: 'unset', paddingTop: '60px'}}>
                 <BackTop/>
                 <div style={{flex: '1 0 '}}>
                     <Row style={{boxShadow: '0px 0px 5px #888888'}}>
@@ -65,17 +65,18 @@ class MovieDetail extends React.Component {
                              style={{
                                  position: 'relative',
                                  overflow: 'hidden',
-                                 background: 'hsla(0, 10%, 60%, 0.5)'
+                                 background: 'hsla(0, 10%, 60%, 0.5)',
+                                 zIndex: 1,
                              }}>
                             <div style={{
-                                background: `url(${movie.poster})`,
+                                backgroundImage: `url(${movie.poster})`,
                                 position: 'absolute',
                                 filter: 'blur(20px)',
                                 top: 0,
                                 bottom: 0,
                                 left: 0,
                                 right: 0,
-                                zIndex: -1,
+                                zIndex: 0,
                                 overflow: 'hidden'
                             }}/>
                             <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} xs={{span: 22, offset: 1}}>

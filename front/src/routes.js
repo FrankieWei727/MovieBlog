@@ -24,7 +24,6 @@ import AdminLayout from "./Admin/containers/AdminLayout";
 
 const BaseRouter = () => (
     <div>
-        {/*<Route exact path='/home/' component={Home}/>*/}
         <Route exact path='/movie/' component={MovieList}/>
         <Route path='/movie/:movieID' component={MovieDetail}/>
         <Route exact path='/movie_upload' component={MovieSourceEditor}/>

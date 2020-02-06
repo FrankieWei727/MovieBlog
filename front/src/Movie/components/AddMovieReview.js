@@ -88,7 +88,7 @@ class AddMovieReview extends Component {
                 return {initLoading: false}
             })
         }
-    }
+    };
 
     componentDidUpdate = async (prevProps) => {
         if (prevProps.movieId !== this.props.movieId) {
@@ -99,23 +99,29 @@ class AddMovieReview extends Component {
         }
     };
 
-    getUserData = async (v) => {
-        try {
-            let config = {
-                headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
-            };
-            const response = await axios.get(
-                'rest-auth/user/',
-                config
-            );
-            this.setState(function (state) {
-                return {username: response.data.username, avatarUrl: response.data.profile.avatar, user: response.data};
-            })
-        } catch (error) {
-            console.log(error)
+    async getUserData() {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
+            try {
+                const response = await axios.get(
+                    'rest-auth/user/',
+                    {headers: {'Authorization': 'Token ' + token}}
+                );
+                this.setState(function (state) {
+                    return {
+                        username: response.data.username,
+                        avatarUrl: response.data.profile.avatar,
+                        user: response.data
+                    };
+                })
+            } catch (error) {
+                console.log(error)
+            }
         }
 
+
     };
+
     getCommentData = async (v) => {
         if (this.props.movieId) {
             try {
@@ -144,7 +150,6 @@ class AddMovieReview extends Component {
                 RateArray = RateArray + parseFloat(comment.rate))
         }
         let rank = (RateArray + rate) / (comments.length + 1);
-        console.log("comments", comments, "eeeee", rank, typeof rank, "RateArray", RateArray);
         await axios.patch('api/movie/update_movie_rank/' + this.props.movieId,
             {
                 rank: rank.toFixed(2),

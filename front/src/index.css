@@ -1,41 +1,52 @@
 .card-container > .ant-tabs-card > .ant-tabs-content {
-  margin-top: -16px;
+    margin-top: -16px;
 
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
-  background: #fff;
+    background: #fff;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar {
-  padding-left: 20px;
-  padding-top: 10px;
-  border-color : #e8e8e8;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-color: #e8e8e8;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
-  border-color: transparent transparent #e8e8e8 transparent;
-  background: transparent;
+    border-color: transparent transparent #e8e8e8 transparent;
+    background: transparent;
 }
 
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-  border-color: transparent transparent #e8e8e8 transparent;
-  background: #fff;
+    border-color: transparent transparent #e8e8e8 transparent;
+    background: #fff;
 }
 
 .fade-enter {
-	opacity: 0;
-	transform: translateX(-30px);
+    opacity: 0;
+    transform: translateX(-30px);
 }
 
 .fade-enter-active,
 .fade-exit-active {
-	opacity: 1;
-	transition: all 500ms ease-out;
-	transform: translateX(0);
+    opacity: 1;
+    transition: all 500ms ease-out;
+    transform: translateX(0);
 }
 
 .fade-exit {
-	opacity: 0;
-	transform: translateX(30px);
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.scrollable-container {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+/*隐藏滚轮*/
+display: none;
 }

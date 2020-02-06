@@ -1,15 +1,17 @@
 import React from "react";
-import {Table} from "antd";
+import {Table, Divider, Modal, Button} from "antd";
 import axios from "axios";
-
-const pagesize = 8;
+import EditMovieInfo from "./EditMovieInfo";
 
 class MovieDataAdmin extends React.Component {
 
-    page = 1;
     state = {
         movies: [],
         count: 0,
+        currentRow: "",
+        pagesize: 8,
+        page: 1,
+        visible: false,
     };
 
     componentDidMount = async (v) => {
@@ -18,7 +20,7 @@ class MovieDataAdmin extends React.Component {
 
     getData = async v => {
         try {
-            const response = await axios.get("api/movie/movies/?format=json" + "&page=" + this.page + "&page_size=" + pagesize);
+            const response = await axios.get("api/movie/movies/?format=json" + "&page=" + this.state.page + "&page_size=" + this.state.pagesize);
             const temp = [];
             for (let index = 0; index < response.data.count; index++) {
                 temp.push();
@@ -40,9 +42,9 @@ class MovieDataAdmin extends React.Component {
 
     handleMovie = async page => {
         try {
-            const response = await axios.get("api/movie/movies/?format=json" + "&page=" + page + "&page_size=" + pagesize);
+            const response = await axios.get("api/movie/movies/?format=json" + "&page=" + page + "&page_size=" + this.state.pagesize);
             let temp = this.state.movies;
-            let i = (page - 1) * pagesize;
+            let i = (page - 1) * this.state.pagesize;
             for (let index = 0; index < response.data.results.length; index++) {
                 temp[i] = response.data.results[index];
                 i++;
@@ -55,9 +57,34 @@ class MovieDataAdmin extends React.Component {
         }
     };
 
+
+    handleEdit(row) {
+        this.setState({currentRow: row, visible: true});
+    }
+
+    handleOk = () => {
+        this.setState({visible: false});
+    };
+
+    handleCancel = () => {
+        this.setState({visible: false});
+    };
+
+    getVisible = (v) => {
+        this.setState({visible: v});
+    };
+
     render() {
         const {movies} = this.state;
         const columns = [
+            {
+                title: 'Id',
+                dataIndex: 'id',
+                key: 'id',
+                fixed: 'left',
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.id - b.id,
+            },
             {
                 title: 'Movie Name',
                 dataIndex: 'name',
@@ -136,8 +163,17 @@ class MovieDataAdmin extends React.Component {
                 title: 'Action',
                 key: 'operation',
                 fixed: 'right',
-                width: 100,
-                render: () => <a>action</a>,
+                render: (text, row) => (
+                    <div>
+                        <Button type='link' onClick={() => this.handleEdit(row)}>
+                            Edit
+                        </Button>
+                        <Divider type="vertical"/>
+                        <Button type='link' onClick={() => this.handleDel(row)}>
+                            Delete
+                        </Button>
+                    </div>
+                )
             },
         ];
 
@@ -148,13 +184,21 @@ class MovieDataAdmin extends React.Component {
                     pagination={{
                         onChange: this.handleMovie,
                         total: this.state.count,
-                        pageSize: pagesize,
+                        pageSize: this.state.pagesize,
                     }}
                     size="middle"
                     columns={columns}
                     dataSource={movies}
-                    scroll={{x: 1400,y:800}}/>
+                    scroll={{x: 1400, y: 800}}/>
+                <Modal width='600px' title="Edit info" visible={this.state.visible} onOk={this.handleOk}
+                       onCancel={this.handleCancel}>
+                    <EditMovieInfo data={this.state.currentRow} visible={this.state.visible} onOk={this.handleOk}
+                                   onCancel={this.handleCancel}
+                                   handleVisible={this.getVisible.bind(this)}
+                                   wrappedComponentRef={form => (this.formRef = form)}/>
+                </Modal>
             </div>
+
         )
     }
 

@@ -7,7 +7,6 @@ import {
     Typography,
     BackTop,
     Input,
-    Affix,
     Icon,
 } from "antd";
 
@@ -70,40 +69,27 @@ class MovieList extends React.Component {
     };
 
 
-    getData = async v => {
+    async getData() {
         try {
             let url = "";
             if (this.state.filterTag.length === 0) {
                 url =
                     "api/movie/movies/?format=json" +
-                    "&page=" +
-                    this.page +
-                    "&page_size=" +
-                    count +
-                    "&search=" +
-                    this.state.search;
+                    "&page=" + this.page +
+                    "&page_size=" + count +
+                    "&search=" + this.state.search;
             } else {
                 url =
                     "api/movie/movies/?format=json" +
-                    "&page=" +
-                    this.page +
-                    "&page_size=" +
-                    count +
-                    "&search=" +
-                    this.state.search +
-                    "&category=" +
-                    this.state.filterTag;
+                    "&page=" + this.page +
+                    "&page_size=" + count +
+                    "&search=" + this.state.search +
+                    "&category=" + this.state.filterTag;
             }
             const response = await axios.get(url);
             const temp = [];
-            for (let index = 0; index < response.data.count; index++) {
-                temp.push({name: "", poster: "", author: "", id: index});
-            }
-            this.setState({
-                movies: temp
-            });
-            for (let index = 0; index < response.data.results.length; index++) {
-                temp[index] = response.data.results[index];
+            for (let i = 0; i < response.data.results.length; i++) {
+                temp[i] = response.data.results[i];
             }
             this.setState({
                 movies: temp,
@@ -129,23 +115,16 @@ class MovieList extends React.Component {
             if (this.state.filterTag.length === 0) {
                 url =
                     "api/movie/movies/?format=json" +
-                    "&page=" +
-                    page +
-                    "&page_size=" +
-                    count +
-                    "&search=" +
-                    this.state.search;
+                    "&page=" + page +
+                    "&page_size=" + count +
+                    "&search=" + this.state.search;
             } else {
                 url =
                     "api/movie/movies/?format=json" +
-                    "&page=" +
-                    page +
-                    "&page_size=" +
-                    count +
-                    "&search=" +
-                    this.state.search +
-                    "?category=" +
-                    this.state.filterTag;
+                    "&page=" + page +
+                    "&page_size=" + count +
+                    "&search=" + this.state.search +
+                    "&category=" + this.state.filterTag;
             }
             const response = await axios.get(url);
             let temp = this.state.movies;
@@ -158,7 +137,6 @@ class MovieList extends React.Component {
                 movies: temp,
                 loading: false
             });
-            console.log(this.state.movies);
         } catch (error) {
             console.log(error);
         }
@@ -177,7 +155,7 @@ class MovieList extends React.Component {
         for (let i of nextSelectedTags) {
             temp.push(i.id);
         }
-        const filterTag = temp.join("?category=");
+        const filterTag = temp.join("&category=");
         await this.setState({
             filterTag: filterTag
         });
@@ -191,7 +169,6 @@ class MovieList extends React.Component {
         await this.setState({
             loading: true,
             search: value
-            // search: this.props.location.state.searchName
         });
         this.getData();
         const temp = tip[1] + "  : " + value + " ";

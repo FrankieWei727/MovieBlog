@@ -97,14 +97,13 @@ class Register extends Component {
     };
 
     Auth = async v => {
-        console.log(v);
         try {
             this.props.signup(v.username, v.email, v.password, v.confirm);
             if (this.state.token !== null) {
-                this.props.history.replace("/home");
+                this.props.history.replace("/article");
             }
         } catch (error) {
-            console.log(error.response.data);
+            console.log(error);
         }
     };
 

@@ -9,6 +9,7 @@ import PromotionList from "../components/Promotion";
 // import PropertyRank from './PropertyRank'
 
 const TabPane = Tabs.TabPane;
+
 class BlogList extends Component {
     state = {
         collapsed: false
@@ -21,16 +22,16 @@ class BlogList extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh',paddingTop:'60px'}}>
+            <Layout style={{minHeight: '100vh', paddingTop: '4%'}}>
                 <BackTop/>
-                <Row style={{flex: '1 0', padding: '40px 60px'}}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
-                         xs={{span: 24, offset: 0}} style={{
-                        marginBottom: '20px',
-                        backgroundColor: '#fff',
-                        boxShadow: '0 1px 3px rgba(26,26,26,.1)',
-                        borderRadius: '1px'
-                    }}>
+                <Row style={{flex: '1 0', padding: '3% 4%'}}>
+                    <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 0}}
+                         style={{
+                             marginBottom: '4%',
+                             backgroundColor: '#fff',
+                             boxShadow: '0 1px 3px rgba(26,26,26,.1)',
+                             borderRadius: '1px'
+                         }}>
                         <div className="card-container">
                             <Tabs defaultActiveKey='1' type="card">
                                 <TabPane tab='All' key='1'>
@@ -43,7 +44,7 @@ class BlogList extends Component {
                         </div>
                     </Col>
                     <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                         xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
+                         style={{paddingLeft: '2.5%'}}>
                         <PromotionList/>
                         {/*<MicroList />*/}
                         {/*<PropertyRank />*/}
