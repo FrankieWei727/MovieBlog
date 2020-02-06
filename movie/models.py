@@ -37,7 +37,7 @@ class Movie(models.Model):
     region = models.CharField(max_length=100)
     actors = models.CharField(max_length=200)
     length = models.IntegerField(null=True)
-    release_date = models.DateField(null=True)
+    release_date = models.DateField(blank=True, null=True)
     language = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True)
     poster = models.CharField(max_length=300, blank=True, default="")
