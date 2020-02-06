@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='movie',
             name='release_date',
-            field=models.DateField(default=''),
+            field=models.DateField(blank=True, null=True),
         ),
     ]
