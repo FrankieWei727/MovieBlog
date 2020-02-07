@@ -1,5 +1,5 @@
 import React from "react";
-import {Layout, Menu, Icon} from 'antd';
+import {Layout} from 'antd';
 import AdminHeaderContainer from "./AdminHeaderContainer";
 import AdminSider from "./AdminSiderContainer";
 import MovieDataAdmin from "../components/MovieAdmin";

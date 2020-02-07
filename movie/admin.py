@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource
+from .models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource, MovieFans
 
 
 class VideoSourceAdmin(admin.ModelAdmin):
@@ -31,6 +31,14 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Movie, MovieAdmin)
+
+
+class MovieFansAdmin(admin.ModelAdmin):
+    list_display = ['movie', 'fans']
+    search_fields = ('movie',)
+
+
+admin.site.register(MovieFans, MovieFansAdmin)
 
 
 class EventAdmin(admin.ModelAdmin):

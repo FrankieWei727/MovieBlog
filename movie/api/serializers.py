@@ -1,11 +1,13 @@
 from rest_framework import serializers
-from movie.models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource
+from movie.models import Category, CategoryGroup, Movie, Event, StillsGallery, VideoSource, MovieFans
+
+from my_profile.api.serializers import UserBriefSerializer
 
 
 class VideoSourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoSource
-        fields = ('website', 'url','movie')
+        fields = ('website', 'url', 'movie')
 
         def create(self, validated_data):
             print(validated_data)
@@ -50,7 +52,7 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = ('id', 'url', 'name', 'director', 'scriptwriter',
                   'region', 'actors', 'length', 'release_date', 'language',
                   'description', 'poster', 'rank', 'created', 'updated', 'video',
-                  'movie_views', 'category', 'users_like', 'stills', 'videos')
+                  'movie_views', 'category', 'stills', 'videos')
         read_only_fields = ['users_like']
 
 
@@ -82,7 +84,21 @@ class MovieRankUpdateSerializer(serializers.ModelSerializer):
         return instance
 
 
-class MovieListSerializer(serializers.ModelSerializer):
+"""
+    Like movie 
+"""
+
+
+class MovieBriefSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ('id', 'name', 'url')
+
+
+class MovieFansSerializer(serializers.ModelSerializer):
+    movie = MovieBriefSerializer()
+    fans = UserBriefSerializer()
+
+    class Meta:
+        model = MovieFans
+        fields = ('id', 'movie', 'fans')

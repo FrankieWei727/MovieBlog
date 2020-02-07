@@ -1,5 +1,5 @@
 import React from 'react'
-import {Layout, Menu, Avatar, Divider, Button,Dropdown, Icon} from 'antd';
+import {Layout, Menu, Avatar, Divider, Button, Dropdown, Icon} from 'antd';
 import {Image} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import axios from "axios";
@@ -76,7 +76,7 @@ class HomeHeader extends React.Component {
                             borderColor: 'transparent transparent rgba(26,26,26,.1) transparent',
                         }}>
                             <div style={{padding: '0 9%', backgroundColor: '#ffffff',}}>
-                                <div style={{float: 'left', width: '9%', margin:'2% 0',}}>
+                                <div style={{float: 'left', width: '9%', margin: '2% 0',}}>
                                     <Image src='https://i.imgur.com/pRMV4vy.png' size='small'/>
                                 </div>
                                 <Menu
@@ -84,12 +84,9 @@ class HomeHeader extends React.Component {
                                     mode="horizontal"
                                     style={{lineHeight: '62px', borderColor: 'transparent',}}
                                 >
-                                    <Menu.Item key="1">Article
-                                        <Link to={'/article'}/></Menu.Item>
-                                    <Menu.Item key="2">Movie
-                                        <Link to={'/movie'}/></Menu.Item>
-                                    <Menu.Item key="3">Event
-                                        <Link to={'/event'}/></Menu.Item>
+                                    <Menu.Item key="1">Article<Link to={'/article'}/></Menu.Item>
+                                    <Menu.Item key="2">Movie<Link to={'/movie'}/></Menu.Item>
+                                    <Menu.Item key="3">Event<Link to={'/event'}/></Menu.Item>
                                     <div style={{float: 'right', paddingRight: '1%'}}>
                                         {
                                             this.props.isAuthenticated ?

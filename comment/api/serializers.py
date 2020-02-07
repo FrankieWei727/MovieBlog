@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from comment.models import Article, ArticleComment, Review
 from my_profile.api.serializers import UserSerializer
-from movie.api.serializers import MovieListSerializer
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -15,8 +14,6 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
-
-    # movie = MovieListSerializer()
 
     class Meta:
         model = Article

@@ -24,26 +24,26 @@ import AdminLayout from "./Admin/containers/AdminLayout";
 
 const BaseRouter = () => (
     <div>
-        <Route exact path='/movie/' component={MovieList}/>
+        <Route exact path='/movie' component={MovieList}/>
         <Route path='/movie/:movieID' component={MovieDetail}/>
         <Route exact path='/movie_upload' component={MovieSourceEditor}/>
         <Route exact path='/video_source_upload' component={MoviePlaySourceEditor}/>
         <Route exact path='/stills_upload' component={MovieStillsSourceEditor}/>
-        <Route exact path='/event/' component={EventListContainer}/>
-        <Route exact path='/event/:eventID/' component={EventDetail}/>
-        <Route exact path='/login/' component={Login}/>
-        <Route exact path='/logout/' component={Logout}/>
-        <Route exact path='/signup/' component={Register}/>
-        <Route exact path='/profile/' component={MyProfileContainer}/>
+        <Route exact path='/event' component={EventListContainer}/>
+        <Route exact path='/event/:eventID' component={EventDetail}/>
+        <Route exact path='/login' component={Login}/>
+        <Route exact path='/logout' component={Logout}/>
+        <Route exact path='/signup' component={Register}/>
+        <Route exact path='/profile' component={MyProfileContainer}/>
         <Route exact path='/visit/profile/:id' component={VisitOtherUserProfile}/>
-        <Route exact path='/profile/setting/' component={EditProfile}/>
+        <Route exact path='/profile/setting' component={EditProfile}/>
         <Route exact path='/permission/setting' component={PermissionSetting}/>
         <Route exact path='/article' component={Blog}/>
         <Route exact path='/create_article' component={CreateArticle}/>
-        <Route exact path='/article/:articleID/' component={ArticleDetail}/>
-        <Route exact path='/article/revise/:articleID/' component={ReviseArticle}/>
+        <Route exact path='/article/:articleID' component={ArticleDetail}/>
+        <Route exact path='/article/revise/:articleID' component={ReviseArticle}/>
 
-        <Route exact path='/admin_mlinked/' component={AdminLayout}/>
+        <Route exact path='/admin_mlinked' component={AdminLayout}/>
     </div>
 
 );

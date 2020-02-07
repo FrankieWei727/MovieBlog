@@ -15,7 +15,7 @@ class EventListContainer extends React.Component {
         count: 0,
         page: 1,
         pagesize: 5,
-        loading: true,
+        loading: false,
     };
 
     componentDidMount() {

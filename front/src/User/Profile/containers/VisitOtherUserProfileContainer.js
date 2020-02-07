@@ -29,26 +29,28 @@ class VisitOtherUserProfile extends Component {
     };
 
     isFollow = async (v) => {
-        try {
+        const token = window.localStorage.getItem('token');
+
+        if (token !== null) {
             const response = await axios.post(
                 'api/account/user/' + this.props.match.params.id + '/is_followed/?format=json',
                 {},
-                {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+                {headers: {'Authorization': 'Token ' + token}}
             );
             this.setState({
                 follow: (response.data.code === '1')
             })
-        } catch (error) {
         }
     };
 
     follow = async (v) => {
-        try {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
             this.setState({loading: true});
             axios.post(
                 'api/account/user/' + this.props.match.params.id + '/follow/?format=json',
                 {},
-                {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
+                {headers: {'Authorization': 'Token ' + token}}
             ).then(res => {
                 console.log(res.data);
             });
@@ -59,20 +61,19 @@ class VisitOtherUserProfile extends Component {
                 })
             }, 300);
             message.success('Follow successfully')
-        } catch (error) {
+        } else {
+            message.warning('Please login!')
         }
     };
 
     unfollow = async (v) => {
-        try {
+        const token = window.localStorage.getItem('token');
+        if (token !== null) {
             this.setState({loading: true});
-            let config = {
-                headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}
-            };
             axios.post(
                 'api/account/user/' + this.props.match.params.id + '/unfollow/?format=json',
                 {},
-                config
+                {headers: {'Authorization': 'Token ' + token}}
             );
             setTimeout(() => {
                 this.setState({
@@ -81,7 +82,8 @@ class VisitOtherUserProfile extends Component {
                 })
             }, 300);
             message.success('Unfollow Successfully!')
-        } catch (error) {
+        } else {
+            message.warning('Please login!')
         }
     };
 
@@ -104,7 +106,7 @@ class VisitOtherUserProfile extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7',paddingTop:'60px'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7', paddingTop: '60px'}}>
                 <Row style={{marginTop: '15px'}}>
                     <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
                          xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>

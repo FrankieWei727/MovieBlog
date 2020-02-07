@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List, Menu, Avatar, Button} from 'antd'
+import {List, Avatar, Button} from 'antd'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 

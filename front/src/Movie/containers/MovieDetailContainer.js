@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import {Layout, Row, Col, Descriptions, Tag, Typography, List, BackTop, Icon} from 'antd'
+import {Layout, Row, Col, Descriptions, Tag, Typography, List, BackTop} from 'antd'
 import StillList from "../components/Stills";
 import AddMovieReview from "../components/AddMovieReview";
 import moment from "moment";
+import MovieLike from "../components/MovieLike";
+import MovieFansList from "../components/MovieFansList";
 
 const {Title} = Typography;
 
@@ -16,10 +18,10 @@ class MovieDetail extends React.Component {
         iFrameHeight: '0px',
     };
 
-    componentDidMount() {
+    componentDidMount = async (v) => {
         const movieID = this.props.match.params.movieID;
 
-        axios.get(`api/movie/movies/${movieID}/?format=json`)
+        await axios.get(`api/movie/movies/${movieID}/?format=json`)
             .then(res => {
                 this.setState({
                     movie: res.data,
@@ -28,9 +30,9 @@ class MovieDetail extends React.Component {
             .catch(err => {
                 console.log(err)
             });
-
         this.setState({prelock: true});
-    }
+    };
+
 
     render() {
 
@@ -118,15 +120,23 @@ class MovieDetail extends React.Component {
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Region</span>}>
                                                 <div style={{color: '#fff', fontWeight: '700'}}>{movie.region}</div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Language</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.language}</div>
+                                            <Descriptions.Item
+                                                label={<span style={{color: '#fff'}}>Language</span>}>
+                                                <div style={{
+                                                    color: '#fff',
+                                                    fontWeight: '700'
+                                                }}>{movie.language}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Rank</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.rank}/5.00</div>
+                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.rank}/5.00
+                                                </div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Views</span>}>
                                                 <div
-                                                    style={{color: '#fff', fontWeight: '700'}}>{movie.movie_views}</div>
+                                                    style={{
+                                                        color: '#fff',
+                                                        fontWeight: '700'
+                                                    }}>{movie.movie_views}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span style={{color: '#fff'}}>Likes</span>}>
                                                 <div style={{color: '#fff', fontWeight: '700'}}>{likes}</div>
@@ -144,15 +154,6 @@ class MovieDetail extends React.Component {
                                                 </div>
                                             </Tag>
                                         ))}
-                                        # TODO: add user like
-                                        <Descriptions>
-                                            <Descriptions.Item>
-                                                <div style={{paddingTop: "4px"}}>
-                                                    <Icon type="heart" theme="filled"
-                                                          style={{fontSize: '20px', color: "red"}}/>
-                                                </div>
-                                            </Descriptions.Item>
-                                        </Descriptions>
                                     </div>
                                 </div>
                             </Col>
@@ -195,6 +196,7 @@ class MovieDetail extends React.Component {
                                 movieUrl={movie.url}
                             />
                         </Col>
+                        <MovieLike movieId={this.props.match.params.movieID} key={'movie_like_action'}/>
                         <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
                              xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
                             {prelock && (video_source_numbers !== 0) && (
@@ -221,6 +223,7 @@ class MovieDetail extends React.Component {
                                 </div>
                             )}
                         </Col>
+                        <MovieFansList movieId={this.props.match.params.movieID} key={'movie_fans_list'}/>
                     </Row>
                 </div>
             </Layout>

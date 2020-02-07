@@ -49,15 +49,7 @@ class FollowProfileSerializer(serializers.ModelSerializer):
 
 
 class UserBriefSerializer(serializers.ModelSerializer):
-    profile = FollowProfileSerializer()
-
-    class Meta:
-        model = User
-        fields = ('id', 'url', 'username', 'profile')
-
-
-class FollowerBriefSerializer(serializers.ModelSerializer):
-    profile = FollowProfileSerializer()
+    profile = FollowProfileSerializer(read_only=True)
 
     class Meta:
         model = User
@@ -65,7 +57,7 @@ class FollowerBriefSerializer(serializers.ModelSerializer):
 
 
 class FollowUserSerializer(serializers.ModelSerializer):
-    follower = FollowerBriefSerializer(read_only=True)
+    follower = UserBriefSerializer(read_only=True)
     user = UserBriefSerializer(read_only=True)
 
     class Meta:

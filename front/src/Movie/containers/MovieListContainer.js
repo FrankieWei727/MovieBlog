@@ -7,22 +7,18 @@ import {
     Typography,
     BackTop,
     Input,
-    Icon,
 } from "antd";
 
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
-import {Link} from "react-router-dom";
 import MoviePromotion from "../components/MoviePromotion";
+
 
 const count = 5;
 const {Title} = Typography;
 const {Search} = Input;
 const tip = ["All", "Search Result"];
 const token = window.localStorage.getItem('token');
-const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1621723_13u19gbl1o2s.js'
-});
 
 class MovieList extends React.Component {
 

@@ -34,7 +34,7 @@ class OtherUserArticleList extends Component {
     };
 
     componentDidMount = async (v) => {
-        await this.getArticleData()
+        await this.getArticleData();
         this.setState(function (state) {
             return {initLoading: false}
         })

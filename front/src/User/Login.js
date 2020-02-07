@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
         if (this.props.token) {
             message.success('Welcome Back ' + this.state.username + '!');
             if (this.state.username === "admin") {
-                this.props.history.replace('admin_mlinked');
+                this.props.history.replace('/admin_mlinked');
             } else {
                 this.props.history.replace({pathname: '/article', state: {token: this.props.token}});
             }

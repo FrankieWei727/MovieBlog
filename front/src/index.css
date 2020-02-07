@@ -45,6 +45,17 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+.infinite-container {
+  overflow: auto;
+  padding: 8px 24px;
+  height: 400px;
+}
+.loading-container {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+}
 
 ::-webkit-scrollbar {
 /*隐藏滚轮*/

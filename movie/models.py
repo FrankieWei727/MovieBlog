@@ -2,6 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+"""
+    Category models
+"""
+
 
 class CategoryGroup(models.Model):
     name = models.CharField(max_length=128, default="")
@@ -28,6 +32,11 @@ class Category(models.Model):
         return reverse('movies:movie_list_by_category', args=[self.slug])
 
 
+"""
+    Movie model
+"""
+
+
 class Movie(models.Model):
     category = models.ManyToManyField(Category,
                                       related_name='movies', blank=True)
@@ -44,9 +53,6 @@ class Movie(models.Model):
     rank = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    users_like = models.ManyToManyField(User,
-                                        related_name='movies_liked',
-                                        blank=True)
     video = models.CharField(max_length=300, default="")
 
     movie_views = models.IntegerField(default=0, null=True)
@@ -57,6 +63,18 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MovieFans(models.Model):
+    fans = models.ForeignKey(User, on_delete=models.PROTECT, related_name='fans', blank=True, default="")
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name='movie', blank=True, default="")
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['fans', 'movie']
+
+    def __str__(self):
+        return '%s' % self.fans.username
 
 
 class VideoSource(models.Model):
