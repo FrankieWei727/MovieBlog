@@ -60,7 +60,6 @@ class MovieFansList extends React.Component {
 
     render() {
         const {fans} = this.state;
-        console.log(fans);
         return (
 
             <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
