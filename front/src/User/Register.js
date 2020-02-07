@@ -37,7 +37,7 @@ class Register extends Component {
             form.validateFields(["confirm"], {force: true});
         }
         await axios.get(
-            'http://127.0.0.1:8000/api/account/user_password/validate/' + value)
+            'api/account/user_password/validate/' + value)
             .then(res => {
                 this.setState({
                     passwordError: res.data.data[0],
@@ -56,7 +56,7 @@ class Register extends Component {
 
 
     validateToUsername = async (rule, value, callback) => {
-        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + value)
+        await axios.get('api/account/user_name/validate/' + value)
             .then(response => {
                 if (value === response.data.username) {
                     this.setState({
@@ -77,7 +77,7 @@ class Register extends Component {
 
 
     validateToEmail = async (rule, value, callback) => {
-        await axios.get('http://127.0.0.1:8000/api/account/user_email/validate/' + value)
+        await axios.get('api/account/user_email/validate/' + value)
             .then(response => {
                 if (value === response.data.email) {
                     this.setState({
@@ -142,7 +142,7 @@ class Register extends Component {
             }
         };
         return (
-            <Layout style={{minHeight: "100vh",paddingTop:'60px'}}>
+            <Layout style={{minHeight: "100vh", paddingTop: '60px'}}>
                 <div style={{flex: "1 0 "}}>
                     <Row style={{margin: '30px 0'}}>
                         <Col

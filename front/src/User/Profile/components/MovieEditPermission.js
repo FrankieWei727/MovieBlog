@@ -44,7 +44,7 @@ class MovieEditPermission extends Component {
     async getProfileData() {
         let temp = 0;
         await axios.get(
-            'http://127.0.0.1:8000/rest-auth/user/',
+            'rest-auth/user/',
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(response => {
             if (response.data.profile.permission === 'unreviewed') {

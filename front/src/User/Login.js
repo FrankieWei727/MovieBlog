@@ -42,7 +42,7 @@ class LoginForm extends React.Component {
 
     checkUsername = async (e) => {
         const username = e.target.value;
-        await axios.get('http://127.0.0.1:8000/api/account/user_name/validate/' + username)
+        await axios.get('api/account/user_name/validate/' + username)
             .then(res => {
                 this.setUser(username)
             }).catch(err => {
@@ -88,6 +88,7 @@ class LoginForm extends React.Component {
                                         rules: [{required: true, message: 'Please input your username!'}],
                                     })(
                                         <Input
+                                            autoComplete="on"
                                             prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                             placeholder="Username"
                                             onChange={this.checkUsername}
@@ -99,6 +100,7 @@ class LoginForm extends React.Component {
                                         rules: [{required: true, message: 'Please input your Password!'}],
                                     })(
                                         <Input
+                                            autoComplete="on"
                                             prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                             type="password"
                                             placeholder="Password"
