@@ -11,12 +11,14 @@ const IconFont = Icon.createFromIconfontCN({
 });
 
 class OtherUserArticleList extends Component {
+
     state = {
         data: [],
         cache: [],
         loading: false,
         initLoading: true,
-        page: 1
+        page: 1,
+        count: 0,
     };
 
     extractText = HTMLString => {
@@ -48,7 +50,7 @@ class OtherUserArticleList extends Component {
             );
             this.data = response.data.results;
             this.setState(function (state) {
-                return {data: response.data.results, cache: response.data.results}
+                return {data: response.data.results, cache: response.data.results, count: response.data.count}
             })
         } catch (error) {
             console.log(error)
@@ -84,13 +86,13 @@ class OtherUserArticleList extends Component {
     };
 
     render() {
-        const {initLoading, loading, data} = this.state;
-        const loadMore = !initLoading && !loading ? (
+        const {initLoading, loading, data, count} = this.state;
+        const loadMore = !initLoading && !loading && (data.length !== count) ? (
             <div style={{
                 textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px'
             }}
             >
-                {(this.state.data.length > 0) && <Button onClick={this.onLoadMore}>Load More</Button>}
+                <Button onClick={this.onLoadMore}>Load More</Button>
             </div>
         ) : null;
 
@@ -107,14 +109,15 @@ class OtherUserArticleList extends Component {
                         <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta
                                 title={
-                                        <div>
-                                            {item.author && item.author.username}
-                                            {(item.author && item.author.profile.permission) === 'reviewed' ?
-                                                <IconFont type='iconbadge'
-                                                          style={{paddingLeft: '10px'}}/> : null}
-                                        </div>
+                                    <div>
+                                        {item.author && item.author.username}
+                                        {(item.author && item.author.profile.permission) === 'reviewed' ?
+                                            <IconFont type='iconbadge'
+                                                      style={{paddingLeft: '10px'}}/> : null}
+                                    </div>
                                 }
-                                avatar={<Avatar shape='square' icon='user' src={item.author && item.author.profile.avatar}/>}
+                                avatar={<Avatar shape='square' icon='user'
+                                                src={item.author && item.author.profile.avatar}/>}
                                 description={item.created && moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
                             />
                             <Link to={'/article/' + item.id}>

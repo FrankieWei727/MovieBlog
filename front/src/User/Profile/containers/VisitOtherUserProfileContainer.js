@@ -52,7 +52,7 @@ class VisitOtherUserProfile extends Component {
                 {},
                 {headers: {'Authorization': 'Token ' + token}}
             ).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
             });
             setTimeout(() => {
                 this.setState({

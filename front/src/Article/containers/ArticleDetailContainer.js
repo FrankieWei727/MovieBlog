@@ -71,7 +71,7 @@ class ArticlePage extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#fff',paddingTop:'60px'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#fff', paddingTop: '60px'}}>
                 <BackTop/>
                 <Row style={{
                     background: '#fff',
@@ -104,6 +104,15 @@ class ArticlePage extends Component {
                             <div style={{fontSize: '16px'}}>
                                 <div className='braft-output-content' style={{overflow: 'auto'}}
                                      dangerouslySetInnerHTML={{__html: this.state.content}}/>
+                            </div>
+                            <div
+                                style={{
+                                    paddingTop: '5vw',
+                                    paddingBottom: '1vw',
+                                    fontWeight: 'bold',
+                                    fontStyle: 'italic',
+                                    color: '#373737'
+                                }}>Publish: {moment(this.state.created).format('LL')}
                             </div>
                             <div style={{textAlign: 'center'}}>
                                 <Spin spinning={this.state.loading} size='large' tip='loading...'/>
