@@ -22,12 +22,16 @@ class BlogList extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', paddingTop: '4%'}}>
+            <Layout style={{margin: "40px 0"}}>
                 <BackTop/>
-                <Row style={{flex: '1 0', padding: '3% 4%'}}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 0}}
+                <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
+                    <Col xxl={{span: 13, offset: 3}}
+                         xl={{span: 14, offset: 2}}
+                         lg={{span: 14, offset: 2}}
+                         md={{span: 16, offset: 1, order: 1}}
+                         sm={{span: 22, offset: 1, order: 2}}
+                         xs={{span: 22, offset: 1}}
                          style={{
-                             marginBottom: '4%',
                              backgroundColor: '#fff',
                              boxShadow: '0 1px 3px rgba(26,26,26,.1)',
                              borderRadius: '1px'
@@ -43,8 +47,13 @@ class BlogList extends Component {
                             </Tabs>
                         </div>
                     </Col>
-                    <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                         style={{paddingLeft: '2.5%'}}>
+                    <Col xxl={{span: 5, offset: 0}}
+                         xl={{span: 6, offset: 0}}
+                         lg={{span: 6, offset: 0}}
+                         md={{span: 6, offset: 0, order: 2}}
+                         sm={{span: 22, offset: 1, order: 1}}
+                         xs={{span: 22, offset: 1}}
+                    >
                         <PromotionList/>
                         {/*<MicroList />*/}
                         {/*<PropertyRank />*/}

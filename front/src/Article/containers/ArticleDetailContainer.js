@@ -71,15 +71,18 @@ class ArticlePage extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#fff', paddingTop: '60px'}}>
+            <Layout style={{backgroundColor: '#fff'}}>
                 <BackTop/>
                 <Row style={{
                     background: '#fff',
-                    padding: '20px 60px',
+                    padding: '20px 0',
                     marginBottom: '15px',
                     boxShadow: '0px 2px 2px #888888'
                 }}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 14, offset: 1}}
+                    <Col xxl={{span: 12, offset: 4}}
+                         xl={{span: 14, offset: 2}}
+                         lg={{span: 14, offset: 2}}
+                         md={{span: 14, offset: 1}}
                          xs={{span: 22, offset: 1}}>
                         <div style={{fontSize: '22px', fontWeight: 'bold', color: 'black'}}>
                             <Paragraph ellipsis={{rows: 1, expandable: true}} strong style={{color: 'black'}}>
@@ -87,8 +90,12 @@ class ArticlePage extends Component {
                             </Paragraph>
                         </div>
                     </Col>
-                    <Col xxl={{span: 4, offset: 0}} xl={{span: 6, offset: 1}} md={{span: 7, offset: 1}}
-                         xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
+                    <Col xxl={{span: 4, offset: 0}}
+                         xl={{span: 6, offset: 0}}
+                         lg={{span: 6, offset: 0}}
+                         md={{span: 7, offset: 0}}
+                         xs={{span: 22, offset: 1}}
+                    >
                         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                             <Statistic title='View' suffix='times' value={this.state.views}/>
                             <Statistic title='Published date'
@@ -96,11 +103,14 @@ class ArticlePage extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{flex: '1 0', padding: '0 60px'}}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 14, offset: 2}} md={{span: 15, offset: 1}}
-                         xs={{span: 22, offset: 1}}>
-                        <div type='flex'
-                             style={{flex: '1 0', background: '#fff', padding: '10px 0', marginBottom: '20px'}}>
+                <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
+                    <Col
+                        xxl={{span: 12, offset: 4}}
+                        xl={{span: 14, offset: 2}}
+                        lg={{span: 14, offset: 2}}
+                        md={{span: 14, offset: 1, order: 1}}
+                        xs={{span: 22, offset: 1, order: 2}}>
+                        <div>
                             <div style={{fontSize: '16px'}}>
                                 <div className='braft-output-content' style={{overflow: 'auto'}}
                                      dangerouslySetInnerHTML={{__html: this.state.content}}/>
@@ -117,12 +127,19 @@ class ArticlePage extends Component {
                             <div style={{textAlign: 'center'}}>
                                 <Spin spinning={this.state.loading} size='large' tip='loading...'/>
                             </div>
-                            <Title level={4} style={{paddingTop: '50px'}}>Comment</Title>
-                            <CreateArticleComment articleId={this.state.id} articleUrl={this.state.url}/>
+                            <div>
+                                <Title level={4} style={{paddingTop: '50px'}}>Comment</Title>
+                                <CreateArticleComment articleId={this.state.id} articleUrl={this.state.url}/>
+                            </div>
                         </div>
                     </Col>
-                    <Col xxl={{span: 4, offset: 0}} xl={{span: 6, offset: 0}} md={{span: 7, offset: 0}}
-                         xs={{span: 22, offset: 1}} style={{paddingBottom: '20px', paddingLeft: '15px'}}>
+                    <Col
+                        xxl={{span: 4, offset: 0}}
+                        xl={{span: 6, offset: 0}}
+                        lg={{span: 6, offset: 0}}
+                        md={{span: 7, offset: 0, order: 2}}
+                        xs={{span: 22, offset: 1, order: 1}}
+                    >
                         <Affix offsetTop={100} style={{paddingTop: '60px'}}>
                             <AuthorInfo authorId={this.state.authorId}/>
                         </Affix>

@@ -1,3 +1,5 @@
+/*ArticleListContainer*/
+
 .card-container > .ant-tabs-card > .ant-tabs-content {
     margin-top: -16px;
 
@@ -21,6 +23,18 @@
 .card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
     border-color: transparent transparent #e8e8e8 transparent;
     background: #fff;
+}
+
+/*HeaderContainer*/
+
+.header-menu-item.ant-menu-item {
+    padding: 0 10px;
+}
+
+.header-menu.ant-menu-horizontal {
+    height: 49px;
+    border-color: transparent;
+    line-height: 62px;
 }
 
 .fade-enter {
@@ -62,12 +76,6 @@
 ::-webkit-scrollbar {
     /*隐藏滚轮*/
     display: none;
-}
-
-.header-menu.ant-menu-horizontal {
-    height: 49px;
-    border-color: transparent;
-    line-height: 62px;
 }
 
 

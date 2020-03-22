@@ -15,10 +15,8 @@ const Article = (props) => {
 
     const [selector] = useState(React.createRef());
     const [isExtractBrief, setIsExtractBrief] = useState(true);
-    const [height, setHeight] = useState(window.innerHeight);
     const [affixed, setAffixed] = useState("");
     const [style, setStyle] = useState([]);
-    const [position, setPosition] = useState("");
 
     useEffect(() => {
 
@@ -51,6 +49,7 @@ const Article = (props) => {
     const SetTextState = () => {
         setIsExtractBrief(!isExtractBrief);
     };
+
 
     const handleAffix = async (value) => {
         await setAffixed(value);
@@ -100,7 +99,7 @@ const Article = (props) => {
                         </h3>
                     </Link>
                     <Skeleton avatar title={false} loading={props.item.loading} active>
-                        <Row type="flex" style={{paddingTop: '10px', padding: '0 20px'}} justify="start">
+                        <Row style={{paddingTop: '10px', padding: '0 20px'}} justify="start">
                             <Col span={21}>
                                 <List.Item.Meta
                                     title={
@@ -128,7 +127,7 @@ const Article = (props) => {
                                                         userId={props.userId}/>}
                                 />
                             </Col>
-                            <Col span={3}>
+                            <Col xs={22} sm={3} style={{marginBottom: '5px'}}>
                                 {props.item.created && moment(moment(props.item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
                             </Col>
                         </Row>
@@ -158,66 +157,37 @@ const Article = (props) => {
                             {isExtractBrief ?
                                 <Row type="flex" justify="start"
                                      style={{paddingTop: '10px', backgroundColor: "white"}}>
-                                    <Col span={20}>
-                                        <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
-                                            <IconFont type="iconliulan"/> Views {props.item.views}
-                                        </Col>
-                                        <Col span={5} order={2}>
-                                            {/*3 col-order-2*/}
-                                        </Col>
-                                        <Col span={5} order={3}>
-                                            {/*3 col-order-3*/}
-                                        </Col>
-                                        <Col span={5} order={4}>
-                                            {/*3 col-order-3*/}
-                                        </Col>
+                                    <Col xs={{span: 16, offset: 1}} sm={20}>
+                                        <IconFont style={{color: "#76839b"}}
+                                                  type="iconliulan"/> Views {props.item.views}
                                     </Col>
-                                    <Col span={4}>
-                                        <Col span={24} offset={1} order={1}>
-                                            <div style={{alignItems: 'right'}}>
-                                                {isExtractBrief === false ?
-                                                    <Button type="link" onClick={SetTextState}>
-                                                        Collapse <Icon type="up-circle"/>
-                                                    </Button> :
-                                                    null
-                                                }
-                                            </div>
-                                        </Col>
+                                    <Col xs={4} sm={4}>
+                                        {isExtractBrief === false ?
+                                            <Button type="link" onClick={SetTextState}>
+                                                Collapse <Icon type="up-circle"/>
+                                            </Button> :
+                                            null
+                                        }
                                     </Col>
                                 </Row>
                                 :
-                                <Affix offsetTop={0} offsetBottom={0}
+                                <Affix offsetBottom={0}
                                        onChange={affixed => handleAffix(affixed)}>
                                     <Row type="flex" justify="start" style={style}>
-                                        <Col span={20}>
-                                            <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
-                                                <IconFont type="iconliulan"/> Views {props.item.views}
-                                            </Col>
-                                            <Col span={5} order={2}>
-                                                {/*3 col-order-2*/}
-                                            </Col>
-                                            <Col span={5} order={3}>
-                                                {/*3 col-order-3*/}
-                                            </Col>
-                                            <Col span={5} order={4}>
-                                                {/*3 col-order-3*/}
-                                            </Col>
+                                        <Col xs={{span: 16, offset: 1}} sm={20}>
+                                            <IconFont style={{color: "#76839b"}}
+                                                      type="iconliulan"/> Views {props.item.views}
                                         </Col>
-                                        <Col span={4}>
-                                            <Col span={24} offset={1} order={1}>
-                                                <div style={{alignItems: 'right'}}>
-                                                    {isExtractBrief === false ?
-                                                        <Button type="link" onClick={SetTextState}>
-                                                            Collapse <Icon type="up-circle"/>
-                                                        </Button> :
-                                                        null
-                                                    }
-                                                </div>
-                                            </Col>
+                                        <Col xs={4} sm={4}>
+                                            {isExtractBrief === false ?
+                                                <Button type="link" onClick={SetTextState}>
+                                                    Collapse <Icon type="up-circle"/>
+                                                </Button> :
+                                                null
+                                            }
                                         </Col>
                                     </Row>
-                                </Affix>
-                            }
+                                </Affix>}
                         </div>
                     </Skeleton>
                 </div>

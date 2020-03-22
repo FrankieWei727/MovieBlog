@@ -195,6 +195,6 @@ const MovieList = () => {
             </div>
         </Layout>
     );
-}
+};
 
 export default MovieList;

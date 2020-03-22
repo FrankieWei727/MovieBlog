@@ -24,13 +24,6 @@ class SubscriptionArticleList extends Component {
     };
 
     componentDidMount = async v => {
-        // // Make first two requests
-        // const [firstResponse, secondResponse] = await Promise.all([
-        //     this.getUserData(),
-        //     this.getFollowingData()
-        // ]);
-        // // Make third request using responses from the first two
-        // const thirdResponse = await this.getArticleData();
 
         await this.getUserData();
         await this.getFollowingData();

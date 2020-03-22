@@ -1,5 +1,5 @@
 import React from 'react'
-import {Layout, Menu, Avatar, Divider, Button, Dropdown, Icon, Row, Col} from 'antd';
+import {Layout, Menu, Avatar, Divider, Button, Dropdown, Icon, Row, Col, Drawer} from 'antd';
 import {Image} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import axios from "axios";
@@ -12,7 +12,7 @@ class HomeHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: props.token
+            token: props.token,
         };
     }
 
@@ -20,6 +20,7 @@ class HomeHeader extends React.Component {
         key: "",
         username: "",
         avatar: "",
+        visible: false,
     };
 
 
@@ -28,16 +29,27 @@ class HomeHeader extends React.Component {
             axios.get(
                 'rest-auth/user/?format=json',
                 {headers: {'Authorization': 'Token ' + nextProps.token}}
-            ).then(response => {
+            ).then(res => {
                     this.setState({
-                        username: response.data.username,
-                        avatar: response.data.profile.avatar,
+                        username: res.data.username,
+                        avatar: res.data.profile.avatar,
                     });
                 }
             ).catch(err => {
                 console.log(err)
             });
         }
+    };
+
+    onShowMenu = () => {
+        this.setState({
+            visible: true
+        })
+    };
+    onClose = () => {
+        this.setState({
+            visible: false
+        });
     };
 
     render() {
@@ -64,12 +76,28 @@ class HomeHeader extends React.Component {
                 </Menu.Item>
             </Menu>
         );
+        const userLoginMenu = (
+            <Drawer
+                height={150}
+                destroyonclos={"true"}
+                placement={"bottom"}
+                closable={false}
+                onClose={this.onClose}
+                visible={this.state.visible}
+            >
+                <Menu mode="vertical" className={"login-register-popup-menu"}>
+                    <Menu.Item onClick={<Link to={'/login'}/>} key="5">Login</Menu.Item>
+                    <Menu.Item onClick={<Link to={'/signup'}/>} key="6">Register</Menu.Item>
+                </Menu>
+            </Drawer>
+        );
+
         return (
             <div>
                 {
                     username !== 'admin' ?
                         <Header style={{
-                            padding : "0 0",
+                            padding: "0 0",
                             position: 'fixed',
                             zIndex: 100,
                             width: '100%',
@@ -84,18 +112,22 @@ class HomeHeader extends React.Component {
                                      md={{span: 21, offset: 1}}
                                      sm={{span: 21, offset: 1}}
                                      xs={{span: 22, offset: 0}}>
-                                    <div style={{float: 'left', padding: "15px 0",width:"140px"}}>
+                                    <div style={{float: 'left', padding: "15px 0", width: "120px"}}>
                                         <Image src='https://i.imgur.com/pRMV4vy.png' size='small'/>
                                     </div>
                                     <div>
                                         <Menu
+                                            style={{padding: "0 10px"}}
                                             className="header-menu"
                                             theme="light"
                                             mode="horizontal"
                                         >
-                                            <Menu.Item key="1">Article<Link to={'/article'}/></Menu.Item>
-                                            <Menu.Item key="2">Movie<Link to={'/movie'}/></Menu.Item>
-                                            <Menu.Item key="3">Event<Link to={'/event'}/></Menu.Item>
+                                            <Menu.Item className="header-menu-item" key="1">Article<Link
+                                                to={'/article'}/></Menu.Item>
+                                            <Menu.Item className="header-menu-item" key="2">Movie<Link
+                                                to={'/movie'}/></Menu.Item>
+                                            <Menu.Item className="header-menu-item" key="3">Event<Link
+                                                to={'/event'}/></Menu.Item>
                                             <div style={{float: 'right'}}>
                                                 {
                                                     this.props.isAuthenticated ?
@@ -105,15 +137,23 @@ class HomeHeader extends React.Component {
                                                             </div>
                                                         </Dropdown>
                                                         :
-                                                        <div>
-                                                            <Button type={"link"}>
-                                                                <Link to={'/login'}>Log in</Link>
-                                                            </Button>
-                                                            <Divider type="vertical"/>
-                                                            <Button type={"link"} style={{marginLeft: '0.5em'}}>
-                                                                <Link to={'/signup'}>Sign Up</Link>
-                                                            </Button>
-                                                        </div>
+                                                        (window.innerWidth >= 500 ?
+                                                                <div>
+                                                                    <Button type={"link"}>
+                                                                        <Link to={'/login'}>Log in</Link>
+                                                                    </Button>
+                                                                    <Divider type="vertical"/>
+                                                                    <Button type={"link"} style={{marginLeft: '0.5em'}}>
+                                                                        <Link to={'/signup'}>Sign Up</Link>
+                                                                    </Button>
+                                                                </div> :
+                                                                <div>
+                                                                    <Menu.Item type="link" onClick={this.onShowMenu}>
+                                                                        <Icon type="bars"/>
+                                                                    </Menu.Item>
+                                                                    {userLoginMenu}
+                                                                </div>
+                                                        )
                                                 }
                                             </div>
                                         </Menu>

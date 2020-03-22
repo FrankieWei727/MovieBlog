@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {BackTop, Col, Layout, Row, List, Icon} from "antd";
 import EventList from "../components/EventList";
@@ -8,107 +8,105 @@ const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1621723_un1kxztz8c.js'
 });
 
-class EventListContainer extends React.Component {
+let page = 1;
+const pagesize = 5;
+const EventListContainer = () => {
 
-    state = {
-        events: [],
-        count: 0,
-        page: 1,
-        pagesize: 5,
-        loading: false,
-    };
+    const [events, setEvents] = useState([]);
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(false);
 
-    componentDidMount() {
-        this.setState({
-            loading: true
-        });
-        axios.get("api/movie/events/?format=json&page=" + this.state.page + "&page_size=" + this.state.pagesize)
-            .then(res => {
-                    let data = [];
-                    for (let i = 0; i < res.data.results.length; i++) {
-                        data[i] = res.data.results[i];
-                    }
-                    this.setState({
-                        events: data,
-                        count: res.data.count,
-                        loading: false,
-                    });
-                }
-            )
-    }
 
-    handleEvent = async page => {
-        this.setState({
-            loading: true
-        });
-        await axios.get("api/movie/events/?format=json&page=" + page + "&page_size=" + this.state.pagesize)
-            .then(res => {
-                let temp = this.state.events;
-                let i = (page - 1) * this.state.pagesize;
-                for (let index = 0; index < res.data.results.length; index++) {
-                    temp[i] = res.data.results[index];
-                    i++;
-                }
-                this.setState({
-                    events: temp,
-                    loading: false,
-                });
-            }).catch(error => {
-                console.log(error);
-            });
-    };
+    useEffect(() => {
+        setLoading(true);
+        axios.get("api/movie/events/", {
+            params: {
+                page: page,
+                page_size: pagesize,
+            }
 
-    render() {
-        const {events} = this.state;
-        return (
-            <Layout style={{minHeight: '100vh', paddingTop: '4%'}}>
-                <BackTop/>
-                <Row style={{flex: '1 0', padding: '3% 4%'}}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
-                         xs={{span: 24, offset: 0}}
-                         style={{
-                             marginBottom: '4%',
-                             backgroundColor: '#fff',
-                             boxShadow: '0 1px 3px rgba(26,26,26,.1)',
-                             borderRadius: '1px',
-                             padding: '20px 20px'
-                         }}>
-                        <List
-                            loading={this.state.loading}
-                            itemLayout="vertical"
-                            size="large"
-                            pagination={{
-                                onChange: this.handleEvent,
-                                total: this.state.count,
-                                pageSize: this.state.pagesize,
-                            }}
-                            dataSource={events}
-                            renderItem={item => (
-                                <EventList item={item} key={"events-list"}/>
-                            )}
-                        />
-                    </Col>
-                    <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                         xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                        <div style={{
-                            padding: '20px 20px',
-                            background: '#fff',
-                            borderRadius: '1px',
-                            boxShadow: '0 1px 3px rgba(26,26,26,.1)',
-                            marginBottom: '4%'
-                        }}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <Link
-                                    to={(window.localStorage.getItem('token') !== null) ? '/create_article' : '/login'}>
-                                    <IconFont type='iconiconfaqihuodong' style={{fontSize: '30px'}}/>
-                                </Link>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Layout>
+        }).then(res => {
+                setEvents(res.data.results);
+                setCount(res.data.count);
+                setLoading(false);
+            }
         )
-    }
+    }, []);
+
+    const handleEvent = async page => {
+        setLoading(true);
+        await axios.get("api/movie/events/", {
+            params: {
+                page: page,
+                page_size: pagesize
+            }
+        }).then(res => {
+            let temp = events;
+            let i = (page - 1) * pagesize;
+            for (let index = 0; index < res.data.results.length; index++) {
+                temp[i] = res.data.results[index];
+                i++;
+            }
+            setEvents(temp);
+            setLoading(false);
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+
+    return (
+        <Layout style={{margin: '40px 0'}}>
+            <BackTop/>
+            <Row gutter={[{sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
+                <Col xxl={{span: 14, offset: 3}}
+                     xl={{span: 15, offset: 2}}
+                     lg={{span: 15, offset: 2}}
+                     md={{span: 15, offset: 1}}
+                     sm={{span: 22, offset: 1}}
+                     xs={{span: 22, offset: 1}}
+                     style={{
+                         backgroundColor: '#fff',
+                         boxShadow: '0 1px 3px rgba(26,26,26,.1)',
+                         borderRadius: '1px',
+                     }}>
+                    <List
+                        loading={loading}
+                        itemLayout="vertical"
+                        size="large"
+                        pagination={{
+                            onChange: handleEvent,
+                            total: count,
+                            pageSize: pagesize,
+                        }}
+                        dataSource={events}
+                        renderItem={item => (
+                            <EventList item={item} key={"events-list"}/>
+                        )}
+                    />
+                </Col>
+                <Col xxl={{span: 4, offset: 0}}
+                     xl={{span: 4, offset: 0}}
+                     lg={{span: 5, offset: 0}}
+                     md={{span: 6, offset: 0}}
+                     sm={{span: 22, offset: 1}}
+                     xs={{span: 22, offset: 1}}
+                >
+                    <div style={{
+                        background: '#fff',
+                        borderRadius: '1px',
+                        boxShadow: '0 1px 3px rgba(26,26,26,.1)',
+                    }}>
+                        <div>
+                            <Link
+                                to={(window.localStorage.getItem('token') !== null) ? '/create_article' : '/login'}>
+                                <IconFont type='iconiconfaqihuodong' style={{fontSize: '30px'}}/>
+                            </Link>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+        </Layout>
+    )
 }
 
 export default EventListContainer

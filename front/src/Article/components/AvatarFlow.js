@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Avatar, Popover, Tag} from "antd";
 import {Link} from "react-router-dom";
 
-const Content = props => (
+const Content = (props) => (
     <div style={{display: "flex", flexDirection: "column", width: "360px"}}>
         <div
             style={{

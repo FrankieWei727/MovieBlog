@@ -19,9 +19,9 @@ const CommentList = ({comments, userId, user}) => (
                   author={item.author ? item.author.username : item.username}
                   avatar={
                       (item.author ?
-                              <AvatarFlow author={item.author} userId={userId}></AvatarFlow>
+                              <AvatarFlow author={item.author} userId={userId}/>
                               :
-                              <AvatarFlow author={user} userId={userId}></AvatarFlow>
+                              <AvatarFlow author={user} userId={userId}/>
                       )}
                   content={item.content}
                   datetime={moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
