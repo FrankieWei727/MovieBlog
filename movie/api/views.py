@@ -64,19 +64,18 @@ class MoviePagination(PageNumberPagination):
 
 
 class MovieFilter(res_fliters.FilterSet):
+    name = res_fliters.CharFilter(lookup_expr='icontains')
+
     class Meta:
         model = Movie
-        exclude = ['poster', 'video', 'description', 'stills',
-                   'rank', 'created', 'updated', 'users_like', 'movie_views', 'length',
-                   'video_source']
+        fields = ['name', 'category']
 
 
 class MovieView(ModelViewSet):
     queryset = Movie.objects.all().order_by('-release_date')
     serializer_class = MovieSerializer
     pagination_class = MoviePagination
-    filter_backends = [res_fliters.DjangoFilterBackend, filters.SearchFilter]
-    search_fields = ('name',)
+    filter_backends = [res_fliters.DjangoFilterBackend]
     filterset_class = MovieFilter
 
 

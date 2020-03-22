@@ -1,50 +1,48 @@
-import React from "react";
-import {Button, Col, Icon, List, message} from "antd";
+import React, {useEffect, useState} from "react";
+import {Button, Icon, List, message, Typography} from "antd";
 import axios from "axios";
 
+const {Title} = Typography;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1621723_m6ue80tfyy.js'
 });
 
-class MovieLike extends React.Component {
+const MovieLike = ({movieId}) => {
 
-    state = {
-        like: false,
-        loading: false,
-    };
+    const [like, setLike] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    componentDidMount = async (v) => {
-        await this.isLike();
-    };
-
-    async isLike() {
+    async function isLike() {
         const token = window.localStorage.getItem('token');
         if (token !== null) {
-            const response = await axios.post(
-                'api/movie/movie/fans/' + this.props.movieId + '/is_like/?format=json',
+            await axios.post(
+                'api/movie/movie/fans/' + movieId + '/is_like/?format=json',
                 {},
                 {headers: {'Authorization': 'Token ' + token}}
+            ).then(res => {
+                    setLike(res.data.code === '1');
+                }
             );
-            this.setState({
-                like: (response.data.code === '1')
-            })
-        }
-    };
 
-    like = async (e) => {
+        }
+    }
+
+    useEffect(() => {
+        isLike();
+    });
+
+    const onLike = async e => {
         const token = window.localStorage.getItem('token');
         if (token !== null) {
-            this.setState({loading: true});
+            setLoading(true);
             await axios.post(
-                'api/movie/movie/fans/' + this.props.movieId + '/like/?format=json',
+                'api/movie/movie/fans/' + movieId + '/like/?format=json',
                 {},
                 {headers: {'Authorization': 'Token ' + token}}
             );
             setTimeout(() => {
-                this.setState({
-                    like: true,
-                    loading: false
-                })
+                setLoading(false);
+                setLike(true);
             }, 300);
             message.success('Like successfully')
         } else {
@@ -52,60 +50,50 @@ class MovieLike extends React.Component {
         }
     };
 
-    unlike = async (e) => {
-        this.setState({loading: true});
+    const unlike = async (e) => {
+        setLoading(true);
         await axios.post(
-            'api/movie/movie/fans/' + this.props.movieId + '/unlike/?format=json',
+            'api/movie/movie/fans/' + movieId + '/unlike/?format=json',
             {},
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         );
 
         setTimeout(() => {
-            this.setState({
-                like: false,
-                loading: false
-            })
+            setLike(false);
+            setLoading(false);
         }, 300);
         message.success('Unlike Successfully!')
     };
 
-    render() {
-        return (
-            <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                 xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                <div style={{
-                    marginTop: '20px',
-                    marginBottom: '40px'
-                }}>
-                    <h3 style={{marginRight: '20px', fontWeight: 'bold'}}>Actions</h3>
-                    <div>
-                        <List
-                            itemLayout="vertical"
-                            size="small"
-                            bordered={false}
-                            split={false}>
-                            <List.Item>
-                                {this.state.like ?
-                                    <Button onClick={this.unlike} type='link' size="large"
-                                            loading={this.state.loading}>
-                                        <IconFont type='icondianzan'/>
-                                    </Button> :
-                                    <Button onClick={this.like} type='link' size="large"
-                                            loading={this.state.loading}>
-                                        <IconFont type='iconfabulous'/>
-                                    </Button>
-                                }
-                                {/*<Button onClick={this.like} type='link' size="large"*/}
-                                {/*        loading={this.state.loading}>*/}
-                                {/*    <IconFont type='iconfabulous'/>*/}
-                                {/*</Button>*/}
-                            </List.Item>
-                        </List>
-                    </div>
-                </div>
-            </Col>
-        )
-    }
-}
+    return (
+        <div>
+            <Title level={4}>Actions</Title>
+            <div>
+                <List
+                    itemLayout="vertical"
+                    size="small"
+                    bordered={false}
+                    split={false}>
+                    <List.Item>
+                        {like ?
+                            <Button onClick={unlike} type='link' size="large"
+                                    loading={loading}>
+                                <IconFont type='icondianzan'/>
+                            </Button> :
+                            <Button onClick={onLike} type='link' size="large"
+                                    loading={loading}>
+                                <IconFont type='iconfabulous'/>
+                            </Button>
+                        }
+                        {/*<Button onClick={this.like} type='link' size="large"*/}
+                        {/*        loading={this.state.loading}>*/}
+                        {/*    <IconFont type='iconfabulous'/>*/}
+                        {/*</Button>*/}
+                    </List.Item>
+                </List>
+            </div>
+        </div>
+    )
+};
 
 export default MovieLike;

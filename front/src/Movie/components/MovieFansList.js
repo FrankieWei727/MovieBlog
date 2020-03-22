@@ -1,110 +1,102 @@
-import React from "react";
-import {Avatar, Col, List, Spin, message} from "antd";
+import React, {useEffect, useState} from "react";
+import {Avatar, List, Spin, message, Typography} from "antd";
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroller';
 
-class MovieFansList extends React.Component {
+const {Title} = Typography;
 
-    state = {
-        page: 1,
-        fans: [],
-        count: 0,
-        pagesize: 5,
-        loading: false,
-        hasMore: true,
+let page = 1;
+const pagesize = 5;
+const MovieFansList = ({movieId}) => {
 
-    };
+    const [fans, setFans] = useState([]);
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
 
-    componentDidMount = async (v) => {
-        await axios.get('api/movie/movie/fans/?movie=' + this.props.movieId +
-            "&page=" + this.state.page + "&page_size=" + this.state.pagesize)
-            .then(res => {
-                this.setState({
-                    fans: res.data.results,
-                    count: res.data.count
-                })
-            })
-    };
+    async function getData() {
+        page = 1;
+        await axios.get('api/movie/movie/fans/', {
+            params: {
+                movie: movieId,
+                page: page,
+                page_size: pagesize
+            }
+        }).then(res => {
+                setFans(res.data.results);
+                setCount(res.data.count);
+        })
+    }
 
-    handleInfiniteOnLoad = async page => {
-        let {fans} = this.state;
-        this.setState({
-            loading: true,
-        });
-        if (fans.length === this.state.count) {
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const handleInfiniteOnLoad = async page => {
+        setLoading(true);
+        if (fans.length === count) {
             message.warning('Infinite List loaded all');
-            this.setState({
-                hasMore: false,
-                loading: false,
-            });
+            setHasMore(false);
+            setLoading(false);
             return;
         }
-        await axios.get('api/movie/movie/fans/?movie=' + this.props.movieId +
-            "&page=" + page + "&page_size=" + this.state.pagesize)
-            .then(res => {
+        await axios.get('api/movie/movie/fans/', {
+            params: {
+                movie: movieId,
+                page: page,
+                page_size: pagesize
+            }
+        }).then(res => {
                 let temp = fans;
-                let i = (page - 1) * this.state.pagesize;
+                let i = (page - 1) * pagesize;
                 for (let index = 0; index < res.data.results.length; index++) {
                     temp[i] = res.data.results[index];
                     i++;
                 }
-                this.setState({
-                    fans: temp,
-                    loading: false,
-                });
+                setFans(temp);
+                setLoading(false);
             }).catch(error => {
                 console.log(error);
             });
     };
 
-
-    render() {
-        const {fans} = this.state;
-        return (
-
-            <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                 xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                <div style={{
-                    marginTop: '20px',
-                    marginBottom: '40px'
-                }}>
-                    <h3 style={{marginRight: '20px', fontWeight: 'bold'}}>Who likes</h3>
-                    <div className="infinite-container">
-                        <InfiniteScroll
-                            initialLoad={false}
-                            pageStart={this.state.page}
-                            loadMore={this.handleInfiniteOnLoad}
-                            hasMore={!this.state.loading && this.state.hasMore}
-                            useWindow={false}
-                        >
-                            <List
-                                dataSource={fans}
-                                itemLayout="vertical"
-                                size="small"
-                                bordered={false}
-                                renderItem={item => (
-                                    <List.Item>
-                                        <Avatar src={item.fans.profile.avatar}
-                                                alt={'fans'}></Avatar>
-                                        <p style={{
-                                            display: 'inline',
-                                            paddingLeft: '5px',
-                                            fontWeight: 'bold',
-                                            color: '#5C5C5C'
-                                        }}>{item.fans.username}</p>
-                                    </List.Item>
-                                )}/>
-                            {this.state.loading && this.state.hasMore && (
-                                <div className="loading-container">
-                                    <Spin/>
-                                </div>
-                            )}
-                        </InfiniteScroll>
-                    </div>
-                </div>
-            </Col>
-        )
-    }
-}
+    return (
+        <div>
+            <Title level={4}>Who likes</Title>
+            <div className="infinite-container">
+                <InfiniteScroll
+                    initialLoad={false}
+                    pageStart={page}
+                    loadMore={handleInfiniteOnLoad}
+                    hasMore={!loading && hasMore}
+                    useWindow={false}
+                >
+                    <List
+                        dataSource={fans}
+                        itemLayout="vertical"
+                        size="small"
+                        bordered={false}
+                        renderItem={item => (
+                            <List.Item>
+                                <Avatar src={item.fans.profile.avatar}
+                                        alt={'fans'}/>
+                                <p style={{
+                                    display: 'inline',
+                                    paddingLeft: '5px',
+                                    fontWeight: 'bold',
+                                    color: '#5C5C5C'
+                                }}>{item.fans.username}</p>
+                            </List.Item>
+                        )}/>
+                    {loading && hasMore && (
+                        <div className="loading-container">
+                            <Spin/>
+                        </div>
+                    )}
+                </InfiniteScroll>
+            </div>
+        </div>
+    )
+};
 
 export default MovieFansList

@@ -26,8 +26,7 @@ class MovieDetail extends React.Component {
                 this.setState({
                     movie: res.data,
                 });
-            })
-            .catch(err => {
+            }).catch(err => {
                 console.log(err)
             });
         this.setState({prelock: true});
@@ -59,17 +58,11 @@ class MovieDetail extends React.Component {
             stills_numbers = 0;
         }
         return (
-            <Layout style={{minHeight: '100vh', background: 'unset', paddingTop: '60px'}}>
+            <Layout>
                 <BackTop/>
                 <div style={{flex: '1 0 '}}>
-                    <Row style={{boxShadow: '0px 0px 5px #888888'}}>
-                        <div className='MovieHeader'
-                             style={{
-                                 position: 'relative',
-                                 overflow: 'hidden',
-                                 background: 'hsla(0, 10%, 60%, 0.5)',
-                                 zIndex: 1,
-                             }}>
+                    <Row style={{boxShadow: '0px 0px 5px #888888', marginBottom: "20px"}}>
+                        <div className='movie-header'>
                             <div style={{
                                 backgroundImage: `url(${movie.poster})`,
                                 position: 'absolute',
@@ -81,69 +74,53 @@ class MovieDetail extends React.Component {
                                 zIndex: 0,
                                 overflow: 'hidden'
                             }}/>
-                            <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} xs={{span: 22, offset: 1}}>
-                                <div className='wrap' style={{
-                                    background: 'rgba(0,30%,100%,90%)',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    padding: '20px 0'
-                                }}>
-                                    <div className='MovieCover'>
-                                        <img
-                                            src={movie.poster}
-                                            alt={movie.name}
-                                            style={{
-                                                width: '225px',
-                                                maxHeight: '300px',
-                                                border: '4px solid white',
-                                                borderRadius: '8px'
-                                            }}
-                                        />
-                                    </div>
-                                    <div className='content' style={{marginLeft: '20px'}}>
-                                        <Title level={3} style={{color: 'white'}}>{movie.name}</Title>
+                            <Col xxl={{span: 22, offset: 3}}
+                                 xl={{span: 20, offset: 2}}
+                                 lg={{span: 20, offset: 2}}
+                                 md={{span: 20, offset: 2}}
+                                 sm={{span: 20, offset: 2}}
+                                 xs={{span: 22, offset: 1}}
+                            >
+                                <div className='wrap'>
+                                    <img className='movie-cover'
+                                         src={movie.poster}
+                                         alt={movie.name}
+                                    />
+                                    <div className='movie-content'>
+                                        <Title level={3} className="movie-label">{movie.name}</Title>
                                         <Descriptions
                                             border
                                             column={{xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1}}
                                             style={{color: '#fff'}}
                                         >
                                             <Descriptions.Item
-                                                label={<span style={{color: '#fff'}}>Release Date</span>}>
-                                                <div style={{
-                                                    color: '#fff',
-                                                    fontWeight: '700'
-                                                }}>{moment(movie.release_date).format('YYYY-MM')}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Length</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.length}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Region</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.region}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item
-                                                label={<span style={{color: '#fff'}}>Language</span>}>
-                                                <div style={{
-                                                    color: '#fff',
-                                                    fontWeight: '700'
-                                                }}>{movie.language}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Rank</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{movie.rank}/5.00
+                                                label={<span className="movie-label">Release Date</span>}>
+                                                <div className="movie-description">
+                                                    {moment(movie.release_date).format('YYYY-MM')}
                                                 </div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Views</span>}>
-                                                <div
-                                                    style={{
-                                                        color: '#fff',
-                                                        fontWeight: '700'
-                                                    }}>{movie.movie_views}</div>
+                                            <Descriptions.Item label={<span className="movie-label">Length</span>}>
+                                                <div className="movie-description">{movie.length}</div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Likes</span>}>
-                                                <div style={{color: '#fff', fontWeight: '700'}}>{likes}</div>
+                                            <Descriptions.Item label={<span className="movie-label">Region</span>}>
+                                                <div className="movie-description">{movie.region}</div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span style={{color: '#fff'}}>Actors</span>}>
-                                                <div
-                                                    style={{color: '#fff', fontWeight: '700'}}>{movie.actors}</div>
+                                            <Descriptions.Item
+                                                label={<span className="movie-label">Language</span>}>
+                                                <div className="movie-description">{movie.language}</div>
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label={<span className="movie-label">Rank</span>}>
+                                                <div className="movie-description">{movie.rank}/5.00
+                                                </div>
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label={<span className="movie-label">Views</span>}>
+                                                <div className="movie-description">{movie.movie_views}</div>
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label={<span className="movie-label">Likes</span>}>
+                                                <div className="movie-description">{likes}</div>
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label={<span className="movie-label">Actors</span>}>
+                                                <div className="movie-description">{movie.actors}</div>
                                             </Descriptions.Item>
                                         </Descriptions>
                                         {movie.category &&
@@ -170,16 +147,22 @@ class MovieDetail extends React.Component {
                             />
                         </div>
                     </Row>
-                    <Row style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                        <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 15, offset: 1}}
+                    <Row gutter={[24, 8]}>
+                        <Col xxl={{span: 12, offset: 3}}
+                             xl={{span: 12, offset: 2}}
+                             lg={{span: 12, offset: 2}}
+                             md={{span: 20, offset: 1}}
+                             sm={{span: 20, offset: 1}}
                              xs={{span: 22, offset: 1}}>
-                            <Title level={4}>About</Title>
-                            <div style={{padding: '24px 0', whiteSpace: 'pre-wrap'}}>
-                                <p style={{whiteSpace: 'pre-wrap'}}>{movie.description}</p>
+                            <div>
+                                <Title level={4}>About</Title>
+                                <div>{movie.description}</div>
                             </div>
-                            {prelock && (stills_numbers !== 0) && (
-                                <StillList key={'StillItemList'} data={movie.stills} title='Stills'/>
-                            )}
+                            <div style={{paddingTop: "10px"}}>
+                                {prelock && (stills_numbers !== 0) && (
+                                    <StillList key={'StillItemList'} data={movie.stills} title='Stills'/>
+                                )}
+                            </div>
                             {/*{prelock && (this.state.director.length !== 0) && (*/}
                             {/*  <RowList data={this.state.director} title='导演' />*/}
                             {/*)}*/}
@@ -189,41 +172,57 @@ class MovieDetail extends React.Component {
                             {/*{prelock && (this.state.actor.length !== 0) && (*/}
                             {/*  <RowList data={this.state.actor} title='演员' />*/}
                             {/*)}*/}
-                            <Title level={4}>Movie Review</Title>
-                            <AddMovieReview
-                                key={'AddMovieReview'}
-                                movieId={movie.id}
-                                movieUrl={movie.url}
-                            />
+                            <div>
+                                <Title level={4}>Movie Review</Title>
+                                <AddMovieReview
+                                    key={'AddMovieReview'}
+                                    movieId={movie.id}
+                                    movieUrl={movie.url}
+                                />
+                            </div>
                         </Col>
-                        <MovieLike movieId={this.props.match.params.movieID} key={'movie_like_action'}/>
-                        <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 0}}
-                             xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                            {prelock && (video_source_numbers !== 0) && (
-                                <div style={{
-                                    marginTop: '20px',
-                                    marginBottom: '40px'
-                                }}>
-                                    <h3 style={{marginRight: '20px', fontWeight: 'bold'}}>Play lists</h3>
-                                    <div>
-                                        <List
-                                            size="small"
-                                            bordered={false}
-                                            split={false}
-                                            dataSource={movie.videos}
-                                            renderItem={item =>
-                                                <List.Item>
-                                                    <a key={item.url} href={item.url} target="_blank"
-                                                       rel="noreferrer noopener">
-                                                        {item.website}
-                                                    </a>
-                                                </List.Item>}
-                                        />
-                                    </div>
-                                </div>
-                            )}
+                        <Col xxl={{span: 8, offset: 0}}
+                             xl={{span: 8, offset: 0}}
+                             lg={{span: 8, offset: 0}}
+                             md={{span: 8, offset: 1}}
+                             sm={{span: 15, offset: 1}}
+                             xs={{span: 22, offset: 1}}>
+                            <Row gutter={[0, 24]}>
+                                <Col span={24}>
+                                    <Row>
+                                        <Col span={12}>
+                                            <MovieLike movieId={this.props.match.params.movieID}
+                                                       key={'movie_like_action'}/>
+                                        </Col>
+                                        <Col span={12}>
+                                            {prelock && (video_source_numbers !== 0) && (
+                                                <div>
+                                                    <Title level={4}>Play lists</Title>
+                                                    <div>
+                                                        <List
+                                                            size="small"
+                                                            bordered={false}
+                                                            split={false}
+                                                            dataSource={movie.videos}
+                                                            renderItem={item =>
+                                                                <List.Item>
+                                                                    <a key={item.url} href={item.url} target="_blank"
+                                                                       rel="noreferrer noopener">
+                                                                        {item.website}
+                                                                    </a>
+                                                                </List.Item>}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col span={24}>
+                                    <MovieFansList movieId={this.props.match.params.movieID} key={'movie_fans_list'}/>
+                                </Col>
+                            </Row>
                         </Col>
-                        <MovieFansList movieId={this.props.match.params.movieID} key={'movie_fans_list'}/>
                     </Row>
                 </div>
             </Layout>

@@ -45,19 +45,65 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
 .infinite-container {
-  overflow: auto;
-  padding: 8px 24px;
-  height: 400px;
+    overflow: auto;
+    padding: 8px 24px;
+    height: 400px;
 }
+
 .loading-container {
-  position: absolute;
-  bottom: 30px;
-  width: 100%;
-  text-align: center;
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
 }
 
 ::-webkit-scrollbar {
-/*隐藏滚轮*/
-display: none;
+    /*隐藏滚轮*/
+    display: none;
+}
+
+.header-menu.ant-menu-horizontal {
+    height: 49px;
+    border-color: transparent;
+    line-height: 62px;
+}
+
+
+/*MovieDetailContainer*/
+
+.movie-header {
+    position: relative;
+    overflow: hidden;
+    background: hsla(0, 10%, 60%, 0.5);
+    z-index: 1
+}
+
+.movie-header .wrap {
+    background: rgba(0, 30%, 100%, 0.9);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.wrap .movie-cover {
+    width: 225px;
+    max-height: 300px;
+    border: 4px solid white;
+    border-radius: 8px;
+}
+
+.wrap .movie-content {
+    padding-left: 20px;
+
+}
+
+.movie-content .movie-description {
+    color: #f0f0f0;
+    font-weight: 700;
+}
+
+.movie-content .movie-label {
+    color: #f0f0f0;
 }

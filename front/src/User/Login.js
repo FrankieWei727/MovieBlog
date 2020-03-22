@@ -20,34 +20,32 @@ class LoginForm extends React.Component {
             this.props.onAuth(values.username, values.password);
 
             if (this.state.usernameError !== null) {
-                message.error('The username is not exist!');
+                message.error(this.state.usernameError);
             }
         } catch (e) {
             console.log(e);
         }
     };
 
-    handleError() {
-        this.setState({
-            usernameError: "The username is not exist!"
-        });
-    };
-
-    setUser = (username) => {
-        this.setState({
-            username: username,
-            usernameError: null
-        })
-    };
-
     checkUsername = async (e) => {
         const username = e.target.value;
-        await axios.get('api/account/user_name/validate/' + username)
-            .then(res => {
-                this.setUser(username)
-            }).catch(err => {
-                this.handleError()
-            });
+        if (username) {
+            await axios.get('api/account/user_name/validate/' + username)
+                .then(res => {
+                    if (res.data === "Username is exists") {
+                        this.setState({
+                            username: username,
+                            usernameError: null
+                        })
+                    } else {
+                        this.setState({
+                            usernameError: "The username is not exist!"
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+        }
     };
 
     handleSubmit = (e) => {

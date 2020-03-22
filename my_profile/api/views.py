@@ -70,12 +70,11 @@ def cancel_apply_editor_permission(request, pk):
 # Validate duplicate username
 @api_view(['GET'])
 def validate_username(request, username):
-    queryset = get_object_or_404(User, username=username)
-    serializer = UserSingUpSerializer(queryset)
-    if serializer:
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    exists = User.objects.filter(username=username)
+    if exists:
+        return Response({"data": 'Username is exists'})
     else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"data": 'null'})
 
 
 # Validate duplicate email address

@@ -60,7 +60,7 @@ const MovieItemList = (props) => {
                                                 <Tag
                                                     key={tag.name}
                                                     color="#343a40"
-                                                    style={{color: "white", margin: "5px"}}
+                                                    style={{color: "white", marginRight: "5px"}}
                                                 >
                                                     {tag.name}
                                                 </Tag>

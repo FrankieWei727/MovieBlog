@@ -3,7 +3,7 @@ import {Collapse, Icon, List, Tag, Typography} from "antd";
 
 const Panel = Collapse.Panel;
 const {Title} = Typography;
-const CheckTag = Tag.CheckableTag;
+const { CheckableTag } = Tag;
 
 const customPanelStyle = {
     background: "#fff",
@@ -22,7 +22,6 @@ const Tags = (props) => {
                 expandIcon={({isActive}) => (
                     <Icon type="caret-right" rotate={isActive ? 90 : 0}/>
                 )}
-                style={{paddingTop: "10px"}}
             >
                 <Panel
                     header={<Title level={4}>Tags</Title>}
@@ -40,31 +39,29 @@ const Tags = (props) => {
                                     flexWrap: "wrap",
                                     alignItems: "center"
                                 }}>
-                                                  <span
-                                                      style={{
-                                                          backgroundColor: "#5F5E5E",
-                                                          borderRadius: "16px 0 16px 16px",
-                                                          padding: "5px 15px",
-                                                          color: "white",
-                                                          margin: "0 24px 0 0"
-                                                      }}
-                                                  >
-                                                    {item.name}
-                                                  </span>
+                                      <span
+                                          style={{
+                                              backgroundColor: "#5F5E5E",
+                                              borderRadius: "10px 0 10px 10px",
+                                              padding: "5px 15px",
+                                              color: "white",
+                                              margin: "0 24px 0 0"
+                                          }}
+                                      >
+                                        {item.name}
+                                      </span>
                                     {item.category.map(tag => (
-                                        <CheckTag
+                                        <CheckableTag
                                             style={{
-                                                padding: "5px 10px",
-                                                borderRadius: "20px"
+                                                margin:"5px 5px",
+                                                borderRadius: "5px"
                                             }}
                                             key={"tag_id" + tag.name}
-                                            checked={
-                                                props.selectedTags.indexOf(tag) > -1
-                                            }
-                                            onChange={checked => props.handleChange(tag, checked)}
+                                            checked={props.selectedTags.indexOf(tag.id) > -1}
+                                            onChange={checked => props.handleChange(tag.id, checked)}
                                         >
                                             {tag.name}
-                                        </CheckTag>
+                                        </CheckableTag>
                                     ))}
                                 </div>
                             </List.Item>

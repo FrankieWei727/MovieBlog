@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Icon, List, Row, Skeleton, Affix, Typography} from "antd";
 import {Link} from "react-router-dom";
 import AvatarFlow from "./AvatarFlow";
@@ -10,40 +10,37 @@ const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
 });
 
-class Article extends Component {
-
-    // constructor(props) {
-    //     super(props);
-    //     this.myDiv = React.createRef(),
-    //     this.state = {
-    //         item: props.item
-    //     };
-    // }
+const Article = (props) => {
 
 
-    state = {
-        isExtractBrief: true,
-        height: window.innerHeight,
-        affixed: "",
-        style: [],
-        position: "",
-    };
+    const [selector] = useState(React.createRef());
+    const [isExtractBrief, setIsExtractBrief] = useState(true);
+    const [height, setHeight] = useState(window.innerHeight);
+    const [affixed, setAffixed] = useState("");
+    const [style, setStyle] = useState([]);
+    const [position, setPosition] = useState("");
 
-    // getOffset = () => {
-    //     console.log(this.myDiv.current.offsetTop);
-    //     this.setState({
-    //         position: this.myDiv.current.offsetTop
-    //     })
-    // };
+    useEffect(() => {
 
-    extractText = HTMLString => {
+        if (selector.current !== null) {
+
+            selector.current.addEventListener('selector', () => {
+                const rect = selector.current.getBoundingClientRect();
+                console.log(rect, selector);
+                console.log('selector')
+            });
+        }
+
+    });
+
+    const extractText = HTMLString => {
         let span = document.createElement("span");
         span.innerHTML = HTMLString;
         return span.textContent || span.innerText;
     };
 
-    extractBrief = HTMLString => {
-        const text = this.extractText(HTMLString);
+    const extractBrief = HTMLString => {
+        const text = extractText(HTMLString);
         // const text = HTMLString;
         if (text.length > briefLength) {
             return text.slice(0, briefLength) + "……";
@@ -51,140 +48,150 @@ class Article extends Component {
         return text;
     };
 
-    SetTextState = () => {
-        const {isExtractBrief} = this.state;
-        if (isExtractBrief === true) {
-            this.setState({
-                isExtractBrief: false
-            })
-        } else {
-            this.setState({
-                isExtractBrief: true
-            })
-        }
+    const SetTextState = () => {
+        setIsExtractBrief(!isExtractBrief);
     };
 
-    handleAffix = async (value) => {
-        await this.setState({
-            affixed: value
-        });
-        if (this.state.affixed === true) {
-            this.setState({
-                style: {
-                    paddingTop: '10px',
-                    backgroundColor: "white",
-                    borderStyle: 'solid',
-                    borderWidth: '1px',
-                    borderColor: '#CFCFCF transparent transparent transparent'
-                }
-            })
+    const handleAffix = async (value) => {
+        await setAffixed(value);
+        if (affixed === true) {
+            setStyle({
+                paddingTop: '10px',
+                backgroundColor: "white",
+                borderStyle: 'solid',
+                borderWidth: '1px',
+                borderColor: '#CFCFCF transparent transparent transparent'
+            });
+
         } else {
-            this.setState({
-                style: {
-                    paddingTop: '10px',
-                    backgroundColor: "white",
-                }
-            })
+            setStyle({
+                paddingTop: '10px',
+                backgroundColor: "white",
+            });
         }
 
     };
 
-
-    render() {
-
-        const {item, userId} = this.props;
-        const {isExtractBrief} = this.state;
-        return (
-            <Skeleton loading={item.loading} active>
-                <List.Item>
-                    <div ref={this.myDiv}
-                        // ref={node => {
-                        //     this.container = node;
-                        // }}
-                         style={
-                             item.originality === "Y"
-                                 ? {
-                                     borderLeft: "8px solid",
-                                     borderColor: "#269f42",
-                                     paddingLeft: "15px"
-                                 }
-                                 : {}
-                         }>
-                        <Link to={"/article/" + item.id}>
-                            <h3 style={{
-                                color: "#1a1a1a",
-                                fontWeight: "600",
-                                fontSize: "18px",
-                                fontStretch: "100%",
-                                padding: '0 20px',
-                                paddingBottom: '5px'
-                            }}
-                            >
-                                {item.title}
-                            </h3>
-                        </Link>
-                        <Skeleton avatar title={false} loading={item.loading} active>
-                            <Row type="flex" style={{paddingTop: '10px', padding: '0 20px'}} justify="start">
-                                <Col span={21}>
-                                    <List.Item.Meta
-                                        title={
-                                            <Link
-                                                to={
-                                                    (item.author && (item.author.id === userId)
-                                                        ? "/profile/"
-                                                        : "/visit/profile/" + item.author.id)
-                                                }
-                                            >
-                                                <div>
-                                                    {item.author && item.author.username}
-                                                    {(item.author &&
-                                                        item.author.profile.permission) ===
-                                                    "reviewed" ? (
-                                                        <IconFont
-                                                            type="iconbadge"
-                                                            style={{paddingLeft: "10px"}}
-                                                        />
-                                                    ) : null}
-                                                </div>
-                                            </Link>
-                                        }
-                                        avatar={<AvatarFlow kwy={'avatarFlow'} author={item.author}
-                                                            userId={userId}/>}
-                                    />
-                                </Col>
-                                <Col span={3}>
-                                    {item.created && moment(moment(item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
-                                </Col>
-                            </Row>
-                            <div style={{color: "#646464", fontSize: "15px", padding: '0 20px'}}>
-                                {isExtractBrief ?
-                                    <div>
-                                        <Paragraph ellipsis={{rows: 3, expandable: {isExtractBrief}}}
-                                                   onClick={this.SetTextState}>
-                                            {this.extractText(item.content)}
-                                        </Paragraph>
-                                    </div> :
-                                    <div>
-                                        <div className='braft-output-content' style={{overflow: 'auto'}}
-                                             dangerouslySetInnerHTML={{__html: item.content}}/>
-                                        <div
-                                            style={{
-                                                paddingTop: '5vw',
-                                                paddingBottom: '1vw',
-                                                fontWeight: 'bold',
-                                                color: '#373737'
-                                            }}>Publish: {moment(item.created).format('LL')}
-                                        </div>
+    return (
+        <Skeleton loading={props.item.loading} active>
+            <List.Item>
+                <div
+                    ref={selector}
+                    style={
+                        props.item.originality === "Y"
+                            ? {
+                                borderLeft: "8px solid",
+                                borderColor: "#269f42",
+                                paddingLeft: "15px"
+                            }
+                            : {}
+                    }>
+                    <Link to={"/article/" + props.item.id}>
+                        <h3 style={{
+                            color: "#1a1a1a",
+                            fontWeight: "600",
+                            fontSize: "18px",
+                            fontStretch: "100%",
+                            padding: '0 20px',
+                            paddingBottom: '5px'
+                        }}
+                        >
+                            {props.item.title}
+                        </h3>
+                    </Link>
+                    <Skeleton avatar title={false} loading={props.item.loading} active>
+                        <Row type="flex" style={{paddingTop: '10px', padding: '0 20px'}} justify="start">
+                            <Col span={21}>
+                                <List.Item.Meta
+                                    title={
+                                        <Link
+                                            to={
+                                                (props.item.author && (props.item.author.id === props.userId)
+                                                    ? "/profile/"
+                                                    : "/visit/profile/" + props.item.author.id)
+                                            }
+                                        >
+                                            <div>
+                                                {props.item.author && props.item.author.username}
+                                                {(props.item.author &&
+                                                    props.item.author.profile.permission) ===
+                                                "reviewed" ? (
+                                                    <IconFont
+                                                        type="iconbadge"
+                                                        style={{paddingLeft: "10px"}}
+                                                    />
+                                                ) : null}
+                                            </div>
+                                        </Link>
+                                    }
+                                    avatar={<AvatarFlow kwy={'avatarFlow'} author={props.item.author}
+                                                        userId={props.userId}/>}
+                                />
+                            </Col>
+                            <Col span={3}>
+                                {props.item.created && moment(moment(props.item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
+                            </Col>
+                        </Row>
+                        <div style={{color: "#646464", fontSize: "15px", padding: '0 20px'}}>
+                            {isExtractBrief ?
+                                <div>
+                                    <Paragraph ellipsis={{rows: 3, expandable: {isExtractBrief}}}
+                                               onClick={SetTextState}>
+                                        {extractText(props.item.content)}
+                                    </Paragraph>
+                                </div> :
+                                <div>
+                                    <div className='braft-output-content' style={{overflow: 'auto'}}
+                                         dangerouslySetInnerHTML={{__html: props.item.content}}/>
+                                    <div
+                                        style={{
+                                            paddingTop: '5vw',
+                                            paddingBottom: '1vw',
+                                            fontWeight: 'bold',
+                                            color: '#373737'
+                                        }}>Publish: {moment(props.item.created).format('LL')}
                                     </div>
-                                }
-                            </div>
-                            <div>
-                                {isExtractBrief ?
-                                    <Row type="flex" justify="start"
-                                         style={{paddingTop: '10px', backgroundColor: "white"}}>
+                                </div>
+                            }
+                        </div>
+                        <div>
+                            {isExtractBrief ?
+                                <Row type="flex" justify="start"
+                                     style={{paddingTop: '10px', backgroundColor: "white"}}>
+                                    <Col span={20}>
+                                        <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
+                                            <IconFont type="iconliulan"/> Views {props.item.views}
+                                        </Col>
+                                        <Col span={5} order={2}>
+                                            {/*3 col-order-2*/}
+                                        </Col>
+                                        <Col span={5} order={3}>
+                                            {/*3 col-order-3*/}
+                                        </Col>
+                                        <Col span={5} order={4}>
+                                            {/*3 col-order-3*/}
+                                        </Col>
+                                    </Col>
+                                    <Col span={4}>
+                                        <Col span={24} offset={1} order={1}>
+                                            <div style={{alignItems: 'right'}}>
+                                                {isExtractBrief === false ?
+                                                    <Button type="link" onClick={SetTextState}>
+                                                        Collapse <Icon type="up-circle"/>
+                                                    </Button> :
+                                                    null
+                                                }
+                                            </div>
+                                        </Col>
+                                    </Col>
+                                </Row>
+                                :
+                                <Affix offsetTop={0} offsetBottom={0}
+                                       onChange={affixed => handleAffix(affixed)}>
+                                    <Row type="flex" justify="start" style={style}>
                                         <Col span={20}>
                                             <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
-                                                <IconFont type="iconliulan"/> Views {item.views}
+                                                <IconFont type="iconliulan"/> Views {props.item.views}
                                             </Col>
                                             <Col span={5} order={2}>
                                                 {/*3 col-order-2*/}
@@ -200,7 +207,7 @@ class Article extends Component {
                                             <Col span={24} offset={1} order={1}>
                                                 <div style={{alignItems: 'right'}}>
                                                     {isExtractBrief === false ?
-                                                        <Button type="link" onClick={this.SetTextState}>
+                                                        <Button type="link" onClick={SetTextState}>
                                                             Collapse <Icon type="up-circle"/>
                                                         </Button> :
                                                         null
@@ -209,45 +216,14 @@ class Article extends Component {
                                             </Col>
                                         </Col>
                                     </Row>
-                                    :
-                                    <Affix offsetBottom={0} onChange={affixed => this.handleAffix(affixed)}>
-                                        <Row type="flex" justify="start" style={this.state.style}>
-                                            <Col span={20}>
-                                                <Col span={5} offset={1} order={1} style={{color: "#76839b"}}>
-                                                    <IconFont type="iconliulan"/> Views {item.views}
-                                                </Col>
-                                                <Col span={5} order={2}>
-                                                    {/*3 col-order-2*/}
-                                                </Col>
-                                                <Col span={5} order={3}>
-                                                    {/*3 col-order-3*/}
-                                                </Col>
-                                                <Col span={5} order={4}>
-                                                    {/*3 col-order-3*/}
-                                                </Col>
-                                            </Col>
-                                            <Col span={4}>
-                                                <Col span={24} offset={1} order={1}>
-                                                    <div style={{alignItems: 'right'}}>
-                                                        {isExtractBrief === false ?
-                                                            <Button type="link" onClick={this.SetTextState}>
-                                                                Collapse <Icon type="up-circle"/>
-                                                            </Button> :
-                                                            null
-                                                        }
-                                                    </div>
-                                                </Col>
-                                            </Col>
-                                        </Row>
-                                    </Affix>
-                                }
-                            </div>
-                        </Skeleton>
-                    </div>
-                </List.Item>
-            </Skeleton>
-        )
-    }
-}
+                                </Affix>
+                            }
+                        </div>
+                    </Skeleton>
+                </div>
+            </List.Item>
+        </Skeleton>
+    )
+};
 
 export default Article

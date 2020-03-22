@@ -232,7 +232,7 @@ class AddMovieReview extends Component {
         return (
             <div>
                 {window.localStorage.getItem('token') !== null ?
-                    <div style={{paddingTop: "30px"}}><Comment
+                    <div><Comment
                         avatar={(
                             <Avatar
                                 src={this.state.avatarUrl}
@@ -252,9 +252,8 @@ class AddMovieReview extends Component {
                         )}
                     /></div>
                     :
-                    <div style={{paddingTop: '20px', paddingBottom: '40px'}}>
-                        <p style={{color: '#8E9193', fontWeight: '700'}}>Please Login to write a
-                            review...</p>
+                    <div style={{color: '#8E9193', fontWeight: '700'}}>
+                        Please Login to write a review...
                     </div>
                 }
                 {comment_number > 0 && <CommentList comments={comments} username={username} avatarUrl={avatarUrl}/>}

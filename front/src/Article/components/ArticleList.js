@@ -101,6 +101,7 @@ class ArticleList extends Component {
             initLoading: true
         });
         try {
+            this.page = 1;
             const response = await axios.get(
                 "api/comment/articles/?format=json" +
                 "&page=" + this.page +
@@ -109,6 +110,7 @@ class ArticleList extends Component {
             );
             this.setState({
                 data: response.data.results,
+                count: response.data.count,
                 cache: response.data.results,
                 initLoading: false,
             });

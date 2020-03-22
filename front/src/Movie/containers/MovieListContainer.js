@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import qs from 'qs'
 import {
     Layout,
     Row,
@@ -8,236 +9,192 @@ import {
     BackTop,
     Input,
 } from "antd";
-
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
 import MoviePromotion from "../components/MoviePromotion";
 
-
-const count = 5;
+const pagesize = 5;
 const {Title} = Typography;
 const {Search} = Input;
-const tip = ["All", "Search Result"];
+const tips = ["All", "Search Result"];
 const token = window.localStorage.getItem('token');
 
-class MovieList extends React.Component {
+let page = 1;
+const MovieList = () => {
 
-    page = 1;
-    state = {
-        movies: [],
-        count: 0,
-        tip: tip[0],
-        search: "",
-        tags: [],
-        filterTag: "",
-        loading: true,
-        selectedTags: [],
-        current: '',
-        switch: false,
-    };
+    const [movies, setMovies] = useState([]);
+    const [count, setCount] = useState(0);
+    const [tip, setTip] = useState(tips[0]);
+    const [search, setSearch] = useState(null);
+    const [tags, setTags] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [isSwitch, setIsSwitch] = useState(false);
 
-    componentDidMount = async v => {
-        await this.getData();
-        await this.getUserProfile();
-        this.setState({loading: false});
-    };
-
-    handleClick = (e) => {
-        this.setState({
-            current: e.key
-        })
-    };
-
-    async getUserProfile() {
+    async function getUserProfile() {
         if (token !== null) {
-            await axios.get(
-                'rest-auth/user/',
+            await axios.get('rest-auth/user/',
                 {headers: {'Authorization': 'Token ' + token}}
-            ).then(response => {
-                    this.setState({
-                        switch: (response.data.profile.permission === 'reviewed')
-                    })
+            ).then(res => {
+                    setIsSwitch(res.data.profile.permission === 'reviewed');
                 }
             ).catch(err => {
                 console.log(err)
             });
         }
-    };
-
-
-    async getData() {
-        try {
-            let url = "";
-            if (this.state.filterTag.length === 0) {
-                url =
-                    "api/movie/movies/?format=json" +
-                    "&page=" + this.page +
-                    "&page_size=" + count +
-                    "&search=" + this.state.search;
-            } else {
-                url =
-                    "api/movie/movies/?format=json" +
-                    "&page=" + this.page +
-                    "&page_size=" + count +
-                    "&search=" + this.state.search +
-                    "&category=" + this.state.filterTag;
-            }
-            const response = await axios.get(url);
-            const temp = [];
-            for (let i = 0; i < response.data.results.length; i++) {
-                temp[i] = response.data.results[i];
-            }
-            this.setState({
-                movies: temp,
-                count: response.data.count
-            });
-            if (this.state.selectedTags.length === 0) {
-                const responseTag = await axios.get(
-                    "api/movie/categories_group/?format=json"
-                );
-                this.setState({tags: responseTag.data});
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    handleMovie = async page => {
-        this.setState({
-            loading: true
-        });
-        try {
-            let url = "";
-            if (this.state.filterTag.length === 0) {
-                url =
-                    "api/movie/movies/?format=json" +
-                    "&page=" + page +
-                    "&page_size=" + count +
-                    "&search=" + this.state.search;
-            } else {
-                url =
-                    "api/movie/movies/?format=json" +
-                    "&page=" + page +
-                    "&page_size=" + count +
-                    "&search=" + this.state.search +
-                    "&category=" + this.state.filterTag;
-            }
-            const response = await axios.get(url);
-            let temp = this.state.movies;
-            let i = (page - 1) * count;
-            for (let index = 0; index < response.data.results.length; index++) {
-                temp[i] = response.data.results[index];
-                i++;
-            }
-            this.setState({
-                movies: temp,
-                loading: false
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    handleChange = async (tag, checked) => {
-        const {selectedTags} = this.state;
-        const nextSelectedTags = checked
-            ? [...selectedTags, tag]
-            : selectedTags.filter(t => t !== tag);
-        await this.setState({
-            selectedTags: nextSelectedTags,
-            loading: true
-        });
-        const temp = [];
-        for (let i of nextSelectedTags) {
-            temp.push(i.id);
-        }
-        const filterTag = temp.join("&category=");
-        await this.setState({
-            filterTag: filterTag
-        });
-        this.getData();
-        this.setState({
-            loading: false
-        });
-    };
-
-    search = async value => {
-        await this.setState({
-            loading: true,
-            search: value
-        });
-        this.getData();
-        const temp = tip[1] + "  : " + value + " ";
-        this.setState({
-            loading: false,
-            tip: temp
-        });
-    };
-
-    render() {
-        return (
-            <Layout style={{minHeight: "100vh", paddingTop: '60px'}}>
-                <BackTop/>
-                <div style={{flex: "1 0 ", backgroundColor: "#ffffff", padding: '20px 60px'}}>
-                    {/*<Affix offsetTop={60}>*/}
-                    <Row style={{
-                        padding: "30px 60px",
-                        marginBottom: "10px",
-                        height: '70px',
-                        backgroundColor: "#ffffff",
-                    }}>
-                        <Col xxl={{span: 8, offset: 1}} xl={{span: 13, offset: 1}} md={{span: 13, offset: 1}}
-                             xs={{span: 22, offset: 1}}>
-                            <Search
-                                placeholder="Please enter keywords"
-                                onSearch={value => this.search(value)}
-                                enterButton
-                            />
-                        </Col>
-                    </Row>
-                    {/*</Affix>*/}
-                    <Row style={{paddingTop: "0px", paddingBottom: "30px"}}>
-                        <Col xxl={{span: 10, offset: 5}} xl={{span: 13, offset: 2}} md={{span: 14, offset: 1}}
-                             xs={{span: 22, offset: 1}} style={{paddingTop: "0px", paddingBottom: "30px"}}>
-                            <Title
-                                level={4}
-                                style={{
-                                    padding: "10px 20px",
-                                    backgroundColor: "#767676",
-                                    color: "#ffffff",
-                                    marginBottom: "10px",
-                                    borderRadius: "5px",
-                                    fontSize: "18px"
-                                }}
-                            >
-                                {this.state.tip} ({this.state.count})
-                            </Title>
-                            <MovieItemList
-                                key={'MovieItemList'}
-                                data={this.state.movies}
-                                oading={this.state.loading}
-                                count={this.state.count}
-                                handleChange={this.handleMovie}
-                            />
-                        </Col>
-                        <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
-                             xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
-                            <MoviePromotion/>
-                        </Col>
-                        <Col xxl={{span: 4, offset: 0}} xl={{span: 7, offset: 0}} md={{span: 7, offset: 1}}
-                             xs={{span: 22, offset: 1}} style={{paddingLeft: "15px"}}>
-                            <Tags
-                                key={'TagsItemList'}
-                                data={this.state.tags}
-                                selectedTags={this.state.selectedTags}
-                                handleChange={this.handleChange}
-                            />
-                        </Col>
-                    </Row>
-                </div>
-            </Layout>
-        );
     }
+
+    function getTagsData() {
+        axios.get("api/movie/categories_group/?format=json")
+            .then(res => {
+                setTags(res.data);
+            }).catch(err => {
+            console.log(err)
+        });
+    }
+
+    function getData(nextSelectedTags, value) {
+        console.log('nextSelectedTags', nextSelectedTags);
+        axios.get(
+            "api/movie/movies/?format=json", {
+                params: {
+                    page: page,
+                    page_size: pagesize,
+                    name: value,
+                    category: nextSelectedTags
+                }, paramsSerializer: params => {
+                    return qs.stringify(params, {arrayFormat: 'repeat'})
+                }
+            }).then(res => {
+            console.log(res);
+            setMovies(res.data.results);
+            setCount(res.data.count);
+        }).catch(err => {
+            console.log(err)
+        });
+    }
+
+    useEffect(() => {
+        getData();
+        getTagsData();
+        getUserProfile().then();
+        setLoading(false);
+
+    }, []);
+
+
+    const handleMovie = async currentPage => {
+        setLoading(true);
+        await axios.get("api/movie/movies/?format=json", {
+            params: {
+                page: currentPage,
+                page_size: pagesize,
+                name: search,
+                category: selectedTags,
+            }, paramsSerializer: params => {
+                return qs.stringify(params, {arrayFormat: 'repeat'})
+            }
+        }).then(res => {
+            setMovies(res.data.results);
+            setLoading(false);
+        }).catch(err => {
+            console.log(err)
+        });
+
+    };
+
+
+    const handleChange = (tag, checked) => {
+
+        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
+        setSelectedTags(nextSelectedTags);
+        setLoading(true);
+        getData(nextSelectedTags, null);
+        setLoading(false);
+    };
+
+    const onSearch = value => {
+        setLoading(true);
+        setSearch(value);
+        getData(null, value);
+        setLoading(false);
+        setTip(tips[1] + "  : " + value + " ");
+    };
+
+    return (
+        <Layout>
+            <BackTop/>
+            <div style={{flex: "1 0 ", backgroundColor: "#ffffff", paddingBottom: "30px"}}>
+                <Row style={{padding: "15px 0"}} gutter={[24, 8]}>
+                    <Col xxl={{span: 13, offset: 3}}
+                         xl={{span: 14, offset: 2}}
+                         lg={{span: 14, offset: 2}}
+                         md={{span: 14, offset: 1}}
+                         sm={{span: 14, offset: 1}}
+                         xs={{span: 22, offset: 1}}>
+                        <Search
+                            placeholder="Please enter keywords"
+                            onSearch={value => onSearch(value)}
+                            enterButton
+                        />
+                    </Col>
+                    <Col xxl={{span: 5, offset: 0}}
+                         xl={{span: 6, offset: 0}}
+                         lg={{span: 6, offset: 0}}
+                         md={{span: 8, offset: 0}}
+                         sm={{span: 8, offset: 0}}
+                         xs={{span: 22, offset: 1}}>
+                        <MoviePromotion/>
+                    </Col>
+                </Row>
+                <Row gutter={[24, 16]}>
+                    <Col xxl={{span: 13, offset: 3}}
+                         xl={{span: 14, offset: 2}}
+                         lg={{span: 14, offset: 2}}
+                         md={{span: 14, offset: 1}}
+                         sm={{span: 14, offset: 1}}
+                         xs={{span: 22, offset: 1}}
+                    >
+                        <Title
+                            level={4}
+                            style={{
+                                padding: "10px 20px",
+                                backgroundColor: "#767676",
+                                color: "#ffffff",
+                                borderRadius: "5px",
+                                fontSize: "18px"
+                            }}
+                        >{tip} ({count})
+                        </Title>
+                        <MovieItemList
+                            key={'MovieItemList'}
+                            data={movies}
+                            oading={loading}
+                            count={count}
+                            handleChange={handleMovie}
+                        />
+                    </Col>
+                    <Col xxl={{span: 5, offset: 0}}
+                         xl={{span: 6, offset: 0}}
+                         lg={{span: 6, offset: 0}}
+                         md={{span: 8, offset: 0}}
+                         sm={{span: 8, offset: 0}}
+                         xs={{span: 22, offset: 1}}>
+                        <Row>
+                            <Col>
+                                <Tags
+                                    key={'TagsItemList'}
+                                    data={tags}
+                                    selectedTags={selectedTags}
+                                    handleChange={handleChange}
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
+        </Layout>
+    );
 }
 
 export default MovieList;
