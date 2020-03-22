@@ -115,3 +115,7 @@
 .movie-content .movie-label {
     color: #f0f0f0;
 }
+
+.profile-btn.ant-btn {
+    padding: 0 0;
+}

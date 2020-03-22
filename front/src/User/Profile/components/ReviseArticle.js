@@ -108,7 +108,7 @@ class Revise extends Component {
         const {getFieldDecorator} = this.props.form;
 
         return (
-            <Layout style={{minHeight: '100vh'}}>
+            <Layout>
                 <Row style={{backgroundColor: '#fff', paddingTop: '80px'}}>
                     <Col xxl={{span: 12, offset: 6}} xl={{span: 16, offset: 4}} xs={{span: 22, offset: 1}}>
                         <div className='editor-wrapper'>

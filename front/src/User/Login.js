@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../Store/actions/auth';
 import {Form, Icon, Input, Button, Checkbox, Layout, Row, Col, message} from 'antd';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 class LoginForm extends React.Component {
 
@@ -117,7 +118,7 @@ class LoginForm extends React.Component {
                                             style={{width: "100%"}}>
                                         Log in
                                     </Button>
-                                    No account? <a href="">register now!</a>
+                                    No account? <Link to={'/signup'}>register now!</Link>
                                 </Form.Item>
                             </Form>
                         </Col>

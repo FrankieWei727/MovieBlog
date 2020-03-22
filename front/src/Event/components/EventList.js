@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {Icon, List} from "antd";
 
 const briefLength = 350;

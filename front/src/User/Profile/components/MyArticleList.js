@@ -250,6 +250,7 @@ class MyArticleList extends Component {
                                     <Link to={"/article/revise/" + item.id}>
                                         <Button
                                             style={{
+                                                padding: '0 0',
                                                 color: "#76839b",
                                                 backgroundColor: "transparent",
                                                 display: "inline-block",
@@ -268,6 +269,7 @@ class MyArticleList extends Component {
                                     </Link>,
                                     <Button
                                         style={{
+                                            padding: '0 0',
                                             color: "#76839b",
                                             backgroundColor: "transparent",
                                             display: "iconshanchu1",
@@ -322,6 +324,7 @@ class MyArticleList extends Component {
                                     >
                                         <Button
                                             style={{
+                                                padding: '0 0',
                                                 color: "#76839b",
                                                 backgroundColor: "transparent",
                                                 display: "inline-block",
