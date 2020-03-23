@@ -54,7 +54,6 @@ const MovieList = () => {
     }
 
     function getData(nextSelectedTags, value) {
-        console.log('nextSelectedTags', nextSelectedTags);
         axios.get(
             "api/movie/movies/?format=json", {
                 params: {
@@ -66,7 +65,7 @@ const MovieList = () => {
                     return qs.stringify(params, {arrayFormat: 'repeat'})
                 }
             }).then(res => {
-            console.log(res);
+
             setMovies(res.data.results);
             setCount(res.data.count);
         }).catch(err => {

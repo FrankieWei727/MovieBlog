@@ -1,5 +1,5 @@
-import React, {Component, useEffect, useState} from 'react'
-import {Layout, Col, Row, Icon, Typography, Tabs, Divider} from 'antd'
+import React, {useEffect, useState} from 'react'
+import { Col, Row, Icon, Typography, Tabs, Divider} from 'antd'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
