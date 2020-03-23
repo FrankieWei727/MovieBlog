@@ -54,18 +54,28 @@ const MovieList = () => {
     }
 
     function getData(nextSelectedTags, value) {
+        let params = {};
+        if (nextSelectedTags !== null) {
+            params = {
+                page: page,
+                page_size: pagesize,
+                name: value,
+                category: nextSelectedTags
+            }
+        } else {
+            params = {
+                page: page,
+                page_size: pagesize,
+                name: value,
+            }
+        }
         axios.get(
             "api/movie/movies/?format=json", {
-                params: {
-                    page: page,
-                    page_size: pagesize,
-                    name: value,
-                    category: nextSelectedTags
-                }, paramsSerializer: params => {
+                params,
+                paramsSerializer: params => {
                     return qs.stringify(params, {arrayFormat: 'repeat'})
                 }
             }).then(res => {
-
             setMovies(res.data.results);
             setCount(res.data.count);
         }).catch(err => {
@@ -104,7 +114,6 @@ const MovieList = () => {
 
 
     const handleChange = (tag, checked) => {
-
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         setSelectedTags(nextSelectedTags);
         setLoading(true);
