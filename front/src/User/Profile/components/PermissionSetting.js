@@ -42,10 +42,10 @@ const PermissionSetting = () => {
     }
 
 
-    const onCollapse = (collapsed) => {
-        console.log(collapsed);
-        setCollapsed({collapsed});
-    };
+    // const onCollapse = (collapsed) => {
+    //     console.log(collapsed);
+    //     setCollapsed({collapsed});
+    // };
 
     // const handleClick = (e) => {
     //     this.setState({

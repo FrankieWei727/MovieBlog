@@ -5,7 +5,7 @@ import AvatarFlow from "./AvatarFlow";
 import moment from "moment";
 
 const {Paragraph} = Typography;
-const briefLength = 350;
+// const briefLength = 350;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
 });
@@ -37,14 +37,14 @@ const Article = (props) => {
         return span.textContent || span.innerText;
     };
 
-    const extractBrief = HTMLString => {
-        const text = extractText(HTMLString);
-        // const text = HTMLString;
-        if (text.length > briefLength) {
-            return text.slice(0, briefLength) + "……";
-        }
-        return text;
-    };
+    // const extractBrief = HTMLString => {
+    //     const text = extractText(HTMLString);
+    //     const text = HTMLString;
+    //     if (text.length > briefLength) {
+    //         return text.slice(0, briefLength) + "……";
+    //     }
+    //     return text;
+    // };
 
     const SetTextState = () => {
         setIsExtractBrief(!isExtractBrief);
