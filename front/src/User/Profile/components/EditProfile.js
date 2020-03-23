@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Layout, Col, Row, Form, Icon, Button, Input, message, Select, Upload, Avatar} from 'antd'
+import {Col, Row, Form, Icon, Button, Input, message, Select, Upload, Avatar} from 'antd'
 import axios from 'axios'
 import {withRouter} from 'react-router'
 import {Link} from 'react-router-dom'
@@ -187,161 +187,122 @@ class SettingProfile extends Component {
         const {getFieldDecorator} = this.props.form;
 
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#fff',paddingTop:'60px'}}>
-                <div style={{flex: '1 0'}}>
-                    <Row style={{flex: '1 0', padding: '40px 60px'}}>
-                        <Col xxl={{span: 3, offset: 5}} xl={{span: 4, offset: 2}} md={{span: 5, offset: 1}}
-                             xs={{span: 22, offset: 1}} style={{marginBottom: '20px'}}>
-                            <nav style={{border: '1px solid #d1d5da', borderRadius: '3px'}}>
-                                <div style={{
-                                    backgroundColor: '#f3f5f8',
-                                    color: '#586069',
-                                    padding: '8px 16px',
-                                    fontSize: '14px',
-                                    lineHeight: '20px',
-                                    borderBottom: '1px solid #e1e4e8',
-                                    fontWeight: '800'
-                                }}>
-                                    Setting
-                                </div>
-                                <Link to='/profile/setting'>
-                                    <div style={{
-                                        padding: '8px 10px',
-                                        display: 'block',
-                                        borderBottom: '1px solid #e1e4e8',
-                                        color: '#24292e',
-                                        fontWeight: '600',
-                                        cursor: 'default',
-                                        borderLeft: '3px solid #e36209'
-                                    }}>
-                                        <Icon type='user' style={{paddingRight: '6px'}}/>Account Setting
-                                    </div>
-                                </Link>
-                                <Link to='/permission/setting'>
-                                    <div style={{padding: '8px 10px', display: 'block', color: '#0366d6'}}>
-                                        <Icon type='setting' style={{paddingRight: '6px'}}/>Permission Setting
-                                    </div>
-                                </Link>
-                            </nav>
-                        </Col>
-                        <Col xxl={{span: 11, offset: 0}} xl={{span: 16, offset: 0}} md={{span: 16, offset: 0}}
-                             xs={{span: 22, offset: 1}} style={{paddingLeft: '15px'}}>
-                            <div style={{padding: '0 10px ', paddingBottom: "50px"}}>
-                                <Row>
-                                    <Col xl={{span: 24, offset: 0}} xs={{span: 22, offset: 1}}>
-                                        <div style={{
-                                            fontSize: '20px',
-                                            borderBottom: '1px solid #e1e4e8',
-                                            paddingBottom: '8px',
-                                            fontWeight: '600',
-                                            color: '#24292e'
-                                        }}>
-                                            {this.state.username}
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row style={{marginTop: '20px'}}>
-                                    <Col xl={{span: 16, offset: 0}} xs={{span: 22, offset: 1}}
-                                         style={{paddingBottom: '20px', maxWidth: '350px'}}>
-                                        <Form onSubmit={this.handleSubmit}>
-                                            <div style={{
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                lineHeight: '21px',
-                                                marginBottom: '3px',
-                                                color: '#24292e'
-                                            }}>Introduction
-                                            </div>
-                                            <Form.Item>
-                                                {getFieldDecorator('bio', {
-                                                    initialValue: this.state.bio,
-                                                    rules: [{
-                                                        required: true,
-                                                        message: 'Please input bio.'
-                                                    }]
-                                                })(
-                                                    <Input size='default'/>
-                                                )}
-                                            </Form.Item>
-                                            <div style={{
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                lineHeight: '21px',
-                                                marginBottom: '3px',
-                                                color: '#24292e'
-                                            }}>Email
-                                            </div>
-                                            <Form.Item>
-                                                {getFieldDecorator('email', {
-                                                    initialValue: this.state.email,
-                                                    rules: [{
-                                                        required: true,
-                                                        message: 'Please input email.'
-                                                    }, {
-                                                        validator: this.validateToEmail
-                                                    }]
-                                                })(
-                                                    <Input size='default'/>
-                                                )}
-                                            </Form.Item>
-                                            <div style={{
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                lineHeight: '21px',
-                                                marginBottom: '3px',
-                                                color: '#24292e'
-                                            }}>Industry
-                                            </div>
-                                            <Form.Item hasFeedback>
-                                                {getFieldDecorator('profession', {
-                                                    initialValue: this.state.profession,
-                                                    rules: [{required: true, message: 'Please select your peofession!'}]
-                                                })(
-                                                    <Select placeholder='Please select a profession'>
-                                                        {profession.map(item => (
-                                                            <Option key={'options'} value={item}>{item}</Option>
-                                                        ))}
-                                                    </Select>
-                                                )}
-                                            </Form.Item>
-                                            <Form.Item label="Upload Avatar">
-                                                {getFieldDecorator('avatar', {
-                                                    valuePropName: 'fileList',
-                                                    getValueFromEvent: this.normFile,
-                                                })(
-                                                    <Upload name="avatar"
-                                                            action="https://api.imgur.com/3/image"
-                                                            listType="picture" customRequest={this.customRequest}
-                                                            beforeUpload={beforeUpload}>
-                                                        <Button>
-                                                            <Icon type="upload"/> Click to upload
-                                                        </Button>
-                                                    </Upload>,
-                                                )}
-                                            </Form.Item>
-                                            <Form.Item>
-                                                <Button loading={this.state.uploading} type='primary' htmlType='submit'
-                                                        style={{
-                                                            backgroundColor: '#2fcb53',
-                                                            color: 'white',
-                                                            borderColor: '#2fcb53',
-                                                            fontWeight: '400'
-                                                        }}>
-                                                    Update
-                                                </Button>
-                                            </Form.Item>
-                                        </Form>
-                                    </Col>
-                                    <Col xl={{span: 6, offset: 2}} xs={{span: 22, offset: 1}}>
-                                        <Avatar size={180} shape='square' src={this.state.urlAvatar} icon='user'
-                                                style={{color: '#ffffff', backgroundColor: '#f6f6f6'}}/>
-                                    </Col>
-                                </Row>
+            <div className="edit-profile">
+                <Row gutter={[{xs: 0, sm: 0, md: 16, lg: 24}, {xs: 16, sm: 16, md: 0}]}>
+                    <Col xxl={{span: 5, offset: 3}}
+                         xl={{span: 4, offset: 2}}
+                         lg={{span: 5, offset: 2}}
+                         md={{span: 5, offset: 1}}
+                         sm={{span: 22, offset: 1}}
+                         xs={{span: 22, offset: 1}}>
+                        <nav className="edit-profile-nav">
+                            <div className="title">
+                                Setting
                             </div>
-                        </Col>
-                    </Row>
-                </div>
-            </Layout>
+                            <div className="select-item">
+                                <Link to='/profile/setting'>
+                                    <Icon type='user' style={{paddingRight: '6px'}}/>Account Setting
+                                </Link>
+                            </div>
+                            <div className="item">
+                                <Link to='/permission/setting'>
+                                    <Icon type='setting' style={{paddingRight: '6px'}}/>Permission Setting
+                                </Link>
+                            </div>
+                        </nav>
+                    </Col>
+                    <Col xxl={{span: 13, offset: 0}}
+                         xl={{span: 16, offset: 0}}
+                         lg={{span: 16, offset: 0}}
+                         md={{span: 16, offset: 0}}
+                         sm={{span: 22, offset: 1}}
+                         xs={{span: 22, offset: 1}}>
+                        <Row>
+                            <Col>
+                                <div className="edit-profile-form-title">
+                                    {this.state.username}
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row style={{marginTop: '20px'}}>
+                            <Col xl={{span: 16, offset: 0}}
+                                 xs={{span: 22, offset: 0}}
+                                 style={{maxWidth: '350px'}}>
+                                <Form onSubmit={this.handleSubmit}>
+                                    <div className="edit-profile-form-label">Introduction
+                                    </div>
+                                    <Form.Item>
+                                        {getFieldDecorator('bio', {
+                                            initialValue: this.state.bio,
+                                            rules: [{
+                                                required: true,
+                                                message: 'Please input bio.'
+                                            }]
+                                        })(
+                                            <Input size='default'/>
+                                        )}
+                                    </Form.Item>
+                                    <div className="edit-profile-form-label">Email
+                                    </div>
+                                    <Form.Item>
+                                        {getFieldDecorator('email', {
+                                            initialValue: this.state.email,
+                                            rules: [{
+                                                required: true,
+                                                message: 'Please input email.'
+                                            }, {
+                                                validator: this.validateToEmail
+                                            }]
+                                        })(
+                                            <Input size='default'/>
+                                        )}
+                                    </Form.Item>
+                                    <div className="edit-profile-form-label">Industry
+                                    </div>
+                                    <Form.Item hasFeedback>
+                                        {getFieldDecorator('profession', {
+                                            initialValue: this.state.profession,
+                                            rules: [{required: true, message: 'Please select your peofession!'}]
+                                        })(
+                                            <Select placeholder='Please select a profession'>
+                                                {profession.map(item => (
+                                                    <Option key={'options'} value={item}>{item}</Option>
+                                                ))}
+                                            </Select>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item label="Upload Avatar">
+                                        {getFieldDecorator('avatar', {
+                                            valuePropName: 'fileList',
+                                            getValueFromEvent: this.normFile,
+                                        })(
+                                            <Upload name="avatar"
+                                                    action="https://api.imgur.com/3/image"
+                                                    listType="picture" customRequest={this.customRequest}
+                                                    beforeUpload={beforeUpload}>
+                                                <Button>
+                                                    <Icon type="upload"/> Click to upload
+                                                </Button>
+                                            </Upload>,
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item>
+                                        <Button loading={this.state.uploading} type='primary' htmlType='submit'
+                                                className="edit-profile-form-btn">
+                                            Update
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                            </Col>
+                            <Col xl={{span: 6, offset: 2}}
+                                 sm={{span: 6, offset: 1}}
+                                 xs={{span: 6, offset: 5}}>
+                                <Avatar size={180} shape='square' src={this.state.urlAvatar}/>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }

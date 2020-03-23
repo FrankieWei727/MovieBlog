@@ -287,7 +287,7 @@ const MyProfileContainer = () => {
                              lg={{span: 6, offset: 0}}
                              md={{span: 8, offset: 0}}
                              sm={{span: 24, offset: 0}}
-                             xs={{span: 22, offset: 1}}
+                             xs={{span: 24, offset: 0}}
                         >
                             <Card
                                 title={

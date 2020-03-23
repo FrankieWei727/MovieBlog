@@ -106,10 +106,15 @@ class VisitOtherUserProfile extends Component {
 
     render() {
         return (
-            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7', paddingTop: '60px'}}>
-                <Row style={{marginTop: '15px'}}>
-                    <Col xxl={{span: 14, offset: 5}} xl={{span: 20, offset: 2}} md={{span: 22, offset: 1}}
-                         xs={{span: 24, offset: 0}} style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
+            <Layout style={{minHeight: '100vh', backgroundColor: '#f7f7f7', paddingTop: '40px'}}>
+                <Row>
+                    <Col xxl={{span: 18, offset: 3}}
+                         xl={{span: 20, offset: 2}}
+                         lg={{span: 20, offset: 2}}
+                         md={{span: 22, offset: 1}}
+                         sm={{span: 24, offset: 0}}
+                         xs={{span: 24, offset: 0}}
+                         style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                         <div style={{
                             backgroundImage: `url(${this.state.cover})`,
                             backgroundColor: '#fff',
@@ -163,25 +168,25 @@ class VisitOtherUserProfile extends Component {
                         </div>
                     </Col>
                 </Row>
-                <Row style={{flex: '1 0', paddingTop: '15px', paddingBottom: '30px'}}>
-                    <Col xxl={{span: 10, offset: 5}} xl={{span: 14, offset: 2}} md={{span: 14, offset: 1}}
-                         xs={{span: 24, offset: 0}} style={{
-                        background: '#fff',
-                        padding: '0 20px',
-                        marginBottom: '30px',
-                        boxShadow: '0 1px 3px rgba(26,26,26,.1)'
-                    }}>
+                <Row style={{paddingTop: '15px'}}>
+                    <Col xxl={{span: 13, offset: 3}}
+                         xl={{span: 14, offset: 2}}
+                         lg={{span: 14, offset: 2}}
+                         md={{span: 14, offset: 1}}
+                         sm={{span: 24, offset: 0}}
+                         xs={{span: 24, offset: 0}}
+                         style={{
+                             background: '#fff',
+                             padding: '0 20px',
+                             marginBottom: '30px',
+                             boxShadow: '0 1px 3px rgba(26,26,26,.1)'
+                         }}>
                         <Tabs defaultActiveKey='1' size='large' style={{paddingBottom: '15px'}}>
                             <TabPane tab={<span><IconFont type='iconwenzhang'/>Articles</span>} key='1'>
                                 <OtherUserArticleList visitUserId={this.props.match.params.id}/>
                             </TabPane>
                         </Tabs>
                     </Col>
-                    <Col xxl={{span: 4, offset: 0}} xl={{span: 6, offset: 0}} md={{span: 8, offset: 0}}
-                         xs={{span: 22, offset: 1}} style={{paddingLeft: '20px'}}/>
-                </Row>
-                <Row>
-                    <Col xxl={{span: 16, offset: 4}} xl={{span: 20, offset: 2}} xs={{span: 22, offset: 1}}/>
                 </Row>
             </Layout>
         )

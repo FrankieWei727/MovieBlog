@@ -78,6 +78,103 @@
     display: none;
 }
 
+/*PermissionSetting*/
+.perm-setting {
+    background-color: #fff;
+    min-height: 100vh;
+    padding-top: 40px;
+}
+
+.perm-setting-nav {
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+}
+
+.perm-setting-nav .title {
+    background-color: #f3f5f8;
+    color: #586069;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e1e4e8;
+    font-weight: 800;
+}
+
+.perm-setting-nav .item {
+    padding: 8px 10px;
+    display: block;
+    color: #0366d6;
+}
+
+.perm-setting-nav .select-item {
+    padding: 8px 10px;
+    display: block;
+    color: #24292e;
+    font-weight: 600;
+    cursor: default;
+    border-left: 3px solid #e36209;
+}
+
+/*editProfile*/
+
+.edit-profile {
+    background-color: #fff;
+    min-height: 100vh;
+    padding-top: 40px;
+}
+
+.edit-profile-nav {
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+}
+
+.edit-profile-nav .title {
+    background-color: #f3f5f8;
+    color: #586069;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e1e4e8;
+    font-weight: 800;
+}
+
+.edit-profile-nav .select-item {
+    padding: 8px 10px;
+    display: block;
+    border-bottom: 1px solid #e1e4e8;
+    color: #24292e;
+    font-weight: 600;
+    cursor: default;
+    border-left: 3px solid #e36209;
+}
+
+.edit-profile-nav .item {
+    padding: 8px 10px;
+    display: block;
+    color: #0366d6;
+}
+
+.edit-profile-form-title {
+    font-size: 20px;
+    border-bottom: 1px solid #e1e4e8;
+    padding-bottom: 8px;
+    font-weight: 600;
+    color: #24292e;
+
+}
+
+.edit-profile-form-label {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    margin-bottom: 3px;
+    color: #24292e;
+}
+
+.edit-profile-form-btn {
+    background-color: #2fcb53;
+    color: #ffffff;
+    border-color: #2fcb53;
+    font-weight: 400;
+}
 
 /*MovieDetailContainer*/
 
