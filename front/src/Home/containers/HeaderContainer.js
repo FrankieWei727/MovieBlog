@@ -69,8 +69,8 @@ class HomeHeader extends React.Component {
                     </Link>
                 </Menu.Item>
                 <Menu.Item key="6">
-                    <Link to={'/logout'} onClick={this.props.logout}>
-                        <Icon type="logout" style={{paddingRight: '3px'}}/>
+                    <Link to={'/logout'}>
+                        <Icon onClick={this.props.logout} type="logout" style={{paddingRight: '3px'}}/>
                         Logout
                     </Link>
                 </Menu.Item>
@@ -85,9 +85,9 @@ class HomeHeader extends React.Component {
                 onClose={this.onClose}
                 visible={this.state.visible}
             >
-                <Menu mode="vertical" className={"login-register-popup-menu"}>
-                    <Menu.Item onClick={<Link to={'/login'}/>} key="5">Login</Menu.Item>
-                    <Menu.Item onClick={<Link to={'/signup'}/>} key="6">Register</Menu.Item>
+                <Menu mode="vertical">
+                    <Menu.Item key="5" onClick={this.onClose}><Link to={'/login'}>Login</Link></Menu.Item>
+                    <Menu.Item key="6" onClick={this.onClose}><Link to={'/signup'}>Register</Link></Menu.Item>
                 </Menu>
             </Drawer>
         );
@@ -151,7 +151,6 @@ class HomeHeader extends React.Component {
                                                                     <Menu.Item type="link" onClick={this.onShowMenu}>
                                                                         <Icon type="bars"/>
                                                                     </Menu.Item>
-                                                                    {userLoginMenu}
                                                                 </div>
                                                         )
                                                 }
@@ -160,6 +159,7 @@ class HomeHeader extends React.Component {
                                     </div>
                                 </Col>
                             </Row>
+                            {userLoginMenu}
                         </Header>
                         :
                         null
