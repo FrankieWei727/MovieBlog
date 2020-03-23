@@ -205,12 +205,12 @@
 }
 
 .movie-content .movie-description {
-    color: #f0f0f0;
+    color: rgba(0, 0, 0, 0.72);
     font-weight: 700;
 }
 
 .movie-content .movie-label {
-    color: #f0f0f0;
+    color: rgba(0, 0, 0, 0.72);
 }
 
 .profile-btn.ant-btn {
