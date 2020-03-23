@@ -1,6 +1,5 @@
 import React from 'react'
 import {Layout, Menu, Avatar, Divider, Button, Dropdown, Icon, Row, Col, Drawer, List} from 'antd';
-import {Image} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import * as actions from "../../Store/actions/auth";
@@ -105,8 +104,8 @@ class HomeHeader extends React.Component {
                              md={{span: 21, offset: 1}}
                              sm={{span: 21, offset: 1}}
                              xs={{span: 22, offset: 0}}>
-                            <div style={{float: 'left', padding: "15px 0", width: "120px"}}>
-                                <Image src='https://i.imgur.com/pRMV4vy.png' size='small'/>
+                            <div style={{float: 'left'}}>
+                                <img src='https://i.imgur.com/pRMV4vy.png' style={{width: "120px"}}/>
                             </div>
                             <div>
                                 <Menu
