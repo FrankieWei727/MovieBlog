@@ -174,7 +174,7 @@ const Article = (props) => {
                                 <Affix offsetBottom={0}
                                        onChange={affixed => handleAffix(affixed)}>
                                     <Row type="flex" justify="start" style={style}>
-                                        <Col xs={{span: 16, offset: 1}} sm={20}>
+                                        <Col xs={{span: 16, offset: 1}} sm={19}>
                                             <IconFont style={{color: "#76839b"}}
                                                       type="iconliulan"/> Views {props.item.views}
                                         </Col>

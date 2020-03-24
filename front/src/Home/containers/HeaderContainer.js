@@ -78,8 +78,8 @@ class HomeHeader extends React.Component {
                     </Link>
                 </Menu.Item>
                 <Menu.Item key="6">
-                    <Link to={'/logout'}>
-                        <Icon onClick={this.props.logout} type="logout" style={{paddingRight: '3px'}}/>
+                    <Link to={'/logout'} onClick={this.props.logout}>
+                        <Icon type="logout" style={{paddingRight: '3px'}}/>
                         Logout
                     </Link>
                 </Menu.Item>

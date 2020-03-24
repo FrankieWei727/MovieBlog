@@ -2,14 +2,13 @@ import React, {Component} from "react";
 import {List, Button, Icon, Input} from "antd";
 import axios from "axios";
 import Article from "./Article";
-import {connect} from 'react-redux';
 
 const count = 5;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
 });
 const {Search} = Input;
-
+const token = window.localStorage.getItem('token');
 class SubscriptionArticleList extends Component {
     page = 1;
     state = {
@@ -32,11 +31,11 @@ class SubscriptionArticleList extends Component {
     };
 
     async getUserData() {
-        if (this.props.token !== null) {
+        if (token !== null) {
             try {
                 const response = await axios.get(
                     'rest-auth/user/',
-                    {headers: {'Authorization': 'Token ' + this.props.token}}
+                    {headers: {'Authorization': 'Token ' + token}}
                 );
                 this.setState(function (state) {
                     return {
@@ -51,7 +50,7 @@ class SubscriptionArticleList extends Component {
     };
 
     async getFollowingData() {
-        if (this.props.token !== null) {
+        if (token !== null) {
             await axios.get(
                 'api/account/user/followers/?format=json&follower=' + this.state.id)
                 .then(res => {
@@ -76,6 +75,7 @@ class SubscriptionArticleList extends Component {
     };
 
     getArticleData = async v => {
+        console.log(token,this.state.ids);
         try {
             const response = await axios.get(
                 "api/comment/following_articles/?id=" + this.state.ids +
@@ -199,10 +199,5 @@ class SubscriptionArticleList extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        token: state.auth.token,
-    }
-};
 
-export default connect(mapStateToProps, null)(SubscriptionArticleList);
+export default SubscriptionArticleList;

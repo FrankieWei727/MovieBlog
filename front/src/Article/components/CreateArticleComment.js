@@ -1,9 +1,7 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Comment, Avatar, Form, Button, List, Input, message} from 'antd'
 import moment from 'moment'
 import axios from 'axios';
-
-
 import AvatarFlow from "./AvatarFlow";
 
 const TextArea = Input.TextArea;
@@ -50,88 +48,69 @@ const Editor = ({
     </div>
 );
 
-const count = 8;
+const pagesize = 8;
+const page = 1;
 
-class CreateArticleComment extends Component {
-    state = {
-        user: {},
-        id: null,
-        comments: [],
-        submitting: false,
-        value: '',
-        cache: [],
-        loading: false,
-        initLoading: true,
-        page: 1,
-        username: '',
-        avatar: ''
-    };
+const CreateArticleComment = (props) => {
 
-    componentDidMount = async (v) => {
-        this.getUserData();
-        if (this.props.articleId) {
-            await this.getCommentData();
-            this.setState(function (state) {
-                return {initLoading: false}
-            })
+    const [user, setUser] = useState({});
+    const [comments, setComments] = useState([]);
+    const [submitting, setSubmitting] = useState(false);
+    const [value, setValue] = useState("");
+    const [username, setUsername] = useState("");
+    const [avatar, setAvatar] = useState("");
+
+    useEffect(() => {
+        getUserData().then();
+        getCommentData().then();
+    }, []);
+
+    useEffect(() => {
+        if (props.articleId) {
+            getCommentData().then();
         }
-    };
+    }, []);
 
-    componentDidUpdate = async (prevProps) => {
-        if (prevProps.articleId !== this.props.articleId) {
-            await this.getCommentData();
-            this.setState(function (state) {
-                return {initLoading: false}
-            })
-        }
-    };
-
-    getUserData = async (v) => {
+    async function getUserData() {
         if (token !== null) {
-            try {
-                const response = await axios.get(
-                    'rest-auth/user/',
-                    {headers: {'Authorization': 'Token ' + token}}
-                );
-                this.setState(function (state) {
-                    return {
-                        user: response.data,
-                        id: response.data.id,
-                        username: response.data.username,
-                        avatar: response.data.profile.avatar
+            await axios.get(
+                'rest-auth/user/',
+                {headers: {'Authorization': 'Token ' + token}}
+            ).then(res => {
+                setUser(res.data);
+                setUsername(res.data.username);
+                setAvatar(res.data.profile.avatar);
+            }).catch(err => {
+                console.log(err)
+            });
+        }
+    }
+
+    async function getCommentData() {
+        if (props.articleId) {
+            await axios.get(
+                'api/comment/article_comments/', {
+                    params: {
+                        page: page,
+                        page_size: pagesize,
+                        article: props.articleId
                     }
-                })
-            } catch (error) {
-                // console.log(error)
-            }
-        }
-    };
+                }
+            ).then(res => {
+                setComments(res.data.results);
+            }).catch(err => {
+                console.log(err)
+            });
 
-    async getCommentData() {
-        if (this.props.articleId) {
-            try {
-                const response = await axios.get(
-                    'api/comment/article_comments/?format=json&page='
-                    + this.state.page + '&page_size='
-                    + count + '&article='
-                    + this.props.articleId
-                );
-                this.comments = response.data.results;
-                this.setState(function (state) {
-                    return {comments: response.data.results, cache: response.data.results}
-                })
-            } catch (error) {
-                console.log(error)
-            }
         }
-    };
+    }
 
-    sendComment = async (value) => {
+    const sendComment = async (value) => {
         await axios.post(
             'api/comment/article_comments/',
             {
                 content: value,
-                article: this.props.articleId
+                article: props.articleId
             },
             {headers: {'Authorization': 'Token ' + token}}
         ).catch(err => {
@@ -140,71 +119,62 @@ class CreateArticleComment extends Component {
         });
     };
 
-    handleSubmit = () => {
-        if (!this.state.value) {
+    const handleSubmit = () => {
+        if (!value) {
             return
         }
-        this.setState({
-            submitting: true
-        });
-        this.sendComment(this.state.value);
+        setSubmitting(true);
+
+        sendComment(value).then();
         setTimeout(() => {
-            this.setState({
-                submitting: false,
-                value: '',
-                comments: [
-                    ...this.state.comments,
-                    {
-                        username: this.state.username,
-                        avatar: this.state.avatar,
-                        content: <p>{this.state.value}</p>,
-                        pub_date: moment()
-                    }
-                ]
-            })
+            setSubmitting(false);
+            setValue("");
+            setComments([
+                ...comments,
+                {
+                    username: username,
+                    avatar: avatar,
+                    content: <p>{value}</p>,
+                    pub_date: moment()
+                }
+            ]);
         }, 500)
     };
 
-    handleChange = (e) => {
-        this.setState({
-            value: e.target.value
-        })
+    const handleChange = (e) => {
+        setValue(e.target.value);
     };
 
-    render() {
-        const {comments, submitting, value, user} = this.state;
-        return (
-            <div>
-                {token !== null ?
-                    <div>
-                        <Comment
-                            avatar={(
-                                <Avatar
-                                    shape='square'
-                                    src={this.state.avatar}
-                                    alt={user.username}
-                                />
-                            )}
-                            content={(
-                                <Editor
-                                    onChange={this.handleChange}
-                                    onSubmit={this.handleSubmit}
-                                    submitting={submitting}
-                                    value={value}
-                                />
-                            )}/>
-                    </div>
-                    :
-                    <div style={{paddingTop: '20px', paddingBottom: '40px'}}>
-                        <p style={{color: '#8E9193', fontWeight: '700'}}>Please Login to write a
-                            comment...</p>
-                    </div>
-                }
-                {comments.length > 0 &&
-                <CommentList comments={comments} userId={user.id} user={user}/>}
-            </div>
-        )
-    }
-}
+    return (
+        <div>
+            {token !== null ?
+                <div>
+                    <Comment
+                        avatar={(
+                            <Avatar
+                                shape='square'
+                                src={avatar}
+                                alt={user.username}
+                            />
+                        )}
+                        content={(
+                            <Editor
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                submitting={submitting}
+                                value={value}
+                            />
+                        )}/>
+                </div>
+                :
+                <div style={{paddingBottom: '40px',color: '#8E9193', fontWeight: '700'}}>
+                    Please Login to write a comment...
+                </div>
+            }
+            {comments.length > 0 &&
+            <CommentList comments={comments} userId={user.id} user={user}/>}
+        </div>
+    )
+};
 
 export default CreateArticleComment

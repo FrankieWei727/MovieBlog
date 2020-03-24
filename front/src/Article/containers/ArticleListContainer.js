@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import {Layout, Row, Col, Tabs, Form, BackTop} from 'antd'
-import {withRouter} from 'react-router'
-
+import React, { useEffect, useState} from 'react'
+import {Layout, Row, Col, Tabs, BackTop} from 'antd'
+import SubMenu from "../../Home/components/SubMenu";
 import ArticleList from "../components/ArticleList";
 import SubscriptionArticleList from "../components/SubscriptionArticleList";
 import PromotionList from "../components/Promotion";
@@ -10,18 +9,24 @@ import PromotionList from "../components/Promotion";
 
 const TabPane = Tabs.TabPane;
 
-class BlogList extends Component {
-    state = {
-        collapsed: false
+const Articles = () => {
+
+    const [deskWidth, setDeskWidth] = useState(0);
+
+    const handleSize = () => {
+        setDeskWidth(document.body.clientWidth);
     };
 
-    onCollapse = (collapsed) => {
-        console.log(collapsed);
-        this.setState({collapsed})
-    };
+    useEffect(() => {
+        window.addEventListener('resize', handleSize);
+        return () => {
+            window.removeEventListener('resize', handleSize);
+        }
+    });
 
-    render() {
-        return (
+    return (
+        <div>
+            {deskWidth < 500 ? <SubMenu menuKey={'article'}/> : null}
             <Layout style={{margin: "40px 0"}}>
                 <BackTop/>
                 <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
@@ -54,17 +59,15 @@ class BlogList extends Component {
                          sm={{span: 22, offset: 1, order: 1}}
                          xs={{span: 22, offset: 1}}
                     >
-                        <PromotionList/>
+                        {deskWidth > 500 ? <PromotionList/> : null}
                         {/*<MicroList />*/}
                         {/*<PropertyRank />*/}
                         {/*<Advertisement />*/}
                     </Col>
                 </Row>
             </Layout>
-        )
-    }
-}
+        </div>
+    )
+};
 
-const Blog = withRouter(Form.create()(BlogList));
-
-export default Blog
+export default Articles

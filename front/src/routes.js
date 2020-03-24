@@ -11,7 +11,7 @@ import Logout from "./User/Logout";
 import Register from "./User/Register";
 import EventListContainer from "./Event/containers/EventListContainer";
 import EventDetail from "./Event/containers/EventDetailContainer";
-import Blog from "./Article/containers/ArticleListContainer";
+import Articles from "./Article/containers/ArticleListContainer";
 import CreateArticle from "./Article/components/CreateArticle";
 import ArticleDetail from "./Article/containers/ArticleDetailContainer";
 import MyProfileContainer from "./User/Profile/containers/MyProfileContainer";
@@ -38,7 +38,7 @@ const BaseRouter = () => (
         <Route exact path='/visit/profile/:id' component={VisitOtherUserProfile}/>
         <Route exact path='/profile/setting' component={EditProfile}/>
         <Route exact path='/permission/setting' component={PermissionSetting}/>
-        <Route exact path='/article' component={Blog}/>
+        <Route exact path='/article' component={Articles}/>
         <Route exact path='/create_article' component={CreateArticle}/>
         <Route exact path='/article/:articleID' component={ArticleDetail}/>
         <Route exact path='/article/revise/:articleID' component={ReviseArticle}/>
