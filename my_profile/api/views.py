@@ -47,6 +47,13 @@ class FollowUserList(generics.ListCreateAPIView):
     filter_backends = (res_fliters.DjangoFilterBackend,)
 
 
+class FollowList(generics.ListCreateAPIView):
+    queryset = FollowUser.objects.all()
+    serializer_class = FollowUserSerializer
+    filterset_class = FollowUserFilter
+    filter_backends = (res_fliters.DjangoFilterBackend,)
+
+
 # user apply editor permission
 @api_view(['POST'])
 @permission_classes((permissions.IsAuthenticated,))
