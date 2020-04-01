@@ -18,6 +18,8 @@ run project
     ./manage.py runserver
     npm bulid
     npm start
+    
+release: python manage.py migrate
 
 
 
