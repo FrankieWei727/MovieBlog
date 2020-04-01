@@ -19,7 +19,6 @@ run project
     npm bulid
     npm start
     
-release: python manage.py migrate
 
 
 
