@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {Comment, Avatar, Form, Button, List, Input, message, Rate, Tooltip} from 'antd'
-import moment from 'moment'
-import axios from 'axios'
-import {Link} from 'react-router-dom'
+import React, {Component} from 'react';
+import {Comment, Avatar, Form, Button, List, Input, message, Rate, Tooltip} from 'antd';
+import moment from 'moment';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const TextArea = Input.TextArea;
 
@@ -17,14 +17,13 @@ const CommentList = ({comments, username, avatarUrl}) => (
                 <Comment
                     author={item.user ? item.user.username : item.username}
                     avatar={item.user ?
-                        (<Link
-                            to={item.user.username === username ? '/profile/' : '/visit/profile/' + item.user.id}>
+                        (<Link to={item.user.username === username ? '/profile/' : '/visit/profile/' + item.user.id}>
                             <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
                         </Link>)
                         :
                         (<Link to={'/profile/'}>
                                 <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
-                            </Link>
+                        </Link>
                         )}
                     content={item.content}
                     datetime={
@@ -152,7 +151,7 @@ class AddMovieReview extends Component {
         let rank = (RateArray + rate) / (comments.length + 1);
         await axios.patch('api/movie/update_movie_rank/' + this.props.movieId,
             {
-                rank: rank.toFixed(2),
+                user_rating: rank.toFixed(2),
                 id: this.props.movieId,
             },
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}})

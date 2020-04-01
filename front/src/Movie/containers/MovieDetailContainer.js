@@ -84,10 +84,10 @@ class MovieDetail extends React.Component {
                                 <div className='wrap'>
                                     <img className='movie-cover'
                                          src={movie.poster}
-                                         alt={movie.name}
+                                         alt={movie.title}
                                     />
                                     <div className='movie-content'>
-                                        <Title level={3} className="movie-label">{movie.name}</Title>
+                                        <Title level={3} className="movie-label">{movie.title}</Title>
                                         <Descriptions
                                             border
                                             column={{xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1}}
@@ -99,23 +99,31 @@ class MovieDetail extends React.Component {
                                                     {moment(movie.release_date).format('YYYY-MM')}
                                                 </div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Length</span>}>
-                                                <div className="movie-description">{movie.length}</div>
+                                            <Descriptions.Item label={<span className="movie-label">Runtime</span>}>
+                                                <div className="movie-description">{movie.runtime}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span className="movie-label">Region</span>}>
-                                                <div className="movie-description">{movie.region}</div>
+                                                <div className="movie-description">{movie.countries}</div>
                                             </Descriptions.Item>
                                             <Descriptions.Item
                                                 label={<span className="movie-label">Language</span>}>
-                                                <div className="movie-description">{movie.language}</div>
+                                                <div className="movie-description">{movie.languages}</div>
                                             </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Rank</span>}>
-                                                <div className="movie-description">{movie.rank}/5.00
+                                            <Descriptions.Item label={<span className="movie-label">Rate</span>}>
+                                                <div className="movie-description">{movie.user_rating}/5.00
                                                 </div>
                                             </Descriptions.Item>
                                             <Descriptions.Item label={<span className="movie-label">Views</span>}>
-                                                <div className="movie-description">{movie.movie_views}</div>
+                                                <div className="movie-description">{movie.amount_reviews}</div>
                                             </Descriptions.Item>
+                                            <Descriptions.Item label={<span className="movie-label">Directors</span>}>
+                                                <div className="movie-description">{movie.directors}</div>
+                                            </Descriptions.Item>
+                                            {movie.scriptwriters ?
+                                                <Descriptions.Item label={<span className="movie-label">Writers</span>}>
+                                                    <div className="movie-description">{movie.scriptwriters}</div>
+                                                </Descriptions.Item> : null
+                                            }
                                             <Descriptions.Item label={<span className="movie-label">Likes</span>}>
                                                 <div className="movie-description">{likes}</div>
                                             </Descriptions.Item>
@@ -123,8 +131,8 @@ class MovieDetail extends React.Component {
                                                 <div className="movie-description">{movie.actors}</div>
                                             </Descriptions.Item>
                                         </Descriptions>
-                                        {movie.category &&
-                                        movie.category.map(tag => (
+                                        {movie.categories &&
+                                        movie.categories.map(tag => (
                                             <Tag key={tag.name} color='#fff' style={{margin: '5px'}}>
                                                 <div style={{color: '#000'}}>
                                                     {tag.name}
@@ -139,7 +147,7 @@ class MovieDetail extends React.Component {
                             <iframe
                                 title="Movie Trailer"
                                 ref="iframe"
-                                src={movie.video}
+                                src={movie.trailer}
                                 width="100%"
                                 height="500px"
                                 scrolling="no"

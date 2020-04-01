@@ -68,7 +68,7 @@ class MovieFilter(res_fliters.FilterSet):
 
     class Meta:
         model = Movie
-        fields = ['name', 'category']
+        fields = ['title', 'categories']
 
 
 class MovieView(ModelViewSet):

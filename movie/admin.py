@@ -10,27 +10,36 @@ admin.site.register(VideoSource, VideoSourceAdmin)
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', ]
+    list_display = ['name', 'id']
 
 
 admin.site.register(Category, CategoryAdmin)
 
 
 class CategoryGroupAdmin(admin.ModelAdmin):
-    list_display = ['name', ]
+    list_display = ['name', 'id']
 
 
 admin.site.register(CategoryGroup, CategoryGroupAdmin)
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'id', 'region', 'rank', 'length']
-    list_filter = ['rank', 'created', 'updated', 'release_date']
-    search_fields = ('name', 'release_date')
+    list_display = ['title', 'id', 'countries', 'user_rating', 'runtime']
+    list_filter = ['user_rating', 'release_date']
+    search_fields = ('title', 'release_date')
     # list_editable = ['rank', 'name',]
 
 
 admin.site.register(Movie, MovieAdmin)
+
+
+# class FakeMovieAdmin(admin.ModelAdmin):
+#     list_display = ['title', 'id']
+#     search_fields = ('title',)
+#     # list_editable = ['rank', 'name',]
+#
+#
+# admin.site.register(FakeMovie, FakeMovieAdmin)
 
 
 class MovieFansAdmin(admin.ModelAdmin):

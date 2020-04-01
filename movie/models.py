@@ -38,31 +38,27 @@ class Category(models.Model):
 
 
 class Movie(models.Model):
-    category = models.ManyToManyField(Category,
-                                      related_name='movies', blank=True)
-    name = models.CharField(max_length=200)
-    director = models.CharField(max_length=200)
-    scriptwriter = models.CharField(max_length=200)
-    region = models.CharField(max_length=100)
-    actors = models.CharField(max_length=200)
-    length = models.IntegerField(null=True)
+    title = models.CharField(max_length=255, unique=True, default="")
+    poster = models.CharField(max_length=300, blank=True, null=True)
+    amount_reviews = models.PositiveIntegerField(blank=True, null=True)
+    user_rating = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    description = models.TextField(blank=True, null=True)
+    directors = models.CharField(max_length=200, null=True)
+    scriptwriters = models.CharField(max_length=200, null=True)
     release_date = models.DateField(blank=True, null=True)
-    language = models.CharField(max_length=200, blank=True, null=True)
-    description = models.TextField(blank=True)
-    poster = models.CharField(max_length=300, blank=True, default="")
-    rank = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    video = models.CharField(max_length=300, default="")
-
-    movie_views = models.IntegerField(default=0, null=True)
+    runtime = models.IntegerField(null=True)
+    trailer = models.CharField(max_length=300, blank=True, null=True)
+    countries = models.CharField(max_length=100, blank=True, null=True)
+    languages = models.CharField(max_length=100, blank=True, null=True)
+    actors = models.CharField(max_length=300, blank=True, null=True)
+    categories = models.ManyToManyField(Category, related_name='movies', blank=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('title',)
         index_together = (('id',),)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class MovieFans(models.Model):
@@ -83,7 +79,7 @@ class VideoSource(models.Model):
     url = models.CharField(max_length=128)
 
     def __str__(self):
-        return self.movie.name + str(self.id)
+        return self.movie.title + str(self.id)
 
 
 class StillsGallery(models.Model):
@@ -91,7 +87,7 @@ class StillsGallery(models.Model):
     photo = models.CharField(max_length=800)
 
     def __str__(self):
-        return self.movie.name + str(self.id)
+        return self.movie.title + str(self.id)
 
 
 class Event(models.Model):

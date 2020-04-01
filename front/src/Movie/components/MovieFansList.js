@@ -20,12 +20,12 @@ const MovieFansList = ({movieId}) => {
             params: {
                 movie: movieId,
                 page: page,
-                page_size: pagesize
-            }
+                page_size: pagesize,
+            },
         }).then(res => {
                 setFans(res.data.results);
                 setCount(res.data.count);
-        })
+        });
     }
 
     useEffect(() => {

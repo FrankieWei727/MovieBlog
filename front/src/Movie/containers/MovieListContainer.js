@@ -60,7 +60,7 @@ const MovieList = () => {
                 page: page,
                 page_size: pagesize,
                 name: value,
-                category: nextSelectedTags
+                categories: nextSelectedTags
             }
         } else {
             params = {

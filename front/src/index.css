@@ -205,12 +205,16 @@
 }
 
 .movie-content .movie-description {
-    color: rgba(0, 0, 0, 0.72);
+    /*color: rgba(0, 0, 0, 0.72);*/
     font-weight: 700;
+    filter: invert(1);
+    mix-blend-mode: difference;
 }
 
 .movie-content .movie-label {
-    color: rgba(0, 0, 0, 0.72);
+    /*color: rgba(0, 0, 0, 0.72);*/
+    filter: invert(1);
+    mix-blend-mode: difference;
 }
 
 .profile-btn.ant-btn {

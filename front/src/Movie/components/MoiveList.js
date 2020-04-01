@@ -6,7 +6,7 @@ import moment from "moment";
 const count = 5;
 const MovieItemList = (props) => {
 
-    return (
+    return(
         <div>
             <List
                 itemLayout="vertical"
@@ -37,17 +37,14 @@ const MovieItemList = (props) => {
                                             marginBottom: "15px",
                                             fontWeight: "600"
                                         }}>
-                                            {item.name} ({moment(item.release_date).format('YYYY')})
+                                            {item.title} ({moment(item.release_date).format('YYYY')})
                                         </div>
                                         <Descriptions border column={1}>
-                                            <Descriptions.Item label="Actors ">
-                                                {item.actors}
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label="Length ">
-                                                {item.length}
+                                            <Descriptions.Item label="Runtime ">
+                                                {item.runtime}
                                             </Descriptions.Item>
                                             <Descriptions.Item label="Region ">
-                                                {item.region}
+                                                {item.countries}
                                             </Descriptions.Item>
                                         </Descriptions>
                                         <div style={{
@@ -55,8 +52,8 @@ const MovieItemList = (props) => {
                                             flexWrap: "wrap",
                                             margin: "10px 0"
                                         }}>
-                                            {item.category &&
-                                            item.category.map(tag => (
+                                            {item.categories &&
+                                            item.categories.map(tag => (
                                                 <Tag
                                                     key={tag.name}
                                                     color="#343a40"
@@ -68,7 +65,7 @@ const MovieItemList = (props) => {
                                         </div>
                                     </div>
                                     <img
-                                        alt={item.name}
+                                        alt={item.title}
                                         src={item.poster}
                                         style={{
                                             width: "135px",

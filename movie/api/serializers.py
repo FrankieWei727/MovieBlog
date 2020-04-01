@@ -44,28 +44,27 @@ class StillsGallerySerializer(serializers.ModelSerializer):
 
 class MovieSerializer(serializers.ModelSerializer):
     stills = StillsGallerySerializer(many=True, read_only=True)
-    category = CategorySerializer(many=True)
+    categories = CategorySerializer(many=True)
     videos = VideoSourceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
-        fields = ('id', 'url', 'name', 'director', 'scriptwriter',
-                  'region', 'actors', 'length', 'release_date', 'language',
-                  'description', 'poster', 'rank', 'created', 'updated', 'video',
-                  'movie_views', 'category', 'stills', 'videos')
-        read_only_fields = ['users_like']
+        fields = ('id', 'url', 'title', 'directors', 'scriptwriters',
+                  'countries', 'actors', 'runtime', 'release_date', 'languages',
+                  'description', 'poster', 'user_rating', 'trailer',
+                  'amount_reviews', 'categories', 'stills', 'videos')
 
 
 class MovieCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'url', 'name', 'director', 'scriptwriter',
-                  'region', 'actors', 'length', 'release_date', 'language',
-                  'description', 'poster', 'created', 'updated', 'video',
-                  'movie_views', 'category')
+        fields = ('id', 'url', 'title', 'directors', 'scriptwriters',
+                  'countries', 'actors', 'runtime', 'release_date', 'languages',
+                  'description', 'poster', 'user_rating', 'trailer',
+                  'amount_reviews', 'categories',)
 
     def create(self, validated_data):
-        categories = validated_data.pop('category')
+        categories = validated_data.pop('categories')
         movie = Movie.objects.create(**validated_data)
         movie.category.set(categories)
         movie.save()
@@ -75,11 +74,11 @@ class MovieCreateSerializer(serializers.ModelSerializer):
 class MovieRankUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'name', 'rank')
+        fields = ('id', 'title', 'user_rating')
 
     def update(self, instance, validated_data):
         print(validated_data)
-        instance.rank = validated_data.get('rank', instance.rank)
+        instance.rank = validated_data.get('user_rating', instance.rank)
         instance.save()
         return instance
 
@@ -92,7 +91,7 @@ class MovieRankUpdateSerializer(serializers.ModelSerializer):
 class MovieBriefSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'name', 'url')
+        fields = ('id', 'title', 'url')
 
 
 class MovieFansSerializer(serializers.ModelSerializer):
