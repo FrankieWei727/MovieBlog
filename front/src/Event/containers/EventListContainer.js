@@ -5,7 +5,7 @@ import EventList from "../components/EventList";
 import {Link} from "react-router-dom";
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1621723_un1kxztz8c.js'
+    scriptUrl: '//at.alicdn.com/t/font_1621723_un1kxztz8c.js',
 });
 
 let page = 1;
@@ -23,14 +23,13 @@ const EventListContainer = () => {
             params: {
                 page: page,
                 page_size: pagesize,
-            }
-
+            },
         }).then(res => {
                 setEvents(res.data.results);
                 setCount(res.data.count);
                 setLoading(false);
             }
-        )
+        );
     }, []);
 
     const handleEvent = async page => {
@@ -77,6 +76,9 @@ const EventListContainer = () => {
                             onChange: handleEvent,
                             total: count,
                             pageSize: pagesize,
+                            style: {
+                                padding: "10px 10px"
+                            }
                         }}
                         dataSource={events}
                         renderItem={item => (
@@ -107,6 +109,6 @@ const EventListContainer = () => {
             </Row>
         </Layout>
     )
-}
+};
 
 export default EventListContainer

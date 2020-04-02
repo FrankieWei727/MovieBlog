@@ -25,21 +25,11 @@ admin.site.register(CategoryGroup, CategoryGroupAdmin)
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['title', 'id', 'countries', 'user_rating', 'runtime']
-    list_filter = ['user_rating', 'release_date']
+    list_filter = ['user_rating', 'countries']
     search_fields = ('title', 'release_date')
-    # list_editable = ['rank', 'name',]
 
 
 admin.site.register(Movie, MovieAdmin)
-
-
-# class FakeMovieAdmin(admin.ModelAdmin):
-#     list_display = ['title', 'id']
-#     search_fields = ('title',)
-#     # list_editable = ['rank', 'name',]
-#
-#
-# admin.site.register(FakeMovie, FakeMovieAdmin)
 
 
 class MovieFansAdmin(admin.ModelAdmin):

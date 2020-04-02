@@ -59,14 +59,14 @@ const MovieList = () => {
             params = {
                 page: page,
                 page_size: pagesize,
-                name: value,
+                title: value,
                 categories: nextSelectedTags
             }
         } else {
             params = {
                 page: page,
                 page_size: pagesize,
-                name: value,
+                title: value,
             }
         }
         axios.get(
@@ -98,7 +98,7 @@ const MovieList = () => {
             params: {
                 page: currentPage,
                 page_size: pagesize,
-                name: search,
+                title: search,
                 category: selectedTags,
             }, paramsSerializer: params => {
                 return qs.stringify(params, {arrayFormat: 'repeat'})

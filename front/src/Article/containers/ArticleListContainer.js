@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Layout, Row, Col, Tabs, BackTop} from 'antd'
 import SubMenu from "../../Home/components/SubMenu";
 import ArticleList from "../components/ArticleList";
@@ -18,10 +18,10 @@ const Articles = () => {
     };
 
     useEffect(() => {
-        window.addEventListener('resize', handleSize);
+        window.addEventListener('resize', handleSize());
         return () => {
-            window.removeEventListener('resize', handleSize);
-        }
+            window.removeEventListener('resize', handleSize());
+        };
     });
 
     return (

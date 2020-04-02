@@ -64,7 +64,7 @@ class MoviePagination(PageNumberPagination):
 
 
 class MovieFilter(res_fliters.FilterSet):
-    name = res_fliters.CharFilter(lookup_expr='icontains')
+    title = res_fliters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Movie

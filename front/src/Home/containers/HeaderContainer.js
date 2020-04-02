@@ -42,22 +42,22 @@ class HomeHeader extends React.Component {
 
     onShowMenu = () => {
         this.setState({
-            visible: true
+            visible: true,
         })
     };
     onClose = () => {
         this.setState({
-            visible: false
+            visible: false,
         });
     };
     onLogin = () => {
         this.setState({
-            visible: false
+            visible: false,
         });
     };
     onSignup = () => {
         this.setState({
-            visible: false
+            visible: false,
         });
     };
 
@@ -105,7 +105,7 @@ class HomeHeader extends React.Component {
                              sm={{span: 21, offset: 1}}
                              xs={{span: 22, offset: 0}}>
                             <div style={{float: 'left'}}>
-                                <img src='https://i.imgur.com/pRMV4vy.png' style={{width: "120px"}}/>
+                                <img alt="poster" src='https://i.imgur.com/pRMV4vy.png' style={{width: "120px"}}/>
                             </div>
                             <div>
                                 <Menu

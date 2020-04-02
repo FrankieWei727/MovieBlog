@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Button, Icon, List, message, Typography} from "antd";
+import {Button, Icon, message} from "antd";
 import axios from "axios";
 
-const {Title} = Typography;
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_1621723_m6ue80tfyy.js'
 });
@@ -66,32 +65,17 @@ const MovieLike = ({movieId}) => {
     };
 
     return (
-        <div>
-            <Title level={4}>Actions</Title>
-            <div>
-                <List
-                    itemLayout="vertical"
-                    size="small"
-                    bordered={false}
-                    split={false}>
-                    <List.Item>
-                        {like ?
-                            <Button onClick={unlike} type='link' size="large"
-                                    loading={loading}>
-                                <IconFont type='icondianzan'/>
-                            </Button> :
-                            <Button onClick={onLike} type='link' size="large"
-                                    loading={loading}>
-                                <IconFont type='iconfabulous'/>
-                            </Button>
-                        }
-                        {/*<Button onClick={this.like} type='link' size="large"*/}
-                        {/*        loading={this.state.loading}>*/}
-                        {/*    <IconFont type='iconfabulous'/>*/}
-                        {/*</Button>*/}
-                    </List.Item>
-                </List>
-            </div>
+        <div style={{float: "left"}}>
+            {like ?
+                <Button onClick={unlike} type='link' size="large"
+                        loading={loading}>
+                    <IconFont type='icondianzan'/>
+                </Button> :
+                <Button onClick={onLike} type='link' size="large"
+                        loading={loading}>
+                    <IconFont type='iconfabulous'/>
+                </Button>
+            }
         </div>
     )
 };

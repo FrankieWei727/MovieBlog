@@ -99,8 +99,9 @@ class Event(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     location = models.CharField(max_length=200, null=True)
-    # poster = models.ImageField(upload_to='events/%Y/%m/%d', blank=True, null=True)
     poster = models.CharField(max_length=400, null=True)
+    time = models.CharField(max_length=400, blank=True, null=True)
+    organizer = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
         ordering = ('created',)

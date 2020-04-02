@@ -30,7 +30,8 @@ class CategoryGroupSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('id', 'url', 'title', 'created', 'start_date', 'content', 'poster', 'location', 'end_date')
+        fields = ('id', 'url', 'title', 'created', 'start_date',
+                  'content', 'poster', 'location', 'end_date', 'time', 'organizer')
 
 
 class StillsGallerySerializer(serializers.ModelSerializer):

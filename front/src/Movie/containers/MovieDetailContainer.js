@@ -82,64 +82,90 @@ class MovieDetail extends React.Component {
                                  xs={{span: 22, offset: 1}}
                             >
                                 <div className='wrap'>
-                                    <img className='movie-cover'
-                                         src={movie.poster}
-                                         alt={movie.title}
-                                    />
-                                    <div className='movie-content'>
-                                        <Title level={3} className="movie-label">{movie.title}</Title>
-                                        <Descriptions
-                                            border
-                                            column={{xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1}}
-                                            style={{color: '#fff'}}
-                                        >
-                                            <Descriptions.Item
-                                                label={<span className="movie-label">Release Date</span>}>
-                                                <div className="movie-description">
-                                                    {moment(movie.release_date).format('YYYY-MM')}
+                                    <Row gutter={[{xs: 0, sm: 0, md: 16, xxl: 24}, {xs: 16, sm: 16, md: 0}]}>
+                                        <Col xxl={{span: 4}}
+                                             xl={{span: 6}}
+                                             lg={{span: 6}}
+                                             md={{span: 8}}
+                                             sm={{span: 20}}>
+                                            <img className='movie-cover'
+                                                 src={movie.poster}
+                                                 alt={movie.title}
+                                            />
+                                        </Col>
+                                        <Col xxl={{span: 14}}
+                                             xl={{span: 18}}
+                                             lg={{span: 18}}
+                                             md={{span: 16}}
+                                             sm={{span: 20}}>
+                                            <div className='movie-content'>
+                                                <div style={{float: "left"}}>
+                                                    <Title level={3} className="movie-label">{movie.title}</Title>
                                                 </div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Runtime</span>}>
-                                                <div className="movie-description">{movie.runtime}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Region</span>}>
-                                                <div className="movie-description">{movie.countries}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item
-                                                label={<span className="movie-label">Language</span>}>
-                                                <div className="movie-description">{movie.languages}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Rate</span>}>
-                                                <div className="movie-description">{movie.user_rating}/5.00
-                                                </div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Views</span>}>
-                                                <div className="movie-description">{movie.amount_reviews}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Directors</span>}>
-                                                <div className="movie-description">{movie.directors}</div>
-                                            </Descriptions.Item>
-                                            {movie.scriptwriters ?
-                                                <Descriptions.Item label={<span className="movie-label">Writers</span>}>
-                                                    <div className="movie-description">{movie.scriptwriters}</div>
-                                                </Descriptions.Item> : null
-                                            }
-                                            <Descriptions.Item label={<span className="movie-label">Likes</span>}>
-                                                <div className="movie-description">{likes}</div>
-                                            </Descriptions.Item>
-                                            <Descriptions.Item label={<span className="movie-label">Actors</span>}>
-                                                <div className="movie-description">{movie.actors}</div>
-                                            </Descriptions.Item>
-                                        </Descriptions>
-                                        {movie.categories &&
-                                        movie.categories.map(tag => (
-                                            <Tag key={tag.name} color='#fff' style={{margin: '5px'}}>
-                                                <div style={{color: '#000'}}>
-                                                    {tag.name}
-                                                </div>
-                                            </Tag>
-                                        ))}
-                                    </div>
+                                                <MovieLike movieId={this.props.match.params.movieID}
+                                                           key={'movie_like_action'}/>
+                                                <Descriptions
+                                                    border
+                                                    column={{xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1}}
+                                                >
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Release Date</span>}>
+                                                        <div className="movie-description">
+                                                            {moment(movie.release_date).format('YYYY-MM')}
+                                                        </div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Runtime</span>}>
+                                                        <div className="movie-description">{movie.runtime}</div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Region</span>}>
+                                                        <div className="movie-description">{movie.countries}</div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Language</span>}>
+                                                        <div className="movie-description">{movie.languages}</div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Rate</span>}>
+                                                        <div className="movie-description">{movie.user_rating}/5.00
+                                                        </div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Views</span>}>
+                                                        <div className="movie-description">{movie.amount_reviews}</div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Directors</span>}>
+                                                        <div className="movie-description">{movie.directors}</div>
+                                                    </Descriptions.Item>
+                                                    {movie.scriptwriters ?
+                                                        <Descriptions.Item
+                                                            label={<span className="movie-label">Writers</span>}>
+                                                            <div
+                                                                className="movie-description">{movie.scriptwriters}</div>
+                                                        </Descriptions.Item> : null
+                                                    }
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Likes</span>}>
+                                                        <div className="movie-description">{likes}</div>
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item
+                                                        label={<span className="movie-label">Actors</span>}>
+                                                        <div className="movie-description">{movie.actors}</div>
+                                                    </Descriptions.Item>
+                                                </Descriptions>
+                                                {movie.categories &&
+                                                movie.categories.map(tag => (
+                                                    <Tag key={tag.name} color='#fff' style={{margin: '5px'}}>
+                                                        <div style={{color: '#000'}}>
+                                                            {tag.name}
+                                                        </div>
+                                                    </Tag>
+                                                ))}
+                                            </div>
+                                        </Col>
+                                    </Row>
                                 </div>
                             </Col>
                         </div>
@@ -180,14 +206,7 @@ class MovieDetail extends React.Component {
                             {/*{prelock && (this.state.actor.length !== 0) && (*/}
                             {/*  <RowList data={this.state.actor} title='演员' />*/}
                             {/*)}*/}
-                            <div>
-                                <Title level={4}>Movie Review</Title>
-                                <AddMovieReview
-                                    key={'AddMovieReview'}
-                                    movieId={movie.id}
-                                    movieUrl={movie.url}
-                                />
-                            </div>
+                            <MovieFansList movieId={this.props.match.params.movieID} key={'movie_fans_list'}/>
                         </Col>
                         <Col xxl={{span: 8, offset: 0}}
                              xl={{span: 8, offset: 0}}
@@ -197,37 +216,36 @@ class MovieDetail extends React.Component {
                              xs={{span: 22, offset: 1}}>
                             <Row gutter={[0, 24]}>
                                 <Col span={24}>
-                                    <Row>
-                                        <Col span={12}>
-                                            <MovieLike movieId={this.props.match.params.movieID}
-                                                       key={'movie_like_action'}/>
-                                        </Col>
-                                        <Col span={12}>
-                                            {prelock && (video_source_numbers !== 0) && (
-                                                <div>
-                                                    <Title level={4}>Play lists</Title>
-                                                    <div>
-                                                        <List
-                                                            size="small"
-                                                            bordered={false}
-                                                            split={false}
-                                                            dataSource={movie.videos}
-                                                            renderItem={item =>
-                                                                <List.Item>
-                                                                    <a key={item.url} href={item.url} target="_blank"
-                                                                       rel="noreferrer noopener">
-                                                                        {item.website}
-                                                                    </a>
-                                                                </List.Item>}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </Col>
-                                    </Row>
+                                    {prelock && (video_source_numbers !== 0) && (
+                                        <div>
+                                            <Title level={4}>Play lists</Title>
+                                            <div>
+                                                <List
+                                                    size="small"
+                                                    bordered={false}
+                                                    split={false}
+                                                    dataSource={movie.videos}
+                                                    renderItem={item =>
+                                                        <List.Item>
+                                                            <a key={item.url} href={item.url} target="_blank"
+                                                               rel="noreferrer noopener">
+                                                                {item.website}
+                                                            </a>
+                                                        </List.Item>}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </Col>
-                                <Col span={24}>
-                                    <MovieFansList movieId={this.props.match.params.movieID} key={'movie_fans_list'}/>
+                                <Col>
+                                    <div>
+                                        <Title level={4}>Movie Review</Title>
+                                        <AddMovieReview
+                                            key={'AddMovieReview'}
+                                            movieId={movie.id}
+                                            movieUrl={movie.url}
+                                        />
+                                    </div>
                                 </Col>
                             </Row>
                         </Col>
