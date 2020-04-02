@@ -13,7 +13,7 @@ class MovieSpider(CrawlSpider):
 
     for i in range(0, page):
         start_url = 'https://www.imdb.com/search/title?' + 'title_type=feature' \
-                    + '&count=' + str(pagesize) + '&start=' + str(pagesize * i + 1)
+                    + '&groups=top_1000' + '&count=' + str(pagesize) + '&start=' + str(pagesize * i + 1)
         start_urls.append(start_url)
 
     def parse(self, response):
@@ -71,7 +71,3 @@ class MovieSpider(CrawlSpider):
         data['photos'] = response.xpath("//div[contains(@class, 'media_index_thumb_list')]/a/img/@src").extract()
 
         yield data
-
-
-# response.xpath("//h3[contains(@class, 'title-and-badge style-scope ytd-video-renderer')]/a/@href").extract()
-# response.css("h3.title-and-badge style-scope ytd-video-renderer").extract()

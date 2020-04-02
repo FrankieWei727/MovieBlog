@@ -24,6 +24,9 @@ const SubMenu = (props) => {
                     </div>
                 </Header>
             );
+        }
+        if (param === 'event') {
+            return null
         } else {
             return null;
         }

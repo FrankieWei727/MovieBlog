@@ -113,7 +113,8 @@ class CrawlingPipeline(object):
         for category in categories:
             category = Category.objects.get(name=category)
             movie.categories.add(category)
-        print(movie)
+        if len(photos) > 10:
+            photos = photos[0:10]
         for photo in photos:
             photo = photo.split('.')
             photo.remove(photo[-2])

@@ -25,6 +25,7 @@ from movie.api.serializers import (MovieSerializer,
 from rest_framework.viewsets import ModelViewSet, generics
 from rest_framework.pagination import PageNumberPagination
 import django_filters.rest_framework as res_fliters
+import django_filters
 from rest_framework import filters, permissions
 
 
@@ -185,7 +186,20 @@ class EventPagination(PageNumberPagination):
         fields = '__all__'
 
 
+class EventFilter(res_fliters.FilterSet):
+    location = res_fliters.CharFilter(lookup_expr='icontains')
+    start_date_gte = django_filters.DateTimeFilter(field_name="start_date", lookup_expr='gte')
+    month = django_filters.NumberFilter(field_name="start_date", lookup_expr='month')
+    year = django_filters.NumberFilter(field_name="start_date", lookup_expr='year')
+
+    class Meta:
+        model = Event
+        fields = ['start_date', 'start_date_gte', 'month', 'year', 'location']
+
+
 class EventView(ModelViewSet):
     queryset = Event.objects.all().order_by('-start_date')
     pagination_class = EventPagination
     serializer_class = EventSerializer
+    filter_backends = [res_fliters.DjangoFilterBackend]
+    filterset_class = EventFilter

@@ -6,7 +6,7 @@ import moment from "moment";
 const count = 5;
 const MovieItemList = (props) => {
 
-    return(
+    return (
         <div>
             <List
                 itemLayout="vertical"
@@ -17,6 +17,11 @@ const MovieItemList = (props) => {
                     total: props.count,
                     showQuickJumper: true,
                     onChange: props.handleChange,
+                    size: "small",
+                    position: "top",
+                    style: {
+                        paddingBottom: "10px"
+                    }
                 }}
                 size="large"
                 dataSource={props.data}

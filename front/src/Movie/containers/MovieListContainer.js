@@ -11,7 +11,7 @@ import {
 } from "antd";
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
-import MoviePromotion from "../components/MoviePromotion";
+// import MoviePromotion from "../components/MoviePromotion";
 
 const pagesize = 5;
 const {Title} = Typography;
@@ -146,14 +146,14 @@ const MovieList = () => {
                             enterButton
                         />
                     </Col>
-                    <Col xxl={{span: 5, offset: 0}}
-                         xl={{span: 6, offset: 0}}
-                         lg={{span: 6, offset: 0}}
-                         md={{span: 8, offset: 0}}
-                         sm={{span: 8, offset: 0}}
-                         xs={{span: 22, offset: 1}}>
-                        <MoviePromotion/>
-                    </Col>
+                    {/*<Col xxl={{span: 5, offset: 0}}*/}
+                    {/*     xl={{span: 6, offset: 0}}*/}
+                    {/*     lg={{span: 6, offset: 0}}*/}
+                    {/*     md={{span: 8, offset: 0}}*/}
+                    {/*     sm={{span: 8, offset: 0}}*/}
+                    {/*     xs={{span: 22, offset: 1}}>*/}
+                    {/*    <MoviePromotion/>*/}
+                    {/*</Col>*/}
                 </Row>
                 <Row gutter={[24, 16]}>
                     <Col xxl={{span: 13, offset: 3}}
