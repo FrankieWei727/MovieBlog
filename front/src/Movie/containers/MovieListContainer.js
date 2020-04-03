@@ -40,6 +40,7 @@ const MovieList = () => {
     }
 
     function getData(nextSelectedTags, value, nextSelectedCountry) {
+        setLoading(true);
         let params = {};
         if (nextSelectedTags !== null) {
             params = {
@@ -64,6 +65,7 @@ const MovieList = () => {
                     return qs.stringify(params, {arrayFormat: 'repeat'})
                 }
             }).then(res => {
+            setLoading(false);
             setMovies(res.data.results);
             setCount(res.data.count);
         }).catch(err => {
@@ -74,8 +76,6 @@ const MovieList = () => {
     useEffect(() => {
         getData();
         getTagsData();
-        setLoading(false);
-
     }, []);
 
 
@@ -103,24 +103,18 @@ const MovieList = () => {
     const handleChange = (tag, checked) => {
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         setSelectedTags(nextSelectedTags);
-        setLoading(true);
         getData(nextSelectedTags, null, null);
-        setLoading(false);
     };
 
     const handleCountryChange = (Country, checked) => {
         const nextSelectedCountry = checked ? [...selectedCountry, Country] : selectedCountry.filter(t => t !== Country);
         setSelectedCountry(nextSelectedCountry);
-        setLoading(true);
         getData(null, null, nextSelectedCountry);
-        setLoading(false);
     };
 
     const onSearch = value => {
-        setLoading(true);
         setSearch(value);
         getData(null, value, null);
-        setLoading(false);
         setTip(tips[1] + "  : " + value + " ");
     };
 

@@ -5,7 +5,7 @@ import moment from "moment";
 const {SubMenu} = Menu;
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_1621723_jly7bntw75r.js',
+    scriptUrl: '//at.alicdn.com/t/font_1621723_za79rmleofj.js',
 });
 
 const EventFilter = (props) => {
@@ -33,6 +33,10 @@ const EventFilter = (props) => {
     const filterByYear = () => {
         const dateYear = moment(today).format("YYYY");
         props.onDateFilter(null, null, dateYear)
+    };
+    const filterByLocation = (e) => {
+        props.onLocationFilter(e.key);
+
     };
     return (
         <div style={{maxWidth: 256, minWidth: "150px"}}>
@@ -74,6 +78,24 @@ const EventFilter = (props) => {
                 >
                     <Menu.Item key="Business">Business</Menu.Item>
                     <Menu.Item key="Outdoor">Outdoor</Menu.Item>
+                </SubMenu>
+                <SubMenu
+                    key="Location"
+                    title={
+                        <span>
+                <IconFont type="iconlocation"/>
+                <span>Location</span>
+                </span>
+                    }
+                >
+                    <Menu.Item onClick={filterByLocation} key="NSW">NSW</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="Qld">Qld</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="SA">SA</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="Tas">Tas</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="Vic">Vic</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="WA">WA</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="NT">NT</Menu.Item>
+                    <Menu.Item onClick={filterByLocation} key="ACT">ACT</Menu.Item>
                 </SubMenu>
             </Menu>
         </div>

@@ -12,7 +12,6 @@ const EventListContainer = () => {
     const [events, setEvents] = useState([]);
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false);
-
     const [deskWidth, setDeskWidth] = useState(0);
 
     const handleSize = () => {
@@ -26,7 +25,8 @@ const EventListContainer = () => {
         };
     });
 
-    function getData(today, month, year) {
+    function getData(today, month, year, location) {
+        setLoading(true);
         axios.get("api/movie/events/", {
             params: {
                 page: page,
@@ -34,6 +34,7 @@ const EventListContainer = () => {
                 start_date: today,
                 month: month,
                 year: year,
+                location: location,
             },
         }).then(res => {
                 setEvents(res.data.results);
@@ -44,7 +45,6 @@ const EventListContainer = () => {
     }
 
     useEffect(() => {
-        setLoading(true);
         getData()
     }, []);
 
@@ -70,11 +70,14 @@ const EventListContainer = () => {
     };
 
     const handleDate = (today, month, year) => {
-        getData(today, month, year)
+        getData(today, month, year, null)
     };
 
+    const handleLocation = (location) => {
+        getData(null, null, null, location)
+    };
     return (
-        <Layout style={{margin: (deskWidth > 700 ? '40px 0' : '0 0'),backgroundColor:"#DEDEDE"}}>
+        <Layout style={{margin: (deskWidth > 700 ? '40px 0' : '0 0'), backgroundColor: "#DEDEDE"}}>
             <Row type="flex" justify="start" gutter={[{xs: 0, sm: 0, md: 24}, 0]}>
                 {
                     deskWidth > 700 ?
@@ -84,7 +87,7 @@ const EventListContainer = () => {
                              md={{offset: 1}}
                              sm={{offset: 1}}
                              xs={{offset: 1}}>
-                            <EventFilter onDateFilter={handleDate}/>
+                            <EventFilter onDateFilter={handleDate} onLocationFilter={handleLocation}/>
                         </Col> :
                         <SubMenu menuKey="event"/>
                 }
@@ -110,6 +113,8 @@ const EventListContainer = () => {
                                 onChange: handleEvent,
                                 total: count,
                                 pageSize: pagesize,
+                                position: "top",
+                                showTotal: (count => `Total ${count} items`),
                                 style: {
                                     padding: "10px 10px"
                                 }
