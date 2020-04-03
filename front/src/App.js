@@ -30,7 +30,7 @@ class App extends React.Component {
                 <Router>
                     <Layout>
                         <HomeHeader {...this.props}/>
-                        <Content style={{marginTop: "64px", minHeight: "100vh"}}>
+                        <Content style={{marginTop: "64px", minHeight: "100vh",backgroundColor:"#DEDEDE"}}>
                             <BaseRouter/>
                         </Content>
                         <HomeFooter {...this.props}/>

@@ -3,9 +3,6 @@ import {Route} from 'react-router-dom';
 
 import MovieList from "./Movie/containers/MovieListContainer";
 import MovieDetail from "./Movie/containers/MovieDetailContainer";
-import MovieSourceEditor from "./Movie/components/UploadMovieSource";
-import MovieStillsSourceEditor from "./Movie/components/UploadMovieStills";
-import MoviePlaySourceEditor from "./Movie/components/UploadMoviePlaySource";
 import Login from "./User/Login";
 import Logout from "./User/Logout";
 import Register from "./User/Register";
@@ -26,9 +23,6 @@ const BaseRouter = () => (
     <div>
         <Route exact path='/movie' component={MovieList}/>
         <Route path='/movie/:movieID' component={MovieDetail}/>
-        <Route exact path='/movie_upload' component={MovieSourceEditor}/>
-        <Route exact path='/video_source_upload' component={MoviePlaySourceEditor}/>
-        <Route exact path='/stills_upload' component={MovieStillsSourceEditor}/>
         <Route exact path='/event' component={EventListContainer}/>
         <Route exact path='/event/:eventID' component={EventDetail}/>
         <Route exact path='/login' component={Login}/>

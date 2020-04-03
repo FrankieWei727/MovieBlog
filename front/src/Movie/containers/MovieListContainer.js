@@ -130,9 +130,9 @@ const MovieList = () => {
     };
 
     return (
-        <Layout>
+        <Layout style={{backgroundColor:"#DEDEDE"}}>
             <BackTop/>
-            <div style={{flex: "1 0 ", backgroundColor: "#ffffff", paddingBottom: "30px"}}>
+            <div style={{flex: "1 0 ", paddingBottom: "30px"}}>
                 <Row style={{padding: "15px 0"}} gutter={[24, 8]}>
                     <Col xxl={{span: 13, offset: 3}}
                          xl={{span: 14, offset: 2}}

@@ -65,7 +65,7 @@ const MovieLike = ({movieId}) => {
     };
 
     return (
-        <div style={{float: "left"}}>
+        <div>
             {like ?
                 <Button onClick={unlike} type='link' size="large"
                         loading={loading}>

@@ -54,7 +54,7 @@ const EventFilter = (props) => {
                     key="Date"
                     title={
                         <span>
-                <IconFont type="iconcategory"/>
+                <IconFont type="icondate"/>
                 <span>Date</span>
                 </span>
                     }
@@ -67,7 +67,7 @@ const EventFilter = (props) => {
                     key="Category"
                     title={
                         <span>
-                <IconFont type="icondate"/>
+                <IconFont type="iconcategory"/>
                 <span>Category</span>
                 </span>
                     }

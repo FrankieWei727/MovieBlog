@@ -9,7 +9,8 @@ const TextArea = Input.TextArea;
 const CommentList = ({comments, username, avatarUrl}) => (
     <div>
         <List
-            style={{paddingBottom: '40px'}}
+            className="movie-comment-list"
+            style={{paddingBottom: '40px', color: "#a0a3a5"}}
             dataSource={comments}
             header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
             itemLayout='horizontal'
@@ -17,14 +18,14 @@ const CommentList = ({comments, username, avatarUrl}) => (
                 <Comment
                     author={item.user ? item.user.username : item.username}
                     avatar={item.user ?
-                        (<Link to={item.user.username === username ? '/profile/' : '/visit/profile/' + item.user.id}>
+                        <Link to={item.user.username === username ? '/profile/' : '/visit/profile/' + item.user.id}>
                             <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
-                        </Link>)
-                        :
-                        (<Link to={'/profile/'}>
-                                <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
                         </Link>
-                        )}
+                        :
+                        <Link to={'/profile/'}>
+                            <Avatar src={item.user ? item.user.profile.avatar : avatarUrl}/>
+                        </Link>
+                    }
                     content={item.content}
                     datetime={
                         <div>

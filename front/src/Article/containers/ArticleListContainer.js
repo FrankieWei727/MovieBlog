@@ -27,7 +27,7 @@ const Articles = () => {
     return (
         <div>
             {deskWidth < 500 ? <SubMenu menuKey={'article'}/> : null}
-            <Layout style={{margin: "40px 0"}}>
+            <Layout style={{margin: "40px 0",backgroundColor:"#DEDEDE"}}>
                 <BackTop/>
                 <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
                     <Col xxl={{span: 13, offset: 3}}

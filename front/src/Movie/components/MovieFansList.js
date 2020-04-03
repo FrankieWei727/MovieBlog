@@ -23,8 +23,8 @@ const MovieFansList = ({movieId}) => {
                 page_size: pagesize,
             },
         }).then(res => {
-                setFans(res.data.results);
-                setCount(res.data.count);
+            setFans(res.data.results);
+            setCount(res.data.count);
         });
     }
 
@@ -47,22 +47,22 @@ const MovieFansList = ({movieId}) => {
                 page_size: pagesize
             }
         }).then(res => {
-                let temp = fans;
-                let i = (page - 1) * pagesize;
-                for (let index = 0; index < res.data.results.length; index++) {
-                    temp[i] = res.data.results[index];
-                    i++;
-                }
-                setFans(temp);
-                setLoading(false);
-            }).catch(error => {
-                console.log(error);
-            });
+            let temp = fans;
+            let i = (page - 1) * pagesize;
+            for (let index = 0; index < res.data.results.length; index++) {
+                temp[i] = res.data.results[index];
+                i++;
+            }
+            setFans(temp);
+            setLoading(false);
+        }).catch(error => {
+            console.log(error);
+        });
     };
 
     return (
         <div>
-            <Title level={4}>Who likes</Title>
+            <Title level={3} style={{color: "#4c5a67"}}>Likes</Title>
             <div className="infinite-container">
                 <InfiniteScroll
                     initialLoad={false}
@@ -72,19 +72,19 @@ const MovieFansList = ({movieId}) => {
                     useWindow={false}
                 >
                     <List
-                        dataSource={fans}
                         itemLayout="vertical"
+                        dataSource={fans}
                         size="small"
                         bordered={false}
                         renderItem={item => (
-                            <List.Item>
+                            <List.Item   style={{borderBottom:"none"}}>
                                 <Avatar src={item.fans.profile.avatar}
                                         alt={'fans'}/>
                                 <p style={{
                                     display: 'inline',
                                     paddingLeft: '5px',
                                     fontWeight: 'bold',
-                                    color: '#5C5C5C'
+                                    color: '#dedede'
                                 }}>{item.fans.username}</p>
                             </List.Item>
                         )}/>

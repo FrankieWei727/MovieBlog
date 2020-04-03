@@ -74,7 +74,7 @@ const EventListContainer = () => {
     };
 
     return (
-        <Layout style={{margin: (deskWidth > 700 ? '40px 0' : '0 0')}}>
+        <Layout style={{margin: (deskWidth > 700 ? '40px 0' : '0 0'),backgroundColor:"#DEDEDE"}}>
             <Row type="flex" justify="start" gutter={[{xs: 0, sm: 0, md: 24}, 0]}>
                 {
                     deskWidth > 700 ?

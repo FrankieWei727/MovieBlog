@@ -62,7 +62,6 @@
 
 .infinite-container {
     overflow: auto;
-    padding: 8px 24px;
     height: 400px;
 }
 
@@ -178,6 +177,28 @@
 
 /*MovieDetailContainer*/
 
+.movie-right-list .ant-descriptions-item-label {
+    color: #4c5a67;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.movie-right-list .ant-descriptions-item-content {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.movie-left-list .ant-descriptions-item-label {
+    color: #4c5a67;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.movie-left-list .ant-descriptions-item-content {
+    color: #ffffff;
+    font-size: 20px;
+}
+
 .movie-header {
     position: relative;
     overflow: hidden;
@@ -219,4 +240,99 @@
 
 .profile-btn.ant-btn {
     padding: 0 0;
+}
+
+/*PhotoGallery*/
+
+.contain {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    height: 300px;
+    transition: all .8s;
+    transform: translateX(-50%);
+    color: #fff;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.contain .ul {
+    margin-left: -40px;
+    height: 300px;
+    list-style: none;
+}
+
+.contain .ul .items {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 300px;
+}
+
+.ul li.show {
+    display: block;
+}
+
+.ul li {
+    display: none;
+}
+
+.ul li img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.contain .dots {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    height: 10px;
+    transform: translateX(-50%);
+}
+
+.dots li {
+    float: left;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    transition: all .3s;
+    background-color: antiquewhite;
+    list-style: none;
+}
+
+.dots li.active {
+    background-color: #4a4a4a;
+}
+
+.control .left {
+    position: absolute;
+    margin-left: -10px;
+    line-height: 300px;
+    width: 60px;
+    top: 0;
+    height: 300px;
+    left: 10px;
+    font-size: 35px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.control .right {
+    position: absolute;
+    margin-right: -10px;
+    line-height: 300px;
+    width: 60px;
+    top: 0;
+    height: 300px;
+    right: 10px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+/*AddMovieReview*/
+
+.movie-comment-list .ant-comment-content-author-name {
+    color: #a0a3a5;
 }
