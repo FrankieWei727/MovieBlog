@@ -16,13 +16,6 @@ const PhotoGallery = ({data}) => {
     const [timer, setTimer] = useState(null);
     const [length] = useState(data[0].id + data.length);
 
-    useEffect(() => {
-        start();
-        return function cleanup() {
-            stop();
-            start()
-        }
-    }, []);
     const stop = () => { //暂停
         clearInterval(timer);
     };
@@ -31,6 +24,15 @@ const PhotoGallery = ({data}) => {
             next();
         }, 2000));
     };
+
+    useEffect(() => {
+        start();
+        return function cleanup() {
+            stop();
+            start()
+        }
+    }, []);
+
     const change = (index) => { //点击下面的按钮切换当前显示的图片
         setShowIndex(index)
     };

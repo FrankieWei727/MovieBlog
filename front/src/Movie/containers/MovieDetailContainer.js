@@ -134,7 +134,7 @@ const MovieDetail = (props) => {
                     </Col>
                 </Row>
             </div>
-            <Divider style={{width: "90%", minWidth: "60%", marginLeft: "30px", marginRight: "30px"}}/>
+            <Divider style={{width: "94%", minWidth: "60%", marginLeft: "30px", marginRight: "30px"}}/>
             <Row style={{padding: "20px 30px"}}>
                 <Col
                     xxl={{span: 7, offset: 0}}

@@ -66,10 +66,11 @@ class MoviePagination(PageNumberPagination):
 
 class MovieFilter(res_fliters.FilterSet):
     title = res_fliters.CharFilter(lookup_expr='icontains')
+    countries = res_fliters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Movie
-        fields = ['title', 'categories']
+        fields = ['title', 'categories','countries']
 
 
 class MovieView(ModelViewSet):

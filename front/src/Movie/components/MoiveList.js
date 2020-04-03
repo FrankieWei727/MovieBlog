@@ -3,7 +3,7 @@ import {Descriptions, List, Tag} from "antd";
 import {Link} from "react-router-dom";
 import moment from "moment";
 
-const count = 5;
+
 const MovieItemList = (props) => {
 
     return (
@@ -13,7 +13,7 @@ const MovieItemList = (props) => {
                 loading={props.loading}
                 grid={{gutter: 28, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1}}
                 pagination={{
-                    pageSize: count,
+                    pageSize: props.pagesize,
                     total: props.count,
                     showQuickJumper: true,
                     onChange: props.handleChange,
@@ -45,10 +45,10 @@ const MovieItemList = (props) => {
                                             {item.title} ({moment(item.release_date).format('YYYY')})
                                         </div>
                                         <Descriptions border column={1}>
-                                            <Descriptions.Item label="Runtime ">
-                                                {item.runtime}
+                                            <Descriptions.Item label="Runtime">
+                                                {item.runtime} min
                                             </Descriptions.Item>
-                                            <Descriptions.Item label="Region ">
+                                            <Descriptions.Item label="Region">
                                                 {item.countries}
                                             </Descriptions.Item>
                                         </Descriptions>

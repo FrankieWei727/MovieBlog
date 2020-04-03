@@ -22,9 +22,9 @@ const ArticleDetail = (props) => {
     };
 
     useEffect(() => {
-        window.addEventListener('resize', handleSize);
+        window.addEventListener('resize', handleSize());
         return () => {
-            window.removeEventListener('resize', handleSize);
+            window.removeEventListener('resize', handleSize());
         }
     });
 
@@ -114,10 +114,11 @@ const ArticleDetail = (props) => {
                     md={{span: 7, offset: 0, order: 2}}
                     xs={{span: 22, offset: 1, order: 1}}
                 >
-                    {deskWidth > 500 ?
-                        <Affix offsetTop={100} style={{paddingTop: '60px'}}>
-                            <AuthorInfo authorId={article.author.id}/>
-                        </Affix> : null}
+                    {deskWidth > 500 && Object.keys(article).length > 0 ?
+                        <Affix offsetTop={100}>
+                            <AuthorInfo style={{paddingTop: '60px'}} authorId={article.author.id}/>
+                        </Affix>
+                        : null}
                 </Col>
             </Row>
         </Layout>

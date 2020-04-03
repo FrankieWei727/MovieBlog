@@ -11,13 +11,11 @@ import {
 } from "antd";
 import MovieItemList from "../components/MoiveList";
 import Tags from "../components/Tags";
-// import MoviePromotion from "../components/MoviePromotion";
 
-const pagesize = 5;
+const pagesize = 10;
 const {Title} = Typography;
 const {Search} = Input;
 const tips = ["All", "Search Result"];
-const token = window.localStorage.getItem('token');
 
 let page = 1;
 const MovieList = () => {
@@ -29,20 +27,8 @@ const MovieList = () => {
     const [tags, setTags] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTags, setSelectedTags] = useState([]);
-    const [isSwitch, setIsSwitch] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState([]);
 
-    async function getUserProfile() {
-        if (token !== null) {
-            await axios.get('rest-auth/user/',
-                {headers: {'Authorization': 'Token ' + token}}
-            ).then(res => {
-                    setIsSwitch(res.data.profile.permission === 'reviewed');
-                }
-            ).catch(err => {
-                console.log(err)
-            });
-        }
-    }
 
     function getTagsData() {
         axios.get("api/movie/categories_group/?format=json")
@@ -53,20 +39,22 @@ const MovieList = () => {
         });
     }
 
-    function getData(nextSelectedTags, value) {
+    function getData(nextSelectedTags, value, nextSelectedCountry) {
         let params = {};
         if (nextSelectedTags !== null) {
             params = {
                 page: page,
                 page_size: pagesize,
                 title: value,
-                categories: nextSelectedTags
+                categories: nextSelectedTags,
+                countries: nextSelectedCountry,
             }
         } else {
             params = {
                 page: page,
                 page_size: pagesize,
                 title: value,
+                countries: nextSelectedCountry,
             }
         }
         axios.get(
@@ -86,7 +74,6 @@ const MovieList = () => {
     useEffect(() => {
         getData();
         getTagsData();
-        getUserProfile().then();
         setLoading(false);
 
     }, []);
@@ -117,20 +104,28 @@ const MovieList = () => {
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         setSelectedTags(nextSelectedTags);
         setLoading(true);
-        getData(nextSelectedTags, null);
+        getData(nextSelectedTags, null, null);
+        setLoading(false);
+    };
+
+    const handleCountryChange = (Country, checked) => {
+        const nextSelectedCountry = checked ? [...selectedCountry, Country] : selectedCountry.filter(t => t !== Country);
+        setSelectedCountry(nextSelectedCountry);
+        setLoading(true);
+        getData(null, null, nextSelectedCountry);
         setLoading(false);
     };
 
     const onSearch = value => {
         setLoading(true);
         setSearch(value);
-        getData(null, value);
+        getData(null, value, null);
         setLoading(false);
         setTip(tips[1] + "  : " + value + " ");
     };
 
     return (
-        <Layout style={{backgroundColor:"#DEDEDE"}}>
+        <Layout style={{backgroundColor: "#DEDEDE"}}>
             <BackTop/>
             <div style={{flex: "1 0 ", paddingBottom: "30px"}}>
                 <Row style={{padding: "15px 0"}} gutter={[24, 8]}>
@@ -146,14 +141,6 @@ const MovieList = () => {
                             enterButton
                         />
                     </Col>
-                    {/*<Col xxl={{span: 5, offset: 0}}*/}
-                    {/*     xl={{span: 6, offset: 0}}*/}
-                    {/*     lg={{span: 6, offset: 0}}*/}
-                    {/*     md={{span: 8, offset: 0}}*/}
-                    {/*     sm={{span: 8, offset: 0}}*/}
-                    {/*     xs={{span: 22, offset: 1}}>*/}
-                    {/*    <MoviePromotion/>*/}
-                    {/*</Col>*/}
                 </Row>
                 <Row gutter={[24, 16]}>
                     <Col xxl={{span: 13, offset: 3}}
@@ -177,9 +164,10 @@ const MovieList = () => {
                         <MovieItemList
                             key={'MovieItemList'}
                             data={movies}
-                            oading={loading}
+                            loading={loading}
                             count={count}
                             handleChange={handleMovie}
+                            pagesize={pagesize}
                         />
                     </Col>
                     <Col xxl={{span: 5, offset: 0}}
@@ -194,7 +182,9 @@ const MovieList = () => {
                                     key={'TagsItemList'}
                                     data={tags}
                                     selectedTags={selectedTags}
+                                    selectedCountry={selectedCountry}
                                     handleChange={handleChange}
+                                    handleCountryChange={handleCountryChange}
                                 />
                             </Col>
                         </Row>
