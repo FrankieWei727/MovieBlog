@@ -28,9 +28,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('movies:movie_list_by_category', args=[self.slug])
-
 
 """
     Movie model
