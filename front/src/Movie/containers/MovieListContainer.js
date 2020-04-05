@@ -15,7 +15,7 @@ import Tags from "../components/Tags";
 const pagesize = 10;
 const {Title} = Typography;
 const {Search} = Input;
-const tips = ["All", "Search Result"];
+const tips = ["All", "Result"];
 
 let page = 1;
 const MovieList = () => {
@@ -26,6 +26,7 @@ const MovieList = () => {
     const [search, setSearch] = useState(null);
     const [tags, setTags] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchLoading, setsSearchLoading] = useState(true);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState([]);
 
@@ -66,12 +67,26 @@ const MovieList = () => {
                 }
             }).then(res => {
             setLoading(false);
+            setsSearchLoading(false);
             setMovies(res.data.results);
             setCount(res.data.count);
         }).catch(err => {
             console.log(err)
         });
     }
+
+    const [deskWidth, setDeskWidth] = useState(0);
+
+    const handleSize = () => {
+        setDeskWidth(document.body.clientWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleSize());
+        return () => {
+            window.removeEventListener('resize', handleSize());
+        };
+    });
 
     useEffect(() => {
         getData();
@@ -114,47 +129,54 @@ const MovieList = () => {
 
     const onSearch = value => {
         setSearch(value);
+        setsSearchLoading(true);
         getData(null, value, null);
-        setTip(tips[1] + "  : " + value + " ");
+        setTip(tips[1] + " : ");
     };
 
     return (
         <Layout style={{backgroundColor: "#DEDEDE"}}>
             <BackTop/>
             <div style={{flex: "1 0 ", paddingBottom: "30px"}}>
-                <Row style={{padding: "15px 0"}} gutter={[24, 8]}>
-                    <Col xxl={{span: 13, offset: 3}}
-                         xl={{span: 14, offset: 2}}
-                         lg={{span: 14, offset: 2}}
-                         md={{span: 14, offset: 1}}
-                         sm={{span: 14, offset: 1}}
+                <Row style={{padding: "15px 0"}}>
+                    <Col xxl={{span: 18, offset: 3}}
+                         xl={{span: 20, offset: 2}}
+                         lg={{span: 20, offset: 2}}
+                         md={{span: 22, offset: 1}}
+                         sm={{span: 22, offset: 1}}
                          xs={{span: 22, offset: 1}}>
-                        <Search
-                            placeholder="Please enter keywords"
-                            onSearch={value => onSearch(value)}
-                            enterButton
-                        />
+                        <div style={{
+                            padding: "5px 20px",
+                            backgroundColor: "#767676",
+                            borderRadius: "5px",
+                            display: "flex",
+                        }}>
+                            <Title
+                                level={4}
+                                style={{
+                                    margin: "0 0",
+                                    color: "#ffffff",
+                                    fontSize: (deskWidth > 600 ? "18px" : "10px"),
+                                }}
+                            >{tip} {count} movies
+                            </Title>
+                            <Search
+                                style={{width: "70%", paddingLeft: "10px"}}
+                                placeholder="Please enter keywords"
+                                onSearch={value => onSearch(value)}
+                                loading={searchLoading}
+                            />
+                        </div>
                     </Col>
                 </Row>
-                <Row gutter={[24, 16]}>
+                <Row type="flex" gutter={[24, 16]}>
                     <Col xxl={{span: 13, offset: 3}}
                          xl={{span: 14, offset: 2}}
                          lg={{span: 14, offset: 2}}
                          md={{span: 14, offset: 1}}
-                         sm={{span: 14, offset: 1}}
-                         xs={{span: 22, offset: 1}}
+                         sm={{span: 14, offset: 1, order: 1}}
+                         xs={{span: 22, offset: 1, order: 2}}
                     >
-                        <Title
-                            level={4}
-                            style={{
-                                padding: "10px 20px",
-                                backgroundColor: "#767676",
-                                color: "#ffffff",
-                                borderRadius: "5px",
-                                fontSize: "18px"
-                            }}
-                        >{tip} ({count})
-                        </Title>
                         <MovieItemList
                             key={'MovieItemList'}
                             data={movies}
@@ -168,8 +190,8 @@ const MovieList = () => {
                          xl={{span: 6, offset: 0}}
                          lg={{span: 6, offset: 0}}
                          md={{span: 8, offset: 0}}
-                         sm={{span: 8, offset: 0}}
-                         xs={{span: 22, offset: 1}}>
+                         sm={{span: 8, offset: 0, order: 2}}
+                         xs={{span: 22, offset: 1, order: 1}}>
                         <Row>
                             <Col>
                                 <Tags

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {BackTop, Col, Layout, Row, List} from "antd";
 import EventList from "../components/EventList";
 import EventFilter from "../components/EventFilter";
-import SubMenu from "../../Home/components/SubMenu";
+import EventSubMenu from "../components/EventSubMenu";
 
 let page = 1;
 const pagesize = 5;
@@ -77,10 +77,11 @@ const EventListContainer = () => {
         getData(null, null, null, location)
     };
     return (
-        <Layout style={{margin: (deskWidth > 700 ? '40px 0' : '0 0'), backgroundColor: "#DEDEDE"}}>
+        <Layout style={{margin: (deskWidth > 780 ? '40px 0' : '0 0'), backgroundColor: "#DEDEDE"}}>
+            {deskWidth < 780 ? <EventSubMenu onDateFilter={handleDate} onLocationFilter={handleLocation}/> : null}
             <Row type="flex" justify="start" gutter={[{xs: 0, sm: 0, md: 24}, 0]}>
                 {
-                    deskWidth > 700 ?
+                    deskWidth >= 780 ?
                         <Col xxl={{offset: 3}}
                              xl={{offset: 2}}
                              lg={{offset: 2}}
@@ -89,7 +90,7 @@ const EventListContainer = () => {
                              xs={{offset: 1}}>
                             <EventFilter onDateFilter={handleDate} onLocationFilter={handleLocation}/>
                         </Col> :
-                        <SubMenu menuKey="event"/>
+                        null
                 }
                 <Col
                     xxl={{span: 14, offset: 0}}

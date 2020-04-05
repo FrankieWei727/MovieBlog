@@ -26,11 +26,15 @@ const profession = ['高新科技', '互联网', '电子商务', '    电子游�
     '    民用航空业', '农林牧渔', '    种植业', '    畜牧养殖业', '    林业', '    渔业'];
 
 function beforeUpload(file) {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+        message.error('You can only upload JPG/PNG file!');
+    }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-        message.error('File size must smaller than 2MB!')
+        message.error('Image must smaller than 2MB!');
     }
-    return isLt2M
+    return isJpgOrPng && isLt2M;
 }
 
 
@@ -48,10 +52,10 @@ class SettingProfile extends Component {
         uploading: false,
         profession: '',
         urlAvatar: '',
+        loading: false,
     };
 
     onCollapse = (collapsed) => {
-        console.log(collapsed);
         this.setState({collapsed})
     };
 
@@ -68,7 +72,7 @@ class SettingProfile extends Component {
             this.setState(function (state) {
                 return {
                     id: response.data.id,
-                    urlAvatar: response.data.profile.avatar,
+                    // urlAvatar: response.data.profile.avatar,
                     bio: response.data.profile.bio,
                     username: response.data.username,
                     email: response.data.email,
@@ -107,6 +111,20 @@ class SettingProfile extends Component {
             return e;
         }
         return e && e.fileList;
+    };
+
+    handleChange = info => {
+        this.setState({loading: true});
+        if (info.file.status === 'uploading') {
+            return;
+        }
+        if (info.file.status === 'done') {
+            this.setState({
+                    urlAvatar: info.file.response.data.link,
+                    loading: false,
+                }
+            );
+        }
     };
 
     customRequest = async (info) => {
@@ -183,8 +201,22 @@ class SettingProfile extends Component {
         })
     };
 
+
     render() {
         const {getFieldDecorator} = this.props.form;
+
+        const formItemLayout = {
+            labelCol: {span: 5},
+            wrapperCol: {span: 12},
+            labelAlign: "left",
+        };
+
+        const uploadButton = (
+            <div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'}/>
+                <div className="ant-upload-text">Upload</div>
+            </div>
+        );
 
         return (
             <div className="edit-profile">
@@ -226,12 +258,29 @@ class SettingProfile extends Component {
                         </Row>
                         <Row style={{marginTop: '20px'}}>
                             <Col xl={{span: 16, offset: 0}}
-                                 xs={{span: 22, offset: 0}}
-                                 style={{maxWidth: '350px'}}>
-                                <Form onSubmit={this.handleSubmit}>
-                                    <div className="edit-profile-form-label">Introduction
-                                    </div>
-                                    <Form.Item>
+                                 xs={{span: 24, offset: 0}}
+                            >
+                                <Form style={{maxWidth: '500px'}} onSubmit={this.handleSubmit}>
+                                    <Form.Item {...formItemLayout} label="Avatar" style={{textAlign: "left"}}>
+                                        {getFieldDecorator('avatar', {
+                                            valuePropName: 'fileList',
+                                            getValueFromEvent: this.normFile,
+                                        })(
+                                            <Upload
+                                                style={{width: "128px", height: "128px"}}
+                                                name="avatar"
+                                                action="https://api.imgur.com/3/image"
+                                                listType="picture-card"
+                                                showUploadList={false}
+                                                customRequest={this.customRequest}
+                                                beforeUpload={beforeUpload}
+                                                onChange={this.handleChange}>
+                                                {this.state.urlAvatar ? <img src={this.state.urlAvatar} alt="avatar"
+                                                                             style={{width: '100%'}}/> : uploadButton}
+                                            </Upload>,
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item {...formItemLayout} label="Introduction">
                                         {getFieldDecorator('bio', {
                                             initialValue: this.state.bio,
                                             rules: [{
@@ -242,9 +291,7 @@ class SettingProfile extends Component {
                                             <Input size='default'/>
                                         )}
                                     </Form.Item>
-                                    <div className="edit-profile-form-label">Email
-                                    </div>
-                                    <Form.Item>
+                                    <Form.Item {...formItemLayout} label="Email">
                                         {getFieldDecorator('email', {
                                             initialValue: this.state.email,
                                             rules: [{
@@ -257,9 +304,7 @@ class SettingProfile extends Component {
                                             <Input size='default'/>
                                         )}
                                     </Form.Item>
-                                    <div className="edit-profile-form-label">Industry
-                                    </div>
-                                    <Form.Item hasFeedback>
+                                    <Form.Item {...formItemLayout} hasFeedback label="Industry">
                                         {getFieldDecorator('profession', {
                                             initialValue: this.state.profession,
                                             rules: [{required: true, message: 'Please select your peofession!'}]
@@ -271,21 +316,6 @@ class SettingProfile extends Component {
                                             </Select>
                                         )}
                                     </Form.Item>
-                                    <Form.Item label="Upload Avatar">
-                                        {getFieldDecorator('avatar', {
-                                            valuePropName: 'fileList',
-                                            getValueFromEvent: this.normFile,
-                                        })(
-                                            <Upload name="avatar"
-                                                    action="https://api.imgur.com/3/image"
-                                                    listType="picture" customRequest={this.customRequest}
-                                                    beforeUpload={beforeUpload}>
-                                                <Button>
-                                                    <Icon type="upload"/> Click to upload
-                                                </Button>
-                                            </Upload>,
-                                        )}
-                                    </Form.Item>
                                     <Form.Item>
                                         <Button loading={this.state.uploading} type='primary' htmlType='submit'
                                                 className="edit-profile-form-btn">
@@ -293,11 +323,6 @@ class SettingProfile extends Component {
                                         </Button>
                                     </Form.Item>
                                 </Form>
-                            </Col>
-                            <Col xl={{span: 6, offset: 2}}
-                                 sm={{span: 6, offset: 1}}
-                                 xs={{span: 6, offset: 5}}>
-                                <Avatar size={180} shape='square' src={this.state.urlAvatar}/>
                             </Col>
                         </Row>
                     </Col>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Icon, List, Row, Skeleton, Affix, Typography} from "antd";
+import {Col, Icon, List, Row, Skeleton, Affix, Typography} from "antd";
 import {Link} from "react-router-dom";
 import AvatarFlow from "./AvatarFlow";
 import moment from "moment";
@@ -17,6 +17,7 @@ const Article = (props) => {
     const [isExtractBrief, setIsExtractBrief] = useState(true);
     const [affixed, setAffixed] = useState("");
     const [style, setStyle] = useState([]);
+    const [styleButton, setStyleButton] = useState([]);
 
     useEffect(() => {
 
@@ -51,24 +52,37 @@ const Article = (props) => {
     };
 
 
-    const handleAffix = async (value) => {
-        await setAffixed(value);
+    const handleAffix = (value) => {
+        setAffixed(value);
         if (affixed === true) {
             setStyle({
-                paddingTop: '10px',
-                backgroundColor: "white",
-                borderStyle: 'solid',
-                borderWidth: '1px',
-                borderColor: '#CFCFCF transparent transparent transparent'
+                paddingTop: '12px',
+                paddingLeft: "20px",
+                paddingRight: "28px",
+                lineHeight: "28px",
+                borderTop: "1px solid #e8e8e8",
+                backgroundColor: "#fff",
             });
 
         } else {
             setStyle({
-                paddingTop: '10px',
-                backgroundColor: "white",
+                paddingTop: '12px',
+                paddingLeft: "20px",
+                paddingRight: "28px",
+                lineHeight: "28px",
+                backgroundColor: "#eeeeee",
+                bottom: 0,
             });
         }
 
+    };
+
+    const onMouseEnter = () => {
+        setStyleButton({color: "#1890ff"});
+    };
+
+    const onMouseLeave = () => {
+        setStyleButton({color: "none"});
     };
 
     return (
@@ -153,40 +167,42 @@ const Article = (props) => {
                                 </div>
                             }
                         </div>
-                        <div>
+                        <div style={{
+                            width: "100%",
+                        }}>
                             {isExtractBrief ?
-                                <Row type="flex" justify="start"
-                                     style={{paddingTop: '10px', backgroundColor: "white"}}>
-                                    <Col xs={{span: 16, offset: 1}} sm={20}>
-                                        <IconFont style={{color: "#76839b"}}
-                                                  type="iconliulan"/> Views {props.item.views}
-                                    </Col>
-                                    <Col xs={4} sm={4}>
+                                <div style={{
+                                    paddingTop: '12px',
+                                    paddingLeft: "20px",
+                                    backgroundColor: "#fff"
+                                }}>
+                                    <IconFont style={{color: "#76839b",paddingRight:"5px"}} type="iconliulan"/>
+                                    {props.item.views}
+                                    {isExtractBrief === false ?
+                                        <span onClick={SetTextState} style={{float: "right"}}>
+                                            <Icon style={styleButton}
+                                                  onMouseEnter={onMouseEnter}
+                                                  onMouseLeave={onMouseLeave}
+                                                  type="up-circle"/>
+                                        </span> :
+                                        null
+                                    }
+                                </div>
+                                :
+                                <Affix offsetBottom={0} onChange={affixed => handleAffix(affixed)}>
+                                    <div style={style}>
+                                        <IconFont style={{color: "#76839b",paddingRight:"5px"}} type="iconliulan"/>
+                                        {props.item.views}
                                         {isExtractBrief === false ?
-                                            <Button type="link" onClick={SetTextState}>
-                                                Collapse <Icon type="up-circle"/>
-                                            </Button> :
+                                            <span onClick={SetTextState} style={{float: "right"}}>
+                                                    <Icon style={styleButton}
+                                                          onMouseEnter={onMouseEnter}
+                                                          onMouseLeave={onMouseLeave}
+                                                          type="up-circle"/>
+                                                </span> :
                                             null
                                         }
-                                    </Col>
-                                </Row>
-                                :
-                                <Affix offsetBottom={0}
-                                       onChange={affixed => handleAffix(affixed)}>
-                                    <Row type="flex" justify="start" style={style}>
-                                        <Col xs={{span: 16, offset: 1}} sm={19}>
-                                            <IconFont style={{color: "#76839b"}}
-                                                      type="iconliulan"/> Views {props.item.views}
-                                        </Col>
-                                        <Col xs={4} sm={4}>
-                                            {isExtractBrief === false ?
-                                                <Button type="link" onClick={SetTextState}>
-                                                    Collapse <Icon type="up-circle"/>
-                                                </Button> :
-                                                null
-                                            }
-                                        </Col>
-                                    </Row>
+                                    </div>
                                 </Affix>}
                         </div>
                     </Skeleton>

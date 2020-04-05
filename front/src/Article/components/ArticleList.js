@@ -4,7 +4,7 @@ import axios from "axios";
 import Article from "./Article";
 
 const IconFont = Icon.createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/font_1621723_xyv7nayrgmr.js"
+    scriptUrl: "//at.alicdn.com/t/font_1621723_ty96unu397.js"
 });
 const {Search} = Input;
 let page = 1;
@@ -112,7 +112,7 @@ const ArticleList = () => {
                 }}
             >
                 <Button onClick={onLoadMore}>
-                    <IconFont type="icon-more1-copy-copy"/>
+                    <IconFont type="iconloading"/>
                     Load More
                 </Button>
             </div>

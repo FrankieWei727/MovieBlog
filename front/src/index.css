@@ -1,9 +1,5 @@
 /*ArticleListContainer*/
 
-.card-container > .ant-tabs-card > .ant-tabs-content {
-    margin-top: -16px;
-
-}
 
 .card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
     background: #fff;
@@ -27,9 +23,6 @@
 
 /*HeaderContainer*/
 
-.header-menu-item.ant-menu-item {
-    padding: 0 10px;
-}
 
 .header-menu.ant-menu-horizontal {
     height: 49px;

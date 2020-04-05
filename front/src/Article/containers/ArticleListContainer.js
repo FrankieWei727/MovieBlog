@@ -4,8 +4,6 @@ import SubMenu from "../../Home/components/SubMenu";
 import ArticleList from "../components/ArticleList";
 import SubscriptionArticleList from "../components/SubscriptionArticleList";
 import PromotionList from "../components/Promotion";
-// import MicroList from './MicroList'
-// import PropertyRank from './PropertyRank'
 
 const TabPane = Tabs.TabPane;
 
@@ -26,23 +24,25 @@ const Articles = () => {
 
     return (
         <div>
-            {deskWidth < 500 ? <SubMenu menuKey={'article'}/> : null}
-            <Layout style={{margin: "40px 0",backgroundColor:"#DEDEDE"}}>
-                <BackTop/>
-                <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
+            {deskWidth <= 550 ? <SubMenu menuKey={'article'}/> : null}
+            <Layout style={{margin: (deskWidth <= 550 ? "0 0" : "40px 0"), backgroundColor: "#DEDEDE"}}>
+                <Row type="flex" gutter={[{xs: 0, sm: 0, md: 24}, {xs: 0, sm: 16, md: 0}]}>
                     <Col xxl={{span: 13, offset: 3}}
                          xl={{span: 14, offset: 2}}
                          lg={{span: 14, offset: 2}}
                          md={{span: 16, offset: 1, order: 1}}
                          sm={{span: 22, offset: 1, order: 2}}
-                         xs={{span: 22, offset: 1}}
+                         xs={{span: 24, offset: 0, order: 2}}
                          style={{
                              backgroundColor: '#fff',
                              boxShadow: '0 1px 3px rgba(26,26,26,.1)',
-                             borderRadius: '1px'
+                             borderRadius: '1px',
+                             paddingLeft: 0,
+                             paddingRight: 0,
                          }}>
                         <div className="card-container">
-                            <Tabs defaultActiveKey='1' type="card">
+                            <Tabs
+                                defaultActiveKey='1' type="card">
                                 <TabPane tab='All' key='1'>
                                     <ArticleList/>
                                 </TabPane>
@@ -57,14 +57,12 @@ const Articles = () => {
                          lg={{span: 6, offset: 0}}
                          md={{span: 6, offset: 0, order: 2}}
                          sm={{span: 22, offset: 1, order: 1}}
-                         xs={{span: 22, offset: 1}}
+                         xs={{span: 22, offset: 1, order: 1}}
                     >
-                        {deskWidth > 500 ? <PromotionList/> : null}
-                        {/*<MicroList />*/}
-                        {/*<PropertyRank />*/}
-                        {/*<Advertisement />*/}
+                        {deskWidth > 550 ? <PromotionList/> : null}
                     </Col>
                 </Row>
+                <BackTop/>
             </Layout>
         </div>
     )

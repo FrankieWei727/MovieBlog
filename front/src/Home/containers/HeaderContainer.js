@@ -6,6 +6,9 @@ import * as actions from "../../Store/actions/auth";
 import {connect} from "react-redux";
 
 const {Header} = Layout;
+const IconFont = Icon.createFromIconfontCN({
+    scriptUrl: '//at.alicdn.com/t/font_1621723_4halsqgparv.js',
+});
 
 class HomeHeader extends React.Component {
     constructor(props) {
@@ -20,6 +23,26 @@ class HomeHeader extends React.Component {
         username: "",
         avatar: "",
         visible: false,
+        deskDivWidth: document.body.clientWidth,
+    };
+
+
+    componentDidMount() {
+        // 注册浏览器尺寸变化监听事件， 刷新桌面尺寸
+        window.addEventListener('resize', this.handleSize());
+
+    }
+
+    componentWillUnmount() {
+        // 移除监听事件
+        window.removeEventListener('resize', this.handleSize());
+    }
+
+    // 自适应浏览器的高度
+    handleSize = () => {
+        this.setState({
+            deskDivWidth: document.body.clientWidth,
+        });
     };
 
 
@@ -62,7 +85,6 @@ class HomeHeader extends React.Component {
     };
 
     render() {
-        const {username} = this.state;
         const DropdownList = (
             <Menu className="drop-list">
                 <Menu.Item key="4">
@@ -104,21 +126,29 @@ class HomeHeader extends React.Component {
                              md={{span: 21, offset: 1}}
                              sm={{span: 21, offset: 1}}
                              xs={{span: 22, offset: 0}}>
-                            <div style={{float: 'left'}}>
-                                <img alt="poster" src='https://i.imgur.com/pRMV4vy.png' style={{width: "120px"}}/>
+                            <div style={{
+                                float: 'left',
+                                paddingRight: (this.state.deskDivWidth > 650 ? "20px" : "0"),
+                                paddingLeft: "10px"
+                            }}>
+                                <img alt="poster"
+                                     src={(this.state.deskDivWidth > 650 ? 'https://i.imgur.com/pRMV4vy.png' : 'https://i.imgur.com/K44udDH.png')}
+                                     style={{width: (this.state.deskDivWidth > 650 ? "120px" : "50px")}}/>
                             </div>
                             <div>
                                 <Menu
-                                    style={{padding: "0 10px"}}
                                     className="header-menu"
                                     theme="light"
                                     mode="horizontal"
                                 >
-                                    <Menu.Item className="header-menu-item" key="1">Article
+                                    <Menu.Item style={{padding: (this.state.deskDivWidth > 650 ? null : "0 10px")}}
+                                               key="Article">Article
                                         <Link to={'/article'}/></Menu.Item>
-                                    <Menu.Item className="header-menu-item" key="2">Movie
+                                    <Menu.Item style={{padding: (this.state.deskDivWidth > 650 ? null : "0 10px")}}
+                                               key="Movie">Movie
                                         <Link to={'/movie'}/></Menu.Item>
-                                    <Menu.Item className="header-menu-item" key="3">Event
+                                    <Menu.Item style={{padding: (this.state.deskDivWidth > 650 ? null : "0 10px")}}
+                                               key="Event">Event
                                         <Link to={'/event'}/></Menu.Item>
                                     <div style={{float: 'right'}}>
                                         {
@@ -151,18 +181,25 @@ class HomeHeader extends React.Component {
                         </Col>
                     </Row>
                     <Drawer
-                        height={150}
+                        height={92}
                         destroyonclos="true"
                         placement="bottom"
                         closable={false}
                         onClose={this.onClose}
                         visible={this.state.visible}
+                        bodyStyle={{padding: "0 0"}}
                     >
                         <List>
-                            <List.Item key="login" onClick={this.onLogin}>
-                                <Link to={'/login'}>Login</Link></List.Item>
-                            <List.Item key="register" onClick={this.onSignup}>
-                                <Link to={'signup'}>Register</Link></List.Item>
+                            <List.Item style={{paddingLeft: "20px"}} key="login" onClick={this.onLogin}>
+                                <Link to={'/login'}>
+                                    <IconFont type="iconlog-in" style={{paddingRight: "10px"}}/> Login
+                                </Link>
+                            </List.Item>
+                            <List.Item style={{paddingLeft: "20px"}} key="register" onClick={this.onSignup}>
+                                <Link to={'signup'}>
+                                    <IconFont type="iconregister" style={{paddingRight: "10px"}}/>Register
+                                </Link>
+                            </List.Item>
                         </List>
                     </Drawer>
                 </Header>

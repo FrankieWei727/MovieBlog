@@ -5,7 +5,6 @@ import axios from 'axios'
 import MyArticleList from "../components/MyArticleList";
 import FollowingList from "../components/FollowingList";
 import FollowerList from "../components/FollowerList";
-// import PropertyList from './PropertyList'
 
 const TabPane = Tabs.TabPane;
 const {Paragraph} = Typography;
@@ -37,7 +36,10 @@ function checkImageWH(file, width, height) {
 function beforeUpload(file) {
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-        message.error('File size must smaller than 2MB!')
+        message.error('File size must smaller than 2MB!');
+        return new Promise(function (resolve, reject) {
+            reject()
+        })
     }
     return isLt2M && checkImageWH(file, 1200, 240)
 }
@@ -49,17 +51,37 @@ const IconFont = Icon.createFromIconfontCN({
 const MyProfileContainer = () => {
 
 
-    const [urlAvatar, setUrlAvatar] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    const [username, setUsername] = useState("");
-    const [bio, setBio] = useState("");
-    const [property, setProperty] = useState(0);
-    const [profession, setProfession] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState({
+        id: null,
+        url: null,
+        username: null,
+        email: null,
+        profile: {
+            id: null,
+            url: null,
+            avatar: null,
+            date_of_birth: null,
+            user: null,
+            cover: null,
+            bio: null,
+            permission: null,
+        }
+    });
     const [cover, setCover] = useState("");
-    const [id, setId] = useState("");
     const [countFollowing, setCountFollowing] = useState(0);
     const [countFollower, setCountFollower] = useState(0);
+    const [deskWidth, setDeskWidth] = useState(0);
+
+    const handleSize = () => {
+        setDeskWidth(document.body.clientWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleSize());
+        return () => {
+            window.removeEventListener('resize', handleSize());
+        };
+    });
 
     useEffect(() => {
         getProfileData().then();
@@ -71,7 +93,7 @@ const MyProfileContainer = () => {
         await axios.get(
             'api/account/user/followers/?format=json', {
                 params: {
-                    follower: id
+                    follower: user.id
                 }
             }).then(res => {
             setCountFollowing(res.data.count);
@@ -84,7 +106,7 @@ const MyProfileContainer = () => {
         await axios.get(
             'api/account/user/followers/?format=json', {
                 params: {
-                    user: id,
+                    user: user.id,
                 }
             }).then(res => {
             setCountFollower(res.data.count)
@@ -98,47 +120,33 @@ const MyProfileContainer = () => {
             'rest-auth/user/?format=json',
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(res => {
-            setUrlAvatar(res.data.profile.avatar);
-            setUsername(res.data.username);
-            setBio(res.data.profile.bio);
-            setProperty(res.data.profile.property);
-            setProfession(res.data.profile.profession);
+            setUser(res.data);
             setCover(res.data.profile.cover);
-            setId(res.data.id);
         }).catch(err => {
             console.log(err)
         });
     }
 
-    const CoverAvatarUrl = async (avatarURL) => {
+    const CoverUrl = async (coverURL) => {
         await axios.patch(
             'rest-auth/user/',
             {
-                profile: {cover: avatarURL}
+                profile: {cover: coverURL}
             },
             {headers: {'Authorization': 'Token ' + window.localStorage.getItem('token')}}
         ).then(res => {
-            if (res.status === 200) {
-                message.success('Update successfully')
-            }
+            message.success('Update successfully');
+            setCover(coverURL);
         }).catch(err => {
             console.log(err.response.data)
         });
-        setUrlAvatar(avatarURL);
-
     };
 
     const handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return
-        }
         if (info.file.status === 'done') {
-            setImageUrl(info.file.response.data.link);
-            setLoading(false);
+            CoverUrl(info.file.response.data.link).then();
         }
-        CoverAvatarUrl(info.file.response.data.link).then();
-        // console.log(info.file.response.data.link)
+
     };
 
     const customRequest = async (info) => {
@@ -162,8 +170,8 @@ const MyProfileContainer = () => {
 
 
     return (
-        <Layout style={{backgroundColor: '#f7f7f7', padding: '40px 0'}}>
-            <Row gutter={[0, 16]}>
+        <Layout style={{backgroundColor: '#f7f7f7', padding: (deskWidth > 768 ? '40px 0' : "0 0")}}>
+            <Row gutter={[0, {md: 0, lg: 16}]}>
                 <Col>
                     <Row>
                         <Col xxl={{span: 18, offset: 3}}
@@ -191,7 +199,7 @@ const MyProfileContainer = () => {
                                     marginRight: '20px'
                                 }}>
                                     <Upload
-                                        name='avatar'
+                                        name='cover'
                                         showUploadList={false}
                                         beforeUpload={beforeUpload}
                                         onChange={handleChange}
@@ -210,8 +218,20 @@ const MyProfileContainer = () => {
                                 flexWrap: 'wrap',
                                 justifyContent: 'space-around'
                             }}>
-                                <div style={{height: '200px', width: '200px', marginTop: '-100px', padding: '20px'}}>
-                                    <Avatar shape='square' src={urlAvatar} icon='user' style={{
+                                <div style={(deskWidth > 576 ? {
+                                        height: '200px',
+                                        width: '200px',
+                                        marginTop: '-100px',
+                                        padding: '20px'
+                                    } :
+                                    {
+                                        height: '100px',
+                                        width: '100px',
+                                        marginTop: '-50px',
+                                        padding: '20px'
+                                    })}
+                                >
+                                    <Avatar shape='square' src={user.profile.avatar} icon='user' style={{
                                         height: '100%',
                                         width: '100%',
                                         border: '4px solid white',
@@ -232,13 +252,13 @@ const MyProfileContainer = () => {
                                         fontWeight: 'bold',
                                         color: '#000',
                                         marginRight: '6px'
-                                    }}>{username}</span>
-                                        {profession && <Tag color='#f50' style={{
-                                            height: '22px',
-                                            fontSize: '14px'
-                                        }}>{profession}</Tag>}
+                                    }}>{user.username}</span>
+                                        {/*{profession && <Tag color='#f50' style={{*/}
+                                        {/*    height: '22px',*/}
+                                        {/*    fontSize: '14px'*/}
+                                        {/*}}>{profession}</Tag>}*/}
                                     </div>
-                                    <Paragraph>{bio}</Paragraph>
+                                    <Paragraph>{user.profile.bio}</Paragraph>
                                 </div>
                                 <div style={{
                                     display: 'flex',
@@ -256,7 +276,7 @@ const MyProfileContainer = () => {
                     </Row>
                 </Col>
                 <Col>
-                    <Row gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
+                    <Row justify="start" gutter={[{xs: 0, sm: 0, md: 24}, {xs: 16, sm: 16, md: 0}]}>
                         <Col xxl={{span: 13, offset: 3}}
                              xl={{span: 14, offset: 2}}
                              lg={{span: 14, offset: 2}}
@@ -274,10 +294,10 @@ const MyProfileContainer = () => {
                                         <MyArticleList/>
                                     </TabPane>
                                     <TabPane tab={<span><IconFont type='iconfabu-'/>Following</span>} key='2'>
-                                        <FollowingList userId={id}/>
+                                        <FollowingList userId={user.id}/>
                                     </TabPane>
                                     <TabPane tab={<span><IconFont type='iconfensi'/>Follower</span>} key='3'>
-                                        <FollowerList id={id}/>
+                                        <FollowerList id={user.id}/>
                                     </TabPane>
                                 </Tabs>
                             </div>
@@ -292,7 +312,7 @@ const MyProfileContainer = () => {
                             <Card
                                 title={
                                     <div style={{color: '#646464', fontWeight: '600', fontSize: '15px'}}>
-                                        积分
+                                        Score
                                     </div>
                                 }
                                 bordered={false}
@@ -300,11 +320,6 @@ const MyProfileContainer = () => {
                                 {/*<PropertyList property={this.state.property}/>*/}
                             </Card>
                             <Card
-                                // title={
-                                //     <div style={{color: '#646464', fontWeight: '600', fontSize: '15px'}}>
-                                //         Achievement
-                                //     </div>
-                                // }
                                 bordered={false}
                                 style={{boxShadow: '0 1px 3px rgba(26,26,26,.1)'}}>
                                 <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>

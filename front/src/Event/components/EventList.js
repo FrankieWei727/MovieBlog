@@ -24,6 +24,7 @@ const EventList = ({item}) => {
 
     return (
         <List.Item
+            style={{borderBottom: "none", borderTop: "1px solid #e8e8e8"}}
             key={item.title}
             actions={[
                 <span>
