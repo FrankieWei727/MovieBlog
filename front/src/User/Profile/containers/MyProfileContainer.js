@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Layout, Avatar, Row, Col, Tabs, Icon, Button, Typography, Card, Statistic, Tag, message, Upload} from 'antd'
+import {Layout, Avatar, Row, Col, Tabs, Icon, Button, Typography, Card, Statistic, message, Upload} from 'antd'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import MyArticleList from "../components/MyArticleList";
@@ -85,15 +85,13 @@ const MyProfileContainer = () => {
 
     useEffect(() => {
         getProfileData().then();
-        getFollowingData().then();
-        getFollowerData().then();
     }, []);
 
-    async function getFollowingData() {
+    async function getFollowingData(id) {
         await axios.get(
             'api/account/user/followers/?format=json', {
                 params: {
-                    follower: user.id
+                    follower: id
                 }
             }).then(res => {
             setCountFollowing(res.data.count);
@@ -102,11 +100,11 @@ const MyProfileContainer = () => {
         });
     }
 
-    async function getFollowerData() {
+    async function getFollowerData(id) {
         await axios.get(
             'api/account/user/followers/?format=json', {
                 params: {
-                    user: user.id,
+                    user: id,
                 }
             }).then(res => {
             setCountFollower(res.data.count)
@@ -122,6 +120,8 @@ const MyProfileContainer = () => {
         ).then(res => {
             setUser(res.data);
             setCover(res.data.profile.cover);
+            getFollowingData(res.data.id).then();
+            getFollowerData(res.data.id).then();
         }).catch(err => {
             console.log(err)
         });

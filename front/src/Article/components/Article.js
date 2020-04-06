@@ -13,24 +13,29 @@ const IconFont = Icon.createFromIconfontCN({
 const Article = (props) => {
 
 
-    const [selector] = useState(React.createRef());
+    const [ref] = useState(React.createRef());
     const [isExtractBrief, setIsExtractBrief] = useState(true);
-    const [affixed, setAffixed] = useState("");
-    const [style, setStyle] = useState([]);
+    const [isOnWindows, setIsOnWindows] = useState(false);
+    const [style, setStyle] = useState({
+        paddingBottom: '5px',
+        paddingTop: '12px',
+        paddingLeft: "20px",
+        paddingRight: "28px",
+        lineHeight: "28px",
+        backgroundColor: "#fff",
+    });
     const [styleButton, setStyleButton] = useState([]);
 
+    function updateSize() {
+        setIsOnWindows(ref.current.getBoundingClientRect().top > window.innerHeight);
+    }
+
     useEffect(() => {
-
-        if (selector.current !== null) {
-
-            selector.current.addEventListener('selector', () => {
-                const rect = selector.current.getBoundingClientRect();
-                console.log(rect, selector);
-                console.log('selector')
-            });
+        window.addEventListener("scroll", updateSize);
+        return () => {
+            window.removeEventListener("scroll", updateSize);
         }
-
-    });
+    }, []);
 
     const extractText = HTMLString => {
         let span = document.createElement("span");
@@ -51,26 +56,28 @@ const Article = (props) => {
         setIsExtractBrief(!isExtractBrief);
     };
 
-
     const handleAffix = (value) => {
-        setAffixed(value);
-        if (affixed === true) {
+        if (value === false) {
             setStyle({
+                paddingBottom: '5px',
                 paddingTop: '12px',
                 paddingLeft: "20px",
                 paddingRight: "28px",
                 lineHeight: "28px",
-                borderTop: "1px solid #e8e8e8",
                 backgroundColor: "#fff",
             });
-
         } else {
             setStyle({
+                alignItems: 'center',
+                clear: 'both',
+                boxShadow: '0 -1px 3px rgba(26,26,26,.1)',
+                animation: 'slideInUp .2s',
+                paddingBottom: '5px',
                 paddingTop: '12px',
                 paddingLeft: "20px",
                 paddingRight: "28px",
                 lineHeight: "28px",
-                backgroundColor: "#eeeeee",
+                backgroundColor: "#fff",
                 bottom: 0,
             });
         }
@@ -87,9 +94,9 @@ const Article = (props) => {
 
     return (
         <Skeleton loading={props.item.loading} active>
-            <List.Item>
+            <List.Item style={{paddingBottom: "0px"}}>
                 <div
-                    ref={selector}
+                    ref={ref}
                     style={
                         props.item.originality === "Y"
                             ? {
@@ -145,65 +152,53 @@ const Article = (props) => {
                                 {props.item.created && moment(moment(props.item.created).format('YYYY-MM-DD HH:mm:ss'), "YYYY-MM-DD HH:mm:ss").fromNow()}
                             </Col>
                         </Row>
-                        <div style={{color: "#646464", fontSize: "15px", padding: '0 20px'}}>
+                        <div style={{color: "#646464", fontSize: "15px"}}>
                             {isExtractBrief ?
-                                <div>
+                                <div style={{padding: '0 20px'}}>
                                     <Paragraph ellipsis={{rows: 3, expandable: {isExtractBrief}}}
                                                onClick={SetTextState}>
                                         {extractText(props.item.content)}
                                     </Paragraph>
-                                </div> :
+                                    <div style={{width: "100%"}}>
+                                        <div style={{paddingTop: '12px', paddingBottom: '5px'}}>
+                                            <IconFont style={{color: "#76839b", paddingRight: "5px"}}
+                                                      type="iconliulan"/>
+                                            {props.item.views}
+                                        </div>
+                                    </div>
+                                </div>
+                                :
                                 <div>
-                                    <div className='braft-output-content' style={{overflow: 'auto'}}
-                                         dangerouslySetInnerHTML={{__html: props.item.content}}/>
-                                    <div
-                                        style={{
+                                    <div style={{padding: '0 20px'}}>
+                                        <div className='braft-output-content' style={{overflow: 'auto'}}
+                                             dangerouslySetInnerHTML={{__html: props.item.content}}/>
+                                        <div style={{
                                             paddingTop: '5vw',
                                             paddingBottom: '1vw',
                                             fontWeight: 'bold',
-                                            color: '#373737'
+                                            color: '#373737',
                                         }}>Publish: {moment(props.item.created).format('LL')}
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        </div>
-                        <div style={{
-                            width: "100%",
-                        }}>
-                            {isExtractBrief ?
-                                <div style={{
-                                    paddingTop: '12px',
-                                    paddingLeft: "20px",
-                                    backgroundColor: "#fff"
-                                }}>
-                                    <IconFont style={{color: "#76839b",paddingRight:"5px"}} type="iconliulan"/>
-                                    {props.item.views}
-                                    {isExtractBrief === false ?
-                                        <span onClick={SetTextState} style={{float: "right"}}>
-                                            <Icon style={styleButton}
-                                                  onMouseEnter={onMouseEnter}
-                                                  onMouseLeave={onMouseLeave}
-                                                  type="up-circle"/>
-                                        </span> :
-                                        null
-                                    }
-                                </div>
-                                :
-                                <Affix offsetBottom={0} onChange={affixed => handleAffix(affixed)}>
-                                    <div style={style}>
-                                        <IconFont style={{color: "#76839b",paddingRight:"5px"}} type="iconliulan"/>
-                                        {props.item.views}
-                                        {isExtractBrief === false ?
-                                            <span onClick={SetTextState} style={{float: "right"}}>
+                                    {isOnWindows === false ?
+                                        <Affix offsetBottom={0} onChange={affixed => handleAffix(affixed)}>
+                                            <div style={style}>
+                                                <IconFont style={{color: "#76839b", paddingRight: "5px"}}
+                                                          type="iconliulan"/>
+                                                {props.item.views}
+                                                {isExtractBrief === false ?
+                                                    <span onClick={SetTextState} style={{float: "right"}}>
                                                     <Icon style={styleButton}
                                                           onMouseEnter={onMouseEnter}
                                                           onMouseLeave={onMouseLeave}
                                                           type="up-circle"/>
                                                 </span> :
-                                            null
-                                        }
-                                    </div>
-                                </Affix>}
+                                                    null
+                                                }
+                                            </div>
+                                        </Affix> : null}
+                                </div>
+                            }
                         </div>
                     </Skeleton>
                 </div>
