@@ -51,7 +51,7 @@ admin.site.register(Event, EventAdmin)
 
 class StillsAdmin(admin.ModelAdmin):
     list_display = ['movie']
-    search_fields = ('movie__name', 'id')
+    search_fields = ('movie__title', 'id')
 
 
 admin.site.register(StillsGallery, StillsAdmin)

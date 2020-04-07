@@ -1,5 +1,15 @@
+import json
+import requests
 from movie.models import Movie, Category, CategoryGroup, StillsGallery
 from datetime import datetime
+
+# using the headers of my browser
+headers = {
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+    'accept-language': 'en-US,en;q=0.9',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept': '*/*'
+}
 
 
 def clean_title(param):
@@ -92,6 +102,16 @@ class CrawlingPipeline(object):
         categories = clean_categories(item['categories'])
         photos = item['photos']
 
+        browse_url = "https://api.themoviedb.org/3/find/{}?api_key=401a2a59f21893d7f5cfa3c4a45bb4ac&external_source=imdb_id"
+        url = browse_url.format(item['imdb_id'])
+        response = requests.get(url, headers=headers)
+        data = json.loads(response.text)
+        video_url = "http://api.themoviedb.org/3/movie/{}?append_to_response=videos&api_key=401a2a59f21893d7f5cfa3c4a45bb4ac"
+        video_url = video_url.format(data['movie_results'][0]['id'])
+        response = requests.get(video_url, headers=headers)
+        video_data = json.loads(response.text)
+        trailer = 'https://www.youtube.com/embed/' + video_data['videos']['results'][0]['key']
+
         Movie.objects.update_or_create(
             title=title,
             defaults={
@@ -106,6 +126,7 @@ class CrawlingPipeline(object):
                 'directors': directors,
                 'release_date': release_date,
                 'runtime': runtime,
+                'trailer': trailer,
             }
         )
 

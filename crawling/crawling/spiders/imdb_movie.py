@@ -2,7 +2,7 @@ from ..items import MovieItem
 from scrapy.spiders import CrawlSpider
 from scrapy import Request
 
-pagesize = 50
+pagesize = 60
 page = 5
 
 
@@ -23,6 +23,7 @@ class MovieSpider(CrawlSpider):
 
     def parse_movie_detail_page(self, response):
         data = MovieItem()
+        data['imdb_id'] = response.url.split("/")[-2]
         data['title'] = response.css('h1::text').extract_first().strip()
         data['user_rating'] = response.xpath('//span[contains(@itemprop, "ratingValue")]/text()').extract_first()
         data['amount_reviews'] = response.xpath('//span[contains(@itemprop, "ratingCount")]/text()').extract_first()

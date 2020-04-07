@@ -13,4 +13,5 @@ from movie.models import Movie
 class MovieItem(DjangoItem):
     django_model = Movie
     categories = scrapy.Field()
+    imdb_id = scrapy.Field()
     photos = scrapy.Field()
