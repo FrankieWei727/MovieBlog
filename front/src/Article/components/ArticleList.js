@@ -7,11 +7,14 @@ const IconFont = Icon.createFromIconfontCN({
     scriptUrl: "//at.alicdn.com/t/font_1621723_ty96unu397.js"
 });
 const {Search} = Input;
-let page = 1;
 const pagesize = 5;
 
 const ArticleList = () => {
 
+    const [scrollTop, setScrollTop] = useState(window.sessionStorage.getItem('articleListData')
+        ? JSON.parse(window.sessionStorage.getItem('articleListData')).scrollTop : 0);
+    const [page, setPage] = useState(window.sessionStorage.getItem('articleListData')
+        ? JSON.parse(window.sessionStorage.getItem('articleListData')).page : 1);
     const [data, setData] = useState([]);
     const [cache, setCache] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -33,12 +36,12 @@ const ArticleList = () => {
     }
 
     async function getArticleData() {
-        page = 1;
         await axios.get(
             "api/comment/articles/?format=json", {
                 params: {
-                    page: page,
-                    page_size: pagesize,
+                    page: (window.sessionStorage.getItem('articleListData') ? (JSON.parse(window.sessionStorage.getItem('articleListData')).page === 1 ? page : 1) : 1),
+                    page_size: (window.sessionStorage.getItem('articleListData') ? (JSON.parse(window.sessionStorage.getItem('articleListData')).page === 1 ? pagesize
+                        : JSON.parse(window.sessionStorage.getItem('articleListData')).page * pagesize) : pagesize),
                 }
             }
         ).then(res => {
@@ -56,20 +59,49 @@ const ArticleList = () => {
         setInitLoading(false);
     }, []);
 
+    const bindHandleScroll = (event) => {
+        // 滚动的高度
+        const scrollTop = (event.srcElement ? event.srcElement.documentElement.scrollTop : false) || window.pageYOffset
+            || (event.srcElement ? event.srcElement.body.scrollTop : 0);
+        setScrollTop(scrollTop);
+    };
+
+
+    useEffect(() => {
+        window.scrollTo(0, scrollTop)
+    }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            let articleListData = {page: page, scrollTop: scrollTop};
+            window.sessionStorage.setItem('articleListData', JSON.stringify(articleListData));
+        } else {
+            window.sessionStorage.removeItem('articleListData');
+        }
+    });
+
+    useEffect(() => {
+        window.addEventListener('scroll', bindHandleScroll);
+        return () => {
+            window.removeEventListener('scroll', bindHandleScroll);
+        }
+    });
 
     const onLoadMore = async () => {
         await setLoading(true);
         await setCache(data.concat([...new Array(pagesize)].map(() => (
             {loading: true, id: "", author: "",}))));
 
-        page = page + 1;
+        let currentPage = page + 1;
+        setPage(currentPage);
+
         if (cache.length === count) {
             setLoading(false);
         }
         await axios.get(
             "api/comment/articles/?format=json", {
                 params: {
-                    page: page,
+                    page: currentPage,
                     page_size: pagesize,
                 }
             }
@@ -77,17 +109,17 @@ const ArticleList = () => {
             setData(data.concat(res.data.results));
             setCache(data.concat(res.data.results));
             setLoading(false);
-            window.dispatchEvent(new window.Event("resize"));
+            window.dispatchEvent(new Event("resize"));
         });
     };
 
     const onSearch = async value => {
         setInitLoading(true);
-        page = 1;
+        setPage(1);
         await axios.get(
             "api/comment/articles/?format=json", {
                 params: {
-                    page: page,
+                    page: 1,
                     page_size: pagesize,
                     search: value,
                 }

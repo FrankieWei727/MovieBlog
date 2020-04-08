@@ -17,9 +17,11 @@ const {Title} = Typography;
 const {Search} = Input;
 const tips = ["All", "Result"];
 
-let page = 1;
 const MovieList = () => {
 
+
+    const [page, setPage] = useState(window.sessionStorage.getItem('movieListData')
+        ? JSON.parse(window.sessionStorage.getItem('movieListData')).page : 1);
     const [movies, setMovies] = useState([]);
     const [count, setCount] = useState(0);
     const [tip, setTip] = useState(tips[0]);
@@ -29,7 +31,6 @@ const MovieList = () => {
     const [searchLoading, setsSearchLoading] = useState(true);
     const [selectedTags, setSelectedTags] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState([]);
-
 
     function getTagsData() {
         axios.get("api/movie/categories_group/?format=json")
@@ -81,6 +82,16 @@ const MovieList = () => {
         setDeskWidth(document.body.clientWidth);
     };
 
+
+    useEffect(() => {
+        if (!loading) {
+            let movieListData = {page: page};
+            window.sessionStorage.setItem('movieListData', JSON.stringify(movieListData));
+        } else {
+            window.sessionStorage.removeItem('movieListData');
+        }
+    });
+
     useEffect(() => {
         window.addEventListener('resize', handleSize());
         return () => {
@@ -96,6 +107,7 @@ const MovieList = () => {
 
     const handleMovie = async currentPage => {
         setLoading(true);
+        setPage(currentPage);
         await axios.get("api/movie/movies/?format=json", {
             params: {
                 page: currentPage,

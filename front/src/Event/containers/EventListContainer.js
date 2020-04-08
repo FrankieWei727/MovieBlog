@@ -5,10 +5,12 @@ import EventList from "../components/EventList";
 import EventFilter from "../components/EventFilter";
 import EventSubMenu from "../components/EventSubMenu";
 
-let page = 1;
+
 const pagesize = 5;
 const EventListContainer = () => {
 
+    const [page, setPage] = useState(window.sessionStorage.getItem('eventListData')
+        ? JSON.parse(window.sessionStorage.getItem('eventListData')).page : 1);
     const [events, setEvents] = useState([]);
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -19,11 +21,24 @@ const EventListContainer = () => {
     };
 
     useEffect(() => {
+        if (!loading) {
+            let eventListData = {page: page};
+            window.sessionStorage.setItem('eventListData', JSON.stringify(eventListData));
+        } else {
+            window.sessionStorage.removeItem('eventListData');
+        }
+    });
+
+    useEffect(() => {
         window.addEventListener('resize', handleSize());
         return () => {
             window.removeEventListener('resize', handleSize());
         };
     });
+
+    useEffect(() => {
+        getData()
+    }, []);
 
     function getData(today, month, year, location) {
         setLoading(true);
@@ -44,25 +59,23 @@ const EventListContainer = () => {
         );
     }
 
-    useEffect(() => {
-        getData()
-    }, []);
 
-    const handleEvent = async page => {
+    const handleEvent = async currentPage => {
         setLoading(true);
         await axios.get("api/movie/events/", {
             params: {
-                page: page,
+                page: currentPage,
                 page_size: pagesize
             }
         }).then(res => {
             let temp = events;
-            let i = (page - 1) * pagesize;
+            let i = (currentPage - 1) * pagesize;
             for (let index = 0; index < res.data.results.length; index++) {
                 temp[i] = res.data.results[index];
                 i++;
             }
             setEvents(temp);
+            setPage(currentPage);
             setLoading(false);
         }).catch(error => {
             console.log(error);
@@ -111,6 +124,8 @@ const EventListContainer = () => {
                             itemLayout="vertical"
                             size="large"
                             pagination={{
+                                defaultCurrent: (window.sessionStorage.getItem('eventListData') ?
+                                    JSON.parse(window.sessionStorage.getItem('eventListData')).page : 1),
                                 onChange: handleEvent,
                                 total: count,
                                 pageSize: pagesize,
