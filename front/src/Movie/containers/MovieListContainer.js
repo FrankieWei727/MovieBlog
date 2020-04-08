@@ -29,8 +29,10 @@ const MovieList = () => {
     const [tags, setTags] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchLoading, setsSearchLoading] = useState(true);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [selectedCountry, setSelectedCountry] = useState([]);
+    const [selectedTags, setSelectedTags] = useState(window.sessionStorage.getItem('movieListData') ?
+        JSON.parse(window.sessionStorage.getItem('movieListData')).selectedTags : []);
+    const [selectedCountry, setSelectedCountry] = useState(window.sessionStorage.getItem('movieListData') ?
+        JSON.parse(window.sessionStorage.getItem('movieListData')).selectedCountry : []);
 
     function getTagsData() {
         axios.get("api/movie/categories_group/?format=json")
@@ -43,21 +45,39 @@ const MovieList = () => {
 
     function getData(nextSelectedTags, value, nextSelectedCountry) {
         setLoading(true);
+        let initialPage = page;
+        if (nextSelectedTags || nextSelectedCountry) {
+            initialPage = 1;
+            setPage(1);
+        }
         let params = {};
-        if (nextSelectedTags !== null) {
+        // console.log(nextSelectedCountry,selectedCountry);
+        // console.log(nextSelectedTags,selectedTags);
+        if (nextSelectedTags !== undefined) {
             params = {
-                page: page,
+                page: initialPage,
                 page_size: pagesize,
                 title: value,
                 categories: nextSelectedTags,
                 countries: nextSelectedCountry,
             }
-        } else {
+        }
+        if (nextSelectedTags === undefined && selectedTags.length > 0) {
             params = {
-                page: page,
+                page: initialPage,
                 page_size: pagesize,
                 title: value,
-                countries: nextSelectedCountry,
+                categories: selectedTags,
+                countries: selectedCountry,
+            }
+        }
+        if (nextSelectedCountry === undefined && selectedCountry.length > 0) {
+            params = {
+                page: initialPage,
+                page_size: pagesize,
+                title: value,
+                categories: selectedTags,
+                countries: selectedCountry,
             }
         }
         axios.get(
@@ -85,7 +105,11 @@ const MovieList = () => {
 
     useEffect(() => {
         if (!loading) {
-            let movieListData = {page: page};
+            let movieListData = {
+                page: page,
+                selectedTags: selectedTags,
+                selectedCountry: selectedCountry
+            };
             window.sessionStorage.setItem('movieListData', JSON.stringify(movieListData));
         } else {
             window.sessionStorage.removeItem('movieListData');
@@ -130,13 +154,13 @@ const MovieList = () => {
     const handleChange = (tag, checked) => {
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
         setSelectedTags(nextSelectedTags);
-        getData(nextSelectedTags, null, null);
+        getData(nextSelectedTags, null, selectedCountry);
     };
 
     const handleCountryChange = (Country, checked) => {
         const nextSelectedCountry = checked ? [...selectedCountry, Country] : selectedCountry.filter(t => t !== Country);
         setSelectedCountry(nextSelectedCountry);
-        getData(null, null, nextSelectedCountry);
+        getData(selectedTags, null, nextSelectedCountry);
     };
 
     const onSearch = value => {
@@ -196,6 +220,7 @@ const MovieList = () => {
                             count={count}
                             handleChange={handleMovie}
                             pagesize={pagesize}
+                            page={page}
                         />
                     </Col>
                     <Col xxl={{span: 5, offset: 0}}
