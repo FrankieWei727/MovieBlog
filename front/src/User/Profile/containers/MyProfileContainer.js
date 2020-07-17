@@ -150,7 +150,6 @@ const MyProfileContainer = () => {
     };
 
     const customRequest = async (info) => {
-        console.log(process.env.REACT_APP_Imgur_API_KEY);
         let formData = new window.FormData();
         formData.append('image', info.file);
         await axios.post(
