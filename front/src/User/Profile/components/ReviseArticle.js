@@ -126,8 +126,9 @@ class Revise extends Component {
                                     <Form.Item>
                                         {getFieldDecorator('originalitySwitch', {
                                             initialValue: this.state.originality,
-                                            rules: []
-                                        })(<Switch checkedChildren='原创' unCheckedChildren='转载整理'/>)}
+                                            rules: [],
+                                            valuePropName: 'checked',
+                                        })(<Switch checkedChildren='Original' unCheckedChildren='Reprinted'/>)}
                                     </Form.Item>
                                 </div>
                                 <Form.Item>

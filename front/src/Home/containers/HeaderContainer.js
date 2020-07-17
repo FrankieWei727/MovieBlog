@@ -142,7 +142,7 @@ class HomeHeader extends React.Component {
                                     mode="horizontal"
                                 >
                                     <Menu.Item style={{padding: (this.state.deskDivWidth > 650 ? null : "0 10px")}}
-                                               key="Article">Article
+                                               key="Article">Blog
                                         <Link to={'/article'}/></Menu.Item>
                                     <Menu.Item style={{padding: (this.state.deskDivWidth > 650 ? null : "0 10px")}}
                                                key="Movie">Movie

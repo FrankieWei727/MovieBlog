@@ -11,7 +11,6 @@ const AuthorInfo = (props) => {
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-
         async function getProfileData() {
             await axios.get(
                 'api/account/users/' + props.authorId + '/?format=json'

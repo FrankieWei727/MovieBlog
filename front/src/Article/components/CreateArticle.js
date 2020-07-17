@@ -107,12 +107,14 @@ class ArticleEditor extends Component {
                                     </Form.Item>
                                     <Form.Item>
                                         {getFieldDecorator('originalitySwitch', {
-                                            rules: []
+                                            rules: [],
+                                            valuePropName: 'checked',
                                         })(<Switch checkedChildren='Original' unCheckedChildren='Reprinted'/>)}
                                     </Form.Item>
                                     <Form.Item>
                                         {getFieldDecorator('statusSwitch', {
-                                            rules: []
+                                            rules: [],
+                                            valuePropName: 'checked',
                                         })(<Switch checkedChildren='Draft' unCheckedChildren='Publish'/>)}
                                     </Form.Item>
                                 </div>
