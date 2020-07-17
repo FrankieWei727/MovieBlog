@@ -37,6 +37,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "exports": {
+    ".": {
+      "default": "./node.js"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
