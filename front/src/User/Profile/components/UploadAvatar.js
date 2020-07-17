@@ -15,6 +15,7 @@ class UploadAvatar extends Component {
         loading: false
     };
 
+
     componentDidUpdate(prevProps) {
         if (prevProps.avatarUrl !== this.props.avatarUrl) {
             this.setState({imageUrl: this.props.avatarUrl})
@@ -50,7 +51,6 @@ class UploadAvatar extends Component {
         this.handAttribute(info.file.response.data.link);
     };
 
-
     customRequest = async (info) => {
         try {
             let formData = new window.FormData();
@@ -61,7 +61,7 @@ class UploadAvatar extends Component {
                 {
                     headers: {
                         'content-type': 'multipart/form-data',
-                        'Authorization': 'Client-ID d0b3bf7724440e7',
+                        'Authorization': process.env.REACT_APP_Imgur_API_KEY,
                     }
                 }
             );
@@ -72,6 +72,7 @@ class UploadAvatar extends Component {
     };
 
     render() {
+        console.log(`${process.env.Imgur_API_KEY}`);
         return (
             <Upload
                 name='avatar'

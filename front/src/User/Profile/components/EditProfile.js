@@ -137,7 +137,7 @@ class SettingProfile extends Component {
                 {
                     headers: {
                         'content-type': 'multipart/form-data',
-                        'Authorization': 'Client-ID d0b3bf7724440e7',
+                        'Authorization': process.env.REACT_APP_Imgur_API_KEY,
                     }
                 }
             );
@@ -219,6 +219,7 @@ class SettingProfile extends Component {
         );
 
         return (
+
             <div className="edit-profile">
                 <Row gutter={[{xs: 0, sm: 0, md: 16, lg: 24}, {xs: 16, sm: 16, md: 0}]}>
                     <Col xxl={{span: 5, offset: 3}}
