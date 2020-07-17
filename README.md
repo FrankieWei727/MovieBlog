@@ -22,6 +22,10 @@ run project
     
 By Frankie
     
+## Responsive 
 
+### Desktop version 
+
+### Mobile version 
 
 
