@@ -35,4 +35,4 @@ run project
 
 <img src="https://github.com/FrankieWei727/MovieBlog/blob/master/Demo/Screen%20Shot%202020-07-17%20at%203.48.37%20pm.png" width="200"> <img src="https://github.com/FrankieWei727/MovieBlog/blob/master/Demo/Screen%20Shot%202020-07-17%20at%203.51.37%20pm.png" width="200"> <img src="https://github.com/FrankieWei727/MovieBlog/blob/master/Demo/Screen%20Shot%202020-07-17%20at%203.51.48%20pm.png" width="200">
 
-By Frankie
+By FRANKIE WEI
